@@ -11,4 +11,5 @@ public interface ListN
 	public void moveCard(Card current, ListN newList, int destIndex);
 	public ArrayList<Card> getCards();
 	public int getSize();
+	public void storeToDisk();
 }

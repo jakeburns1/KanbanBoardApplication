@@ -43,6 +43,8 @@ class ListTest
 		bob = new UserConcrete();
 		jake.setUsername("jakeburns");
 		jake.setPassword("centre1234");
+		bob.setPassword("computerscience");
+		bob.setUsername("bobarnold");
 		lists = new ArrayList<ListN>();
 		list = new ListConcrete("Day 1");
 		list2 = new ListConcrete("Day 2");
@@ -52,7 +54,6 @@ class ListTest
 		members.add(jake);
 		board = jake.createBoard("Test Board", jake, members, lists);
 		labels = new HashSet<String>();
-		
 		
 		components = new HashSet<Component>();
 		
@@ -132,7 +133,7 @@ class ListTest
 	
 	@Test
 	void updateCardName() {
-		testCard.updateName("Bad Card");
+		testCard.setCardName("Bad Card");
 		assertEquals("Bad Card", testCard.getCardName());
 	}
 	
@@ -157,19 +158,6 @@ class ListTest
 		assertEquals(0, bob.getBoards().size());
 		board.addMember(bob);
 		assertEquals(1 ,bob.getBoards().size());
-		assertEquals(true, board.getMembers().contains(bob));
-		
-		
-	}
-	
-	@Test
-	void ownerAddAndRemoveFromMembers() {
-		assertEquals(false, board.getMembers().contains(bob));
-		board.addMember(bob);
-		assertEquals(true, board.getMembers().contains(bob));
-		board.removeMember(bob);
-		assertEquals(false, board.getMembers().contains(bob));
-		
 	}
 	
 	@Test
@@ -203,7 +191,21 @@ class ListTest
 		assertEquals(true, testCard.getComponents().contains(comp));
 	}
 	
-	
+	@Test
+	void testXML() {
+		board.storeToDisk();
+		testCard.storeToDisk();
+		comp.storeToDisk();
+		list.storeToDisk();
+		jake.storeToDisk();
+		
+		BoardConcrete diskB = BoardConcrete.loadFromDisk();
+		CardConcrete diskC = CardConcrete.loadFromDisk();
+		ListConcrete diskL = ListConcrete.loadFromDisk();
+		assertTrue(board.equals(diskB));
+		assertTrue(testCard.equals(diskC));
+	    assertTrue(list.equals(diskL));
+	}
 	
 	
 	

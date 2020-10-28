@@ -1,5 +1,10 @@
 package mainPack;
 
+import java.beans.XMLEncoder;
+import java.io.BufferedOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
 public class ChecklistComponent extends Component
 {
 
@@ -8,6 +13,9 @@ public class ChecklistComponent extends Component
 	/**
 	 * @return the items
 	 */
+	public ChecklistComponent() {
+		
+	}
 	public String[] getItems()
 	{
 		return items;
@@ -32,6 +40,17 @@ public class ChecklistComponent extends Component
 	public void setChecked(String[] checked)
 	{
 		this.checked = checked;
+	}
+	
+	public void storeToDisk() {
+		XMLEncoder encoder=null;
+		try{
+		encoder=new XMLEncoder(new BufferedOutputStream(new FileOutputStream("Checklist.xml")));
+		}catch(FileNotFoundException fileNotFound){
+			System.out.println("ERROR: While Creating or Opening the File");
+		}
+		encoder.writeObject(this);
+		encoder.close();
 	}
 	
 	

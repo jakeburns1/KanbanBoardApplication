@@ -14,4 +14,8 @@ public interface User
 	public boolean userHasboards();
 	public ArrayList<Board> getBoards();
 	public void addBoardtoUser(Board newBoard);
+	public void storeToDisk();
+	public String getUsername();
+	public String getPassword();
+	public boolean shallowEquals(User a);
 }

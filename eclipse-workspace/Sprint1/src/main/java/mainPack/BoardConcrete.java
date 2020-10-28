@@ -1,6 +1,13 @@
 package mainPack;
 
 import java.awt.List;
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -154,5 +161,70 @@ public class BoardConcrete implements Board
 		
 	}
 	
+	public void storeToDisk() {
+		XMLEncoder encoder=null;
+		try{
+		encoder=new XMLEncoder(new BufferedOutputStream(new FileOutputStream("Board.xml")));
+		}catch(FileNotFoundException fileNotFound){
+			System.out.println("ERROR: While Creating or Opening the File");
+		}
+		encoder.writeObject(this);
+		encoder.close();
+	}
+	
+	public static BoardConcrete loadFromDisk() {
+		
+		XMLDecoder decoder=null;
+		try {
+			decoder=new XMLDecoder(new BufferedInputStream(new FileInputStream("Board.xml")));
+		} catch (FileNotFoundException e) {
+			System.out.println("ERROR: File dvd.xml not found");
+		}
+		BoardConcrete b = (BoardConcrete) decoder.readObject();
+		return b;
+	}
+	
+	public boolean equals(BoardConcrete that) {
+		if(lists.size() != that.lists.size()) {return false;}
+		
+		if(!that.boardName.equals(boardName)) {
+			return false;
+		}
+		
+		for(User u:members) {
+			if(!this.containsMem(u)) {
+				return false;
+			}
+		}
+		
+		for(ListN l:lists) {
+			if(!this.contains(l)) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+
+
+public boolean containsMem(User u)
+	{
+	for (User b:members) {
+		 if(b.shallowEquals(u)) {
+			 return true;
+		 }
+	}
+return false;
+	}
+
+public boolean contains(ListN l2)
+{
+for (ListN l:lists) {
+	 if(l.equals(l2)) {
+		 return true;
+	 }
+}
+return false;
+}
 
 }

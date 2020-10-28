@@ -1,6 +1,10 @@
 package mainPack;
 
+import java.beans.XMLEncoder;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 public class AttachmentComponent extends Component
 {
@@ -21,4 +25,20 @@ public class AttachmentComponent extends Component
 	{
 		this.file = file;
 	}
+	
+	public AttachmentComponent() {
+		
+	}
+	
+	public void storeToDisk() {
+		XMLEncoder encoder=null;
+		try{
+		encoder=new XMLEncoder(new BufferedOutputStream(new FileOutputStream("AttachmentComp.xml")));
+		}catch(FileNotFoundException fileNotFound){
+			System.out.println("ERROR: While Creating or Opening the File");
+		}
+		encoder.writeObject(this);
+		encoder.close();
+	}
+
 }

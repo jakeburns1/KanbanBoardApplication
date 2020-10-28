@@ -21,6 +21,13 @@ public interface Board
 	public ArrayList<ListN> getLists();
 	public Set<User> getMembers();
 	public void reorderList(ListN selected, int newIndex);
+	public void storeToDisk();
+	public static BoardConcrete loadFromDisk() {
+		return null;
+		
+	}
+	public boolean equals(BoardConcrete diskB);
+	
 
 	
 	
