@@ -4,12 +4,18 @@ import java.beans.XMLEncoder;
 import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Set;
 
-public class UserConcrete implements User
+public class UserConcrete implements User, Serializable
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 819931518505937546L;
+	
 	String username;
 	String password;
 	ArrayList<Board> board = new ArrayList<Board>();

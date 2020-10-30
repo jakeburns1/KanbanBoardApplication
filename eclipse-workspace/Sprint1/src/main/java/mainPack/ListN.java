@@ -1,8 +1,9 @@
 package mainPack;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public interface ListN
+public interface ListN extends Serializable
 {
 	public void addCards(Card cardToAdd);
 	public void updateName(String newName);

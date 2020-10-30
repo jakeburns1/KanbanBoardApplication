@@ -1,10 +1,10 @@
 package mainPack;
 
-import java.awt.List;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Set;
 
-public interface Board
+public interface Board extends Serializable
 {
 
 	public Boolean addMember(User member);

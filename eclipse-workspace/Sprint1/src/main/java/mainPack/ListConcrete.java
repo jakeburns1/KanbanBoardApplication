@@ -7,11 +7,17 @@ import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Set;
 
-public class ListConcrete implements ListN
+public class ListConcrete implements ListN, Serializable
 {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5159746605156434014L;
 
 	String listName;
 	

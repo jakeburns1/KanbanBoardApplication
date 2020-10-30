@@ -8,13 +8,17 @@ import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class BoardConcrete implements Board
+public class BoardConcrete implements Board, Serializable
 {
 
+	private static final long serialVersionUID = -468358412443532784L;
+	
+	
 	String boardName;
 	User owner = new UserConcrete();
 	Set<User> members = new HashSet<User>();

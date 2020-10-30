@@ -16,6 +16,7 @@ import mainPack.Component;
 import mainPack.DescriptionComponent;
 import mainPack.ListConcrete;
 import mainPack.ListN;
+import mainPack.RmiClient;
 import mainPack.User;
 import mainPack.UserConcrete;
 
@@ -35,10 +36,13 @@ class ListTest
 	DescriptionComponent comp;
 	Board board;
 	
+	RmiClient client; 
+	
 
 	@BeforeEach
 	void setUp() throws Exception
 	{	
+		client = new RmiClient();
 		jake = new UserConcrete();
 		bob = new UserConcrete();
 		jake.setUsername("jakeburns");
@@ -205,6 +209,10 @@ class ListTest
 		assertTrue(board.equals(diskB));
 		assertTrue(testCard.equals(diskC));
 	    assertTrue(list.equals(diskL));
+	}
+	
+	void clientTest() {
+		//client.login("jakeburns", "123");
 	}
 	
 	

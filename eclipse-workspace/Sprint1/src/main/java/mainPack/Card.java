@@ -1,8 +1,9 @@
 package mainPack;
 
+import java.io.Serializable;
 import java.util.Set;
 
-public interface Card
+public interface Card extends Serializable
 {
 
 	 // moveCard(parentList, card);

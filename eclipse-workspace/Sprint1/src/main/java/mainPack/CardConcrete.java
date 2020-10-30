@@ -7,11 +7,17 @@ import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.Serializable;
 import java.util.Set;
 
-public class CardConcrete implements Card
+public class CardConcrete implements Card, Serializable
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2118681597509186513L;
+	
 	String cardName;
 	Set<String> labels;
 	Set<User> members;

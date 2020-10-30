@@ -1,9 +1,10 @@
 package mainPack;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Set;
 
-public interface User
+public interface User extends Serializable
 {
 
 	
