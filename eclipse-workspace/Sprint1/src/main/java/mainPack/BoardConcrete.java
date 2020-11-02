@@ -12,13 +12,31 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 public class BoardConcrete implements Board, Serializable
 {
 
 	private static final long serialVersionUID = -468358412443532784L;
 	
-	
+	public String unique = UUID.randomUUID().toString();
+
+	/**
+	 * @return the unique
+	 */
+	public String getUnique()
+	{
+		return unique;
+	}
+
+	/**
+	 * @param unique the unique to set
+	 */
+	public void setUnique(String unique)
+	{
+		this.unique = unique;
+	}
+
 	String boardName;
 	User owner = new UserConcrete();
 	Set<User> members = new HashSet<User>();
@@ -43,7 +61,10 @@ public class BoardConcrete implements Board, Serializable
 		this.owner = owner;
 	}
 
-
+	public long getSerialversionuid()
+	{
+		return serialVersionUID;
+	}
 
 
 	/**
@@ -176,7 +197,7 @@ public class BoardConcrete implements Board, Serializable
 		encoder.close();
 	}
 	
-	public static BoardConcrete loadFromDisk() {
+	public static BoardConcrete loadFromDisk(String string) {
 		
 		XMLDecoder decoder=null;
 		try {

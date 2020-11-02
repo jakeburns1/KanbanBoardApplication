@@ -22,11 +22,16 @@ public interface Board extends Serializable
 	public Set<User> getMembers();
 	public void reorderList(ListN selected, int newIndex);
 	public void storeToDisk();
-	public static BoardConcrete loadFromDisk() {
-		return null;
-		
-	}
 	public boolean equals(BoardConcrete diskB);
+	public long getSerialversionuid();
+	public void setUnique(String unique);
+	public static BoardConcrete loadFromDisk()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public String getUnique();
+	
 	
 
 	

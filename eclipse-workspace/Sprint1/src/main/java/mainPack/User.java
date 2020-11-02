@@ -19,4 +19,6 @@ public interface User extends Serializable
 	public String getUsername();
 	public String getPassword();
 	public boolean shallowEquals(User a);
+	public long getSerialversionuid();
+	public String getUnique();
 }

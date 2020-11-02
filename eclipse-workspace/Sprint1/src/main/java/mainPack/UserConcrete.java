@@ -1,12 +1,16 @@
 package mainPack;
 
+import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.UUID;
 
 public class UserConcrete implements User, Serializable
 {
@@ -14,8 +18,22 @@ public class UserConcrete implements User, Serializable
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 819931518505937546L;
+	private static final long serialVersionUID = 8704420968970241981L;
+	/**
+	 * 
+	 */
+	public String unique = UUID.randomUUID().toString();
 	
+	/**
+	 * @return the unique
+	 */
+	public String getUnique()
+	{
+		return unique;
+	}
+
+
+
 	String username;
 	String password;
 	ArrayList<Board> board = new ArrayList<Board>();
@@ -118,7 +136,7 @@ public class UserConcrete implements User, Serializable
 	}
 	public boolean login(String username, String password)
 	{
-		if (this.username == username && this.password == password) {
+		if (this.username.equals(username) && this.password.equals(password)) {
 			return true;
 		}
 		
@@ -163,6 +181,27 @@ public class UserConcrete implements User, Serializable
 		encoder.writeObject(this);
 		encoder.close();
 	}
+
+	public static UserConcrete loadFromDisk() {
+		
+		XMLDecoder decoder=null;
+		try {
+			decoder=new XMLDecoder(new BufferedInputStream(new FileInputStream("User.xml")));
+		} catch (FileNotFoundException e) {
+			System.out.println("ERROR: File not found");
+		}
+		UserConcrete d = (UserConcrete) decoder.readObject();
+		return d;
+	}
+
+/**
+	 * @return the serialversionuid
+	 */
+	public long getSerialversionuid()
+	{
+		return serialVersionUID;
+	}
+
 
 
 public boolean shallowEquals(User a) {

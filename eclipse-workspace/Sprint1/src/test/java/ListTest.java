@@ -17,6 +17,7 @@ import mainPack.DescriptionComponent;
 import mainPack.ListConcrete;
 import mainPack.ListN;
 import mainPack.RmiClient;
+import mainPack.RmiServer;
 import mainPack.User;
 import mainPack.UserConcrete;
 
@@ -36,13 +37,16 @@ class ListTest
 	DescriptionComponent comp;
 	Board board;
 	
-	RmiClient client; 
+	RmiClient client;
+	RmiServer server;
 	
 
 	@BeforeEach
 	void setUp() throws Exception
 	{	
-		client = new RmiClient();
+		
+		//server = new RmiServer();
+		client = new RmiClient(5050);
 		jake = new UserConcrete();
 		bob = new UserConcrete();
 		jake.setUsername("jakeburns");
@@ -203,7 +207,7 @@ class ListTest
 		list.storeToDisk();
 		jake.storeToDisk();
 		
-		BoardConcrete diskB = BoardConcrete.loadFromDisk();
+		BoardConcrete diskB = BoardConcrete.loadFromDisk("Board.xml");
 		CardConcrete diskC = CardConcrete.loadFromDisk();
 		ListConcrete diskL = ListConcrete.loadFromDisk();
 		assertTrue(board.equals(diskB));
@@ -211,8 +215,12 @@ class ListTest
 	    assertTrue(list.equals(diskL));
 	}
 	
+	@Test
 	void clientTest() {
-		//client.login("jakeburns", "123");
+		//int size = jake.getBoards().size();
+		//client.createBoard("servertest", jake);
+		//assertEquals(size+1,jake.getBoards().size());
+		//assertEquals(false, server.checkUsernamePassword("bobarnold", "computerscience"));
 	}
 	
 	
