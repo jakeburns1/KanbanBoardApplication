@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.DropdownButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.SelectionController">
    <top>
       <Label text="Select your board or add a new one below:" BorderPane.alignment="CENTER">
          <font>
@@ -35,17 +33,12 @@
                         <Insets right="20.0" />
                      </padding>
                   </Label>
-                  <DropdownButton maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" prefWidth="163.0">
-                      <items>
-                          <MenuItem text="Jake's Board" />
-                          <MenuItem text="Jack's Board" />
-                          <MenuItem text="Jacob's Board" />
-                      </items>
+                  <ComboBox fx:id="dropDownField" prefWidth="150.0" promptText="Boards">
                      <HBox.margin>
-                        <Insets right="20.0" top="52.0" />
+                        <Insets top="50.0" />
                      </HBox.margin>
-                  </DropdownButton>
-                  <Button minWidth="48.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="48.0" text="Load">
+                  </ComboBox>
+                  <Button minWidth="48.0" mnemonicParsing="false" onAction="#loadBoardButton" prefHeight="32.0" prefWidth="48.0" text="Load">
                      <HBox.margin>
                         <Insets top="45.0" />
                      </HBox.margin>
@@ -66,7 +59,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" text="Create new board">
+                  <Button mnemonicParsing="false" onAction="#createNewBoard" text="Create new board">
                      <HBox.margin>
                         <Insets left="250.0" />
                      </HBox.margin>

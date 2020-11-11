@@ -4,35 +4,49 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import mainPack.RmiClient;
+import mainPack.RmiServer;
+import mainPack.UserConcrete;
 import view.LoginModel;
 
 
 public class MainStartup extends Application
 {
 
-	//RmiClient client;
+	RmiClient client;
+	RmiServer server;
+	AnchorPane pane;
+	Scene s;
+	int port = 3135;
 	@Override
 	public void start(Stage stage) throws Exception
 	{
+		//server.startServer(port);
+		server = new RmiServer(port);
+		client = new RmiClient(port);
 		
 		
-		LoginModel model2 =  new LoginModel();
+		LoginModel model2 =  new LoginModel(stage, s);
+		UserConcrete model = new UserConcrete();
 		
 		FXMLLoader loader = new FXMLLoader();
 		
-		loader.setLocation(MainStartup.class.getResource("./loginView.fxml"));
+		loader.setLocation(MainStartup.class.getResource("loginView.fxml"));
 		
-		
-		AnchorPane pane = loader.load();
+		 pane = loader.load();
 		
 		InitialController contt = loader.getController(); 
 		
-		contt.setModel(model2);
+		loader.setLocation(MainStartup.class.getResource("boardSelection.fxml"));
+		SelectionController cont = loader.getController();
 		
-		Scene s = new Scene(pane);
+		 s = new Scene(pane);
+		contt.setModel(model2, client);
+		cont.setModel(model, client);
+		
+		
+	
 		
 		stage.setScene(s);
 		stage.show();
