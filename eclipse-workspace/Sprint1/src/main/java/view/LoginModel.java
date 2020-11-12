@@ -27,7 +27,7 @@ public class LoginModel
 	
 	
 	
-	public void showSelectionScreen() {
+	public void showSelectionScreen(User u, RmiClient client, Stage stage, Scene scene) {
 		
 		
 		try
@@ -35,10 +35,13 @@ public class LoginModel
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(LoginModel.class.getResource("../main/boardSelection.fxml"));
 			BorderPane pane = loader.load();
+			
+			SelectionController cont = loader.getController();
+			cont.setModel(u, client, stage, scene);
 			s = new Scene(pane);
 			stage.setScene(s);
-			stage.show();
 			
+			stage.show();
 			
 			
 //			
@@ -51,10 +54,5 @@ public class LoginModel
 		
 	}
 	
-	public void setUserForSelectionView(User u, RmiClient client) {
-		FXMLLoader loader2 = new FXMLLoader();
-		loader2.setLocation(LoginModel.class.getResource("../main/boardSelection.fxml"));		
-		SelectionController cont = loader2.getController();
-		cont.setModel(u, client);
-	}
+	
 }

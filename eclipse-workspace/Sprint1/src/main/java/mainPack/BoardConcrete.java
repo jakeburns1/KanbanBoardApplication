@@ -1,6 +1,5 @@
 package mainPack;
 
-import java.awt.List;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.BufferedInputStream;
@@ -8,11 +7,19 @@ import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import main.BoardController;
+import view.LoginModel;
 
 public class BoardConcrete implements Board, Serializable
 {
@@ -20,6 +27,8 @@ public class BoardConcrete implements Board, Serializable
 	private static final long serialVersionUID = -468358412443532784L;
 	
 	public String unique = UUID.randomUUID().toString();
+	
+	BoardController boardController;
 
 	/**
 	 * @return the unique
@@ -82,7 +91,30 @@ public class BoardConcrete implements Board, Serializable
 //		this.members = members;
 //		this.lists = lists;
 	}
-
+	
+	public void showBoardScreen(Stage s, Scene scene, BoardConcrete b, RmiClient c)
+	{
+		try
+		{
+			FXMLLoader loader3 = new FXMLLoader();
+			loader3.setLocation(BoardConcrete.class.getResource("../main/board_view.fxml"));
+			BorderPane pane = loader3.load();
+			
+			BoardController cont3 = loader3.getController();
+			cont3.setModel(c, b);
+			scene = new Scene(pane);
+			s.setScene(scene);
+			s.show();
+			
+			
+//			
+			
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public Boolean addMember(User member)
 	{
 		

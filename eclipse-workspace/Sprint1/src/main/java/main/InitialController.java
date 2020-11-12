@@ -2,9 +2,10 @@ package main;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import mainPack.RmiClient;
 import mainPack.User;
 import view.LoginModel;
@@ -15,6 +16,8 @@ public class InitialController
 	RmiClient client;
 	SelectionController selection;
 	User user;
+	Stage s;
+	Scene scene;
 	
 	 	@FXML
 	    private TextField usernameField;
@@ -31,8 +34,8 @@ public class InitialController
 	    		System.out.println("successfully logged in");
 	    		// load board selection screen
 	    		
-	    		modelg.showSelectionScreen();
-	    		modelg.setUserForSelectionView(user, client);
+	    		modelg.showSelectionScreen(user, client, s, scene);
+	   
 	    		
 	    	}
 	    	else {
@@ -41,10 +44,12 @@ public class InitialController
 	    	
 	    }
 	    
-	    public void setModel(LoginModel newModel1, RmiClient client)
+	    public void setModel(LoginModel newModel1, RmiClient client, Stage s, Scene scene)
 		{
 			modelg = newModel1;
 			this.client = client;
+			this.s = s;
+			this.scene = scene;
 			
 			//StringConverter<Number> fmt = new NumberStringConverter();
 			

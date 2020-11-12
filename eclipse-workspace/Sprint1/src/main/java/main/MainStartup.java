@@ -18,7 +18,7 @@ public class MainStartup extends Application
 	RmiServer server;
 	AnchorPane pane;
 	Scene s;
-	int port = 3139;
+	int port = 3146;
 	@Override
 	public void start(Stage stage) throws Exception
 	{
@@ -28,7 +28,7 @@ public class MainStartup extends Application
 		
 		
 		LoginModel model2 =  new LoginModel(stage, s);
-		UserConcrete model = new UserConcrete();
+		//UserConcrete model = new UserConcrete();
 		
 		FXMLLoader loader = new FXMLLoader();
 		
@@ -38,11 +38,12 @@ public class MainStartup extends Application
 		 pane = loader.load();
 		
 		InitialController contt = loader.getController(); 
+		s = new Scene(pane);
 		
+		contt.setModel(model2, client, stage, s);
 		
+		 
 		
-		 s = new Scene(pane);
-		contt.setModel(model2, client);
 	
 		
 		
