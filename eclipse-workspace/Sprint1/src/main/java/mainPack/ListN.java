@@ -13,4 +13,5 @@ public interface ListN extends Serializable
 	public ArrayList<Card> getCards();
 	public int getSize();
 	public void storeToDisk();
+	public String getListName();
 }

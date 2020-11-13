@@ -50,10 +50,17 @@ class ServerTest
 		
 		jake = new UserConcrete();
 		members.add(jake);
-		jake.createBoard("server board", jake, members, lists);
+		jake.createBoard("test board 1", jake, members, lists);
+		jake.createBoard("test board 2", jake, members, null);
 		jake.setPassword("centre1234");
 		jake.setUsername("jakeburns");
 		board = jake.getBoards().get(0);
+		
+		testCard = new CardConcrete("Test card", labels, members, components);
+		testCard2 = new CardConcrete("Second card", labels, members, components);
+		list.addCards(testCard);
+		list.addCards(testCard2);
+		list2.addCards(testCard);
 		
 	}
 	@BeforeAll
