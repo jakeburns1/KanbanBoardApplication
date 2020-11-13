@@ -2,6 +2,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,6 +12,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import mainPack.Board;
+import mainPack.CardConcrete;
+import mainPack.Component;
+import mainPack.ListConcrete;
+import mainPack.ListN;
 import mainPack.RmiClient;
 import mainPack.RmiServer;
 import mainPack.User;
@@ -22,11 +29,28 @@ class ServerTest
 	//Board board= new BoardConcrete("Jake's Server Board",);
 	User jake;
 	Board board;
+	
+	ListConcrete list;
+	ListConcrete list2;
+	CardConcrete testCard;
+	CardConcrete testCard2;
+	Set<String> labels;
+	Set<User> members;
+	Set<Component> components;
+	ArrayList<ListN> lists;
 
 	@BeforeEach
 	void set() {
+		lists = new ArrayList<ListN>();
+		list = new ListConcrete("Day 1");
+		list2 = new ListConcrete("Day 2");
+		lists.add(list);
+		lists.add(list2);
+		members = new HashSet<User>();
+		
 		jake = new UserConcrete();
-		jake.createBoard("server board", jake, null, null);
+		members.add(jake);
+		jake.createBoard("server board", jake, members, lists);
 		jake.setPassword("centre1234");
 		jake.setUsername("jakeburns");
 		board = jake.getBoards().get(0);

@@ -1,14 +1,20 @@
 package main;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import mainPack.RmiClient;
 import mainPack.RmiServer;
-import mainPack.UserConcrete;
 import view.LoginModel;
+
 
 
 public class MainStartup extends Application
@@ -57,5 +63,7 @@ public class MainStartup extends Application
 	public static void main(String [] args) {	
 		launch(args);
 	}
+	
+	
 	
 }

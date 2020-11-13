@@ -101,7 +101,7 @@ public class BoardConcrete implements Board, Serializable
 			BorderPane pane = loader3.load();
 			
 			BoardController cont3 = loader3.getController();
-			cont3.setModel(c, b);
+			cont3.setModel(c, b, pane);
 			scene = new Scene(pane);
 			s.setScene(scene);
 			s.show();

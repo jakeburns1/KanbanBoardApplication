@@ -33,7 +33,7 @@
                         <Insets right="20.0" />
                      </padding>
                   </Label>
-                  <ComboBox fx:id="dropDownField" prefWidth="150.0">
+                  <ComboBox id="dropdown" fx:id="dropDownField" prefWidth="150.0">
                      <HBox.margin>
                         <Insets top="50.0" />
                      </HBox.margin>
