@@ -8,6 +8,10 @@ import java.io.FileOutputStream;
 
 public class AttachmentComponent extends Component
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5812296224826933512L;
 	File file;
 
 	/**
@@ -39,6 +43,13 @@ public class AttachmentComponent extends Component
 		}
 		encoder.writeObject(this);
 		encoder.close();
+	}
+
+	@Override
+	public String getText()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -7,8 +7,15 @@ import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Set;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import main.CardController;
 
 public class CardConcrete implements Card, Serializable
 {
@@ -97,6 +104,25 @@ public class CardConcrete implements Card, Serializable
 	{
 		return components;
 	}
+	
+	public Component getDesComponent() {
+		Component com = new DescriptionComponent("Set a description!");
+		try {
+		for (Component c: components) {
+			if(c.getClass().equals(com.getClass())) {
+				return c;
+			}
+			else {
+				return null;
+			}
+		}
+		}
+		catch(Exception e) {
+		//e.printStackTrace();
+		return com;
+		}
+		return com;
+	}
 
 	public void addComponent(Component component)
 	{
@@ -135,6 +161,7 @@ public class CardConcrete implements Card, Serializable
 	{
 		cardName = newName;
 	}
+
 	
 	public void storeToDisk() {
 		XMLEncoder encoder=null;

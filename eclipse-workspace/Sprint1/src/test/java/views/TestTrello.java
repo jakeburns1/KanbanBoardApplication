@@ -3,7 +3,6 @@ package views;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
-import org.testfx.assertions.api.Assertions;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
@@ -27,7 +26,7 @@ public class TestTrello
 	RmiServer server;
 	AnchorPane pane;
 	Scene s;
-	int port = 3149;
+	int port = 3175;
 	
 	@Start
 	public void start(Stage stage) throws Exception

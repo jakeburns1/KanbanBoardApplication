@@ -8,6 +8,10 @@ import java.io.FileOutputStream;
 public class DescriptionComponent extends Component
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5780721723958570092L;
 	String text;
 	
 	

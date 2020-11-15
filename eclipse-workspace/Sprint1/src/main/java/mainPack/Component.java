@@ -17,4 +17,6 @@ public abstract class Component implements Serializable
 	public void storeToDisk()
 	{
 	}
+
+	public abstract String getText();
 }

@@ -52,6 +52,12 @@ public class ChecklistComponent extends Component
 		encoder.writeObject(this);
 		encoder.close();
 	}
+	@Override
+	public String getText()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

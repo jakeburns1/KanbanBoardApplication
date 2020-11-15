@@ -24,5 +24,16 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="/Users/jakeburns/.m2/repository/org/testfx/testfx-junit5/4.0.16-alpha/testfx-junit5-4.0.16-alpha.jar" sourcepath="/Users/jakeburns/.m2/repository/org/testfx/testfx-junit5/4.0.16-alpha/testfx-junit5-4.0.16-alpha-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="test" value="true"/>
+			<attribute name="javadoc_location" value="jar:file:/Users/jakeburns/.m2/repository/org/testfx/testfx-junit5/4.0.16-alpha/testfx-junit5-4.0.16-alpha-javadoc.jar!/"/>
+			<attribute name="maven.groupId" value="org.testfx"/>
+			<attribute name="maven.artifactId" value="testfx-junit5"/>
+			<attribute name="maven.version" value="4.0.16-alpha"/>
+			<attribute name="maven.scope" value="test"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

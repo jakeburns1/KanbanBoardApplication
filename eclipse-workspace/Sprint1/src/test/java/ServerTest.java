@@ -34,9 +34,14 @@ class ServerTest
 	ListConcrete list2;
 	CardConcrete testCard;
 	CardConcrete testCard2;
+	CardConcrete testCard3;
 	Set<String> labels;
+	Set<String> labels2;
+	Set<String> labels3;
 	Set<User> members;
 	Set<Component> components;
+	Set<Component> components2;
+	Set<Component> components3;
 	ArrayList<ListN> lists;
 
 	@BeforeEach
@@ -47,6 +52,12 @@ class ServerTest
 		lists.add(list);
 		lists.add(list2);
 		members = new HashSet<User>();
+		components = new HashSet<Component>();
+		components2 = new HashSet<Component>();
+		components3 = new HashSet<Component>();
+		labels = new HashSet<String>();
+		labels2 = new HashSet<String>();
+		labels3 = new HashSet<String>();
 		
 		jake = new UserConcrete();
 		members.add(jake);
@@ -57,10 +68,12 @@ class ServerTest
 		board = jake.getBoards().get(0);
 		
 		testCard = new CardConcrete("Test card", labels, members, components);
-		testCard2 = new CardConcrete("Second card", labels, members, components);
+		testCard2 = new CardConcrete("Second card", labels2, members, components2);
+		testCard3 = new CardConcrete("thiird card", labels3, members, components3);
+
 		list.addCards(testCard);
 		list.addCards(testCard2);
-		list2.addCards(testCard);
+		list2.addCards(testCard3);
 		
 	}
 	@BeforeAll

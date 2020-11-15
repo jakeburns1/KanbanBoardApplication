@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import main.BoardController;
+import main.CardController;
 import view.LoginModel;
 
 public class BoardConcrete implements Board, Serializable
@@ -101,7 +102,7 @@ public class BoardConcrete implements Board, Serializable
 			BorderPane pane = loader3.load();
 			
 			BoardController cont3 = loader3.getController();
-			cont3.setModel(c, b, pane);
+			cont3.setModel(s, scene,c,b, pane);
 			scene = new Scene(pane);
 			s.setScene(scene);
 			s.show();
@@ -114,6 +115,29 @@ public class BoardConcrete implements Board, Serializable
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+public void showCardView(Stage s, Scene scene, Card card, RmiClient c, BoardConcrete board) {
+		
+		
+		try
+		{
+			FXMLLoader loader3 = new FXMLLoader();
+			loader3.setLocation(BoardConcrete.class.getResource("../main/cardView.fxml"));
+			BorderPane pane = loader3.load();
+			
+			CardController cont3 = loader3.getController();
+			cont3.setModel(s, scene,card,c, board);
+			scene = new Scene(pane);
+			s.setScene(scene);
+			s.show();
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 	public Boolean addMember(User member)
 	{
