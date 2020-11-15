@@ -28,7 +28,7 @@ public class TestTrello
 	RmiServer server;
 	AnchorPane pane;
 	Scene s;
-	int port = 3183;
+	int port = 3190;
 	
 	@Start
 	public void start(Stage stage) throws Exception

@@ -19,6 +19,7 @@
           <Menu mnemonicParsing="false" text="Lists">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#addListClicked" text="Add" />
+                  <MenuItem mnemonicParsing="false" onAction="#moveListClicked" text="Move List" />
                   <MenuItem mnemonicParsing="false" onAction="#deleteListClicked" text="Delete" />
                   <MenuItem mnemonicParsing="false" onAction="#renameList" text="Rename" />
             </items>
@@ -27,12 +28,12 @@
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#addCardClicked" text="Add" />
                   <MenuItem mnemonicParsing="false" onAction="#deleteCardClicked" text="Delete" />
-                  <MenuItem mnemonicParsing="false" text="Rename" />
+                  <MenuItem mnemonicParsing="false" onAction="#renameCardClicked" text="Rename" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Members">
               <items>
-                <MenuItem mnemonicParsing="false" text="Add Membeer" />
+                <MenuItem mnemonicParsing="false" text="Add Member" />
                   <MenuItem mnemonicParsing="false" text="Remove Member" />
               </items>
             </Menu>

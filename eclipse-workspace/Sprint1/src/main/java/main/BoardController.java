@@ -40,6 +40,7 @@ public class BoardController
 	Scene scene;
 	ArrayList<ListN> lists;
 	ListN selectedList;
+	ListN selectedList2;
 	Card selectedCard;
 	Label selectedListLabel;
 	StringProperty sp = new SimpleStringProperty();
@@ -308,6 +309,163 @@ public class BoardController
 	    		});
 	      
 
+	    }
+	    @FXML
+	    void renameCardClicked(ActionEvent event) {
+	    	Stage dialog = new Stage();
+	        VBox dialogVbox = new VBox(20);
+	        ComboBox<String> selection = new ComboBox<String>();
+	        Button doneButton = new Button("Select list");
+	        //Label label = new Label(textfield.getText());
+	        dialogVbox.getChildren().add(selection);
+	        dialogVbox.getChildren().add(doneButton);
+	        Scene dialogScene = new Scene(dialogVbox, 300, 200);
+	        ObservableList<String> data = FXCollections.observableArrayList();
+	        selection.setItems(data);
+	        dialog.setScene(dialogScene);
+	        dialog.show();
+	        
+	        for(ListN l: model.getLists()) {
+	        	if(l.getCards().size()>= 1) {
+	        		data.add(l.getListName());
+	        	}
+	        	else {
+	        		System.out.println("No cards in list " + l.getListName());
+	        	}
+  
+	        }
+	        
+	        doneButton.setOnAction(new EventHandler<ActionEvent>() {
+	        	
+    		    @Override public void handle(ActionEvent e) {
+    		    	selectedList = (ListN)model.getLists().get(data.indexOf(selection.getValue()));    	
+    	    		dialog.close();
+    	    		
+    	    	  	Stage dialog2 = new Stage();
+    		        VBox dialogVbox2 = new VBox(20);
+    		        ComboBox<String> selection2 = new ComboBox<String>();
+    		        Button doneButton2 = new Button("Select card");
+    		        //Label label = new Label(textfield.getText());
+    		        dialogVbox2.getChildren().add(selection2);
+    		        dialogVbox2.getChildren().add(doneButton2);
+    		        Scene dialogScene2 = new Scene(dialogVbox2, 300, 200);
+    		        ObservableList<String> data2 = FXCollections.observableArrayList();
+    		        selection2.setItems(data2);
+    		        dialog2.setScene(dialogScene2);
+    		        dialog2.show();
+    		        for(Card c: selectedList.getCards()) {
+    	        		data2.add(c.getCardName());
+    	  
+    		        }
+    		        doneButton2.setOnAction(new EventHandler<ActionEvent>() {
+    		        	
+    	    		    @Override public void handle(ActionEvent e) {
+    	    		    	
+    	    		    
+    	    		    	selectedCard = selectedList.getCards().get(data2.indexOf(selection2.getValue()));
+    	    		    	
+    	    		
+    	    	    		//dialog.close();
+    	    	    		
+    	    	    	  	Stage dialog3 = new Stage();
+    	    		        VBox dialogVbox3 = new VBox(20);
+    	    		        TextField textfield = new TextField();
+    	    		        Button doneButton3 = new Button("Change name");
+    	    		        //Label label = new Label(textfield.getText());
+    	    		        dialogVbox3.getChildren().add(textfield);
+    	    		        dialogVbox3.getChildren().add(doneButton3);
+    	    		        Scene dialogScene3 = new Scene(dialogVbox3, 300, 200);
+    	    		     
+    	    		        dialog2.setScene(dialogScene3);
+    	    		        dialog2.show();
+    	    		        
+    	    		        doneButton3.setOnAction(new EventHandler<ActionEvent>() {
+    	    		        	
+    	    	    		    @Override public void handle(ActionEvent e) {
+    	    	    		    	
+    	    	    		    	selectedCard.setCardName(textfield.getText());
+    	    	    		    	dialog2.close();
+    	    	    		
+    	    	    	    	
+    	    		    		    }
+    	    	    		   
+    	    		    		});
+    		    		    }
+    	    		   
+    		    		});
+    		        
+	    		    }
+    		    
+    		    
+	    		});
+	    }
+	    
+	    @FXML
+	    void moveListClicked(ActionEvent event) {
+	     	Stage dialog = new Stage();
+	        VBox dialogVbox = new VBox(20);
+	        ComboBox<String> selection = new ComboBox<String>();
+	        Button doneButton = new Button("Select list to move");
+	        //Label label = new Label(textfield.getText());
+	        dialogVbox.getChildren().add(selection);
+	        dialogVbox.getChildren().add(doneButton);
+	        Scene dialogScene = new Scene(dialogVbox, 300, 200);
+	        ObservableList<String> data = FXCollections.observableArrayList();
+	        selection.setItems(data);
+	        dialog.setScene(dialogScene);
+	        dialog.show();
+	        
+	        for(ListN l: model.getLists()) {
+
+	        		data.add(l.getListName());
+	        
+	        }
+	        doneButton.setOnAction(new EventHandler<ActionEvent>() {
+	        	
+    		    @Override public void handle(ActionEvent e) {
+    		    	dialog.close();
+    		    	selectedList = (ListN)model.getLists().get(data.indexOf(selection.getValue()));    	
+
+    		    	Stage dialog2 = new Stage();
+    		        VBox dialogVbox2 = new VBox(20);
+    		        ComboBox<String> selection2 = new ComboBox<String>();
+    		        Button doneButton2 = new Button("Move after list");
+    		        //Label label = new Label(textfield.getText());
+    		        dialogVbox2.getChildren().add(selection2);
+    		        dialogVbox2.getChildren().add(doneButton2);
+    		        Scene dialogScene2 = new Scene(dialogVbox2, 300, 200);
+    		        ObservableList<String> data2 = FXCollections.observableArrayList();
+    		        selection2.setItems(data2);
+    		        dialog2.setScene(dialogScene2);
+    		        dialog2.show();
+    		        
+    		        for(ListN l: model.getLists()) {
+    		        	if(!l.equals(selectedList)) {
+    		        		data2.add(l.getListName());
+    		        	}
+    		        	else {
+    		        		
+    		        	}
+    		        
+    		        }
+    		        doneButton2.setOnAction(new EventHandler<ActionEvent>() {
+
+    	    		    @Override public void handle(ActionEvent e) {
+    	    		    	selectedList2 = (ListN)model.getLists().get(data.indexOf(selection2.getValue())); 
+    	    		    	dialog2.close();
+    	    		    	
+    	    		    	
+    	    		    	model.reorderList(selectedList,data.indexOf(selection2.getValue()));
+    	    		    	//model.reorderList(selectedList2, data.indexOf(selection.getValue()));
+    	    	    	
+    		    		    }
+    	    		   
+    		    		});
+    	    	
+	    		    }
+    		    
+    		   
+	    		});
 	    }
 	 public void setModel(Stage s, Scene scene, RmiClient client, BoardConcrete selectedBoard, BorderPane pane, LoginModel modelg, User u)
 		{

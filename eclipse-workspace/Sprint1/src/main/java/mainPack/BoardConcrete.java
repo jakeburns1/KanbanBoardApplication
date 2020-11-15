@@ -1,5 +1,6 @@
 package mainPack;
 
+import java.awt.List;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.BufferedInputStream;
@@ -172,18 +173,24 @@ public void showCardView(Stage s, Scene scene, Card card, RmiClient c, BoardConc
 	
 	public void reorderList(ListN selected, int newIndex)
 	{
-		if(selected.getCards().isEmpty()) {
-			newIndex = 0;
-		}
-		else {
-			newIndex = selected.getSize();
-		}
+//		if(selected.getCards().isEmpty()) {
+//			newIndex = 0;
+//		}
+//		else {
+//			newIndex = selected.getSize();
+//		}
+		
 		ListN copy = selected;
-		lists.add(newIndex, copy);
 		lists.remove(selected);
+		lists.add(newIndex, copy);
+		
+		
+		
+		
 		
 	}
-
+	
+	
 	/**
 	 * @return the boardName
 	 */
