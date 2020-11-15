@@ -4,40 +4,45 @@ import java.beans.XMLEncoder;
 import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 public class ChecklistComponent extends Component
 {
 
-	String items[];
-	String checked[];
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6106003741992623813L;
+	ArrayList<String> items;
+	ArrayList<String> checked;
 	/**
 	 * @return the items
 	 */
 	public ChecklistComponent() {
 		
 	}
-	public String[] getItems()
+	public ArrayList<String> getItems()
 	{
 		return items;
 	}
 	/**
 	 * @param items the items to set
 	 */
-	public void setItems(String[] items)
+	public void setItems(ArrayList<String> items)
 	{
 		this.items = items;
 	}
 	/**
 	 * @return the checked
 	 */
-	public String[] getChecked()
+	public ArrayList<String>getChecked()
 	{
 		return checked;
 	}
 	/**
 	 * @param checked the checked to set
 	 */
-	public void setChecked(String[] checked)
+	public void setChecked(ArrayList<String> checked)
 	{
 		this.checked = checked;
 	}

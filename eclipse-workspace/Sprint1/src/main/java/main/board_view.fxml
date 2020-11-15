@@ -20,7 +20,7 @@
             <items>
               <MenuItem mnemonicParsing="false" text="Add" />
                   <MenuItem mnemonicParsing="false" text="Delete" />
-                  <MenuItem mnemonicParsing="false" text="Rename" />
+                  <MenuItem mnemonicParsing="false" onAction="#renameList" text="Rename" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Cards">

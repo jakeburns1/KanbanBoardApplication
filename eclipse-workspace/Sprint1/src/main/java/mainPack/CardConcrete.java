@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Set;
 
 import javafx.fxml.FXMLLoader;
@@ -122,6 +123,29 @@ public class CardConcrete implements Card, Serializable
 		return com;
 		}
 		return com;
+	}
+	
+	public ArrayList<Component> getCheckListComponent() {
+		Component check = new ChecklistComponent();
+		ArrayList<String> test = new ArrayList<String>();
+		ArrayList<Component> array = new ArrayList<Component>();
+		test.add("Add an item!");
+		check.setItems(test);
+		try {
+		for (Component c: components) {
+			if(c.getClass().equals(check.getClass())) {
+				array.add(c);
+			}
+			else {
+				return null;
+			}
+		}
+		}
+		catch(Exception e) {
+		//e.printStackTrace();
+		return array;
+		}
+		return array;
 	}
 
 	public void addComponent(Component component)

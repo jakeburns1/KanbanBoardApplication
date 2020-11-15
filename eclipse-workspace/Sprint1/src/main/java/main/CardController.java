@@ -1,12 +1,16 @@
 package main;
 
+import java.util.ArrayList;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -14,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import mainPack.BoardConcrete;
 import mainPack.Card;
+import mainPack.ChecklistComponent;
 import mainPack.Component;
 import mainPack.DescriptionComponent;
 import mainPack.ListConcrete;
@@ -33,6 +38,11 @@ public class CardController
 	Scene scene;
 	Card card;
 	
+	ArrayList<String> items = new ArrayList<String>();
+	ArrayList<String> checked = new ArrayList<String>();
+	ArrayList<CheckBox> boxesArray = new ArrayList<CheckBox>();
+	Component checklist = new ChecklistComponent();
+	
     @FXML
     private Label descriptionLabel;
     
@@ -41,20 +51,77 @@ public class CardController
 
     ObservableList<String> data =  FXCollections.observableArrayList();
     
+    
     @FXML
     private VBox cardLabelBox;
     
     @FXML
     private Label nameLabel;
+    
+    @FXML
+    private VBox checkListBox;
 
     @FXML
     void doneClicked(ActionEvent event) {
+    	
+    	
+//    	
+//    		for(CheckBox boxer: boxesArray) {
+//    			if(boxer.isSelected()) {
+//    				checked.add(boxer.getText());
+//    				System.out.println(boxer.getText() + " is checked");
+//    			}
+//    			else {
+//    				System.out.println("not checkde");
+//    			}
+//    		}
+    	
+    	
+    	
+//    	if()
+//    	else {
+//    		System.out.println("Boxes null");
+//    	}
     	model.showBoardScreen(s, scene, model, client);
     }
 
     @FXML
     void editCheckListClicked(ActionEvent event) {
+    	
+    	Stage dialog = new Stage();
+        VBox dialogVbox = new VBox(20);
+        TextField textfield = new TextField();
+        Button addButton = new Button("Add Item");
+        //Label label = new Label(textfield.getText());
+        dialogVbox.getChildren().add(textfield);
+        dialogVbox.getChildren().add(addButton);
+        Scene dialogScene = new Scene(dialogVbox, 300, 200);
+        dialog.setScene(dialogScene);
+        dialog.show();
+        addButton.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		    	CheckBox cb = new CheckBox(textfield.getText());
+		    	
+		    	
+		    	items.add(textfield.getText());
+		    	//checkListBox.getChildren().add(cb);
+		    	checkListBox.getChildren().add(1, cb);
+		    	
+		    	
+		    	
+		    	checklist.setItems(items);
+		    	boxesArray.add(cb);
+		    	//card.addComponent(checklist);
 
+		   
+		    
+		    		checked.add(cb.getText());
+		    	
+		    	
+		    	checklist.setChecked(checked);
+		    	card.addComponent(checklist);
+		    }
+	 		});
     }
 
     @FXML
@@ -157,6 +224,24 @@ public class CardController
     	ObservableList<String> l = FXCollections.observableArrayList();
     	l.addAll(card.getLabels());
     	listView.setItems(l);
+    	
+    	if(card.getCheckListComponent()!=null) {
+    		for(Component check: card.getCheckListComponent()) {
+    		
+    		for(String a: check.getItems()) {
+    			CheckBox cb = new CheckBox(a);
+    			checkListBox.getChildren().add(cb);
+    			for(String checkers: check.getChecked()) {
+    				if(checkers.equalsIgnoreCase(a)) {
+    					cb.setSelected(true);
+    				}
+    			}
+    		}
+    		}
+    	}
+    	else {
+    		System.out.println("no checklist");
+    	}
     	
     }
     

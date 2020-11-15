@@ -1,6 +1,7 @@
 package mainPack;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Set;
 
 import javafx.scene.Scene;
@@ -20,6 +21,7 @@ public interface Card extends Serializable
 	public String getCardName();
 	public Set<Component> getComponents();
 	public Component getDesComponent();
+	public ArrayList<Component> getCheckListComponent();
 	public Set<String> getLabels();
 	//public void showCardView(Stage s, Scene scene, Card card, RmiClient c, BoardConcrete board);
 }

@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -75,7 +79,27 @@ public class BoardController
 	    	}
 	            
 	    }
-	
+	    @FXML
+	    void renameList(ActionEvent event) {
+	    	Stage dialog = new Stage();
+	        VBox dialogVbox = new VBox(20);
+	        ComboBox<String> selection = new ComboBox<String>();
+	        Button doneButton = new Button("Done");
+	        //Label label = new Label(textfield.getText());
+	        dialogVbox.getChildren().add(selection);
+	        dialogVbox.getChildren().add(doneButton);
+	        Scene dialogScene = new Scene(dialogVbox, 300, 200);
+	        ObservableList<String> data = FXCollections.observableArrayList();
+	        
+	        for(ListN l: model.getLists()) {
+	        		data.add(l.getListName());
+	  
+	        }
+	        
+	        selection.setItems(data);
+	        dialog.setScene(dialogScene);
+	        dialog.show();
+	    }
 	 public void setModel(Stage s, Scene scene, RmiClient client, BoardConcrete selectedBoard, BorderPane pane)
 		{
 	

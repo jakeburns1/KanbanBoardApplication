@@ -1,6 +1,7 @@
 package mainPack;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public abstract class Component implements Serializable
 {
@@ -19,4 +20,9 @@ public abstract class Component implements Serializable
 	}
 
 	public abstract String getText();
+	
+	public abstract ArrayList<String> getItems();
+	public abstract void setItems(ArrayList<String> items);
+	public abstract ArrayList<String> getChecked();
+	public abstract void setChecked(ArrayList<String> checked);
 }
