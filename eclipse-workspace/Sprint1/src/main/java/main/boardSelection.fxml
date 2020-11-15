@@ -38,7 +38,7 @@
                         <Insets top="50.0" />
                      </HBox.margin>
                   </ComboBox>
-                  <Button minWidth="48.0" mnemonicParsing="false" onAction="#loadBoardButton" prefHeight="32.0" prefWidth="48.0" text="Load">
+                  <Button id="loadButton" minWidth="48.0" mnemonicParsing="false" onAction="#loadBoardButton" prefHeight="32.0" prefWidth="48.0" text="Load">
                      <HBox.margin>
                         <Insets top="45.0" />
                      </HBox.margin>

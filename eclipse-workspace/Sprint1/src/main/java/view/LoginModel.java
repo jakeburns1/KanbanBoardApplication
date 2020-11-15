@@ -27,7 +27,7 @@ public class LoginModel
 	
 	
 	
-	public void showSelectionScreen(User u, RmiClient client, Stage stage, Scene scene) {
+	public void showSelectionScreen(User u, RmiClient client, Stage stage, Scene scene, LoginModel modelg) {
 		
 		
 		try
@@ -37,7 +37,7 @@ public class LoginModel
 			BorderPane pane = loader.load();
 			
 			SelectionController cont = loader.getController();
-			cont.setModel(u, client, stage, scene);
+			cont.setModel(u, client, stage, scene, modelg);
 			s = new Scene(pane);
 			stage.setScene(s);
 			

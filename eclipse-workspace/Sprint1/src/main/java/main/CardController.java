@@ -25,6 +25,8 @@ import mainPack.ListConcrete;
 import mainPack.ListN;
 import mainPack.RmiClient;
 import mainPack.RmiServer;
+import mainPack.User;
+import view.LoginModel;
 
 public class CardController
 {
@@ -32,11 +34,13 @@ public class CardController
 	
 	BoardConcrete model;
 	ListConcrete list;
+	LoginModel modelg;
 	RmiClient client;
 	RmiServer server;
 	Stage s;
 	Scene scene;
 	Card card;
+	User u;
 	
 	ArrayList<String> items = new ArrayList<String>();
 	ArrayList<String> checked = new ArrayList<String>();
@@ -82,7 +86,7 @@ public class CardController
 //    	else {
 //    		System.out.println("Boxes null");
 //    	}
-    	model.showBoardScreen(s, scene, model, client);
+    	model.showBoardScreen(s, scene, model, client, modelg, u);
     }
 
     @FXML
@@ -204,12 +208,14 @@ public class CardController
 	 		});
     }
     
-    public void setModel(Stage s, Scene scene, Card card, RmiClient c, BoardConcrete model) {
+    public void setModel(Stage s, Scene scene, Card card, RmiClient c, BoardConcrete model, User u, LoginModel modelg) {
     	this.s = s;
     	this.scene = scene;
     	this.card = card;
     	this.client = c;
     	this.model = model;
+    	this.modelg = modelg;
+    	this.u = u;
     	
     	//DescriptionComponent description = card.getComponents().toArray();
     	if(card.getDesComponent()!=null) {

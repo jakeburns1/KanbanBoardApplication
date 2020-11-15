@@ -12,21 +12,21 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Save Board" />
-                  <MenuItem mnemonicParsing="false" text="Exit Board" />
+              <MenuItem mnemonicParsing="false" onAction="#saveBoard" text="Save Board" />
+                  <MenuItem mnemonicParsing="false" onAction="#exitBoard" text="Exit Board" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Lists">
             <items>
-              <MenuItem mnemonicParsing="false" text="Add" />
-                  <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem mnemonicParsing="false" onAction="#addListClicked" text="Add" />
+                  <MenuItem mnemonicParsing="false" onAction="#deleteListClicked" text="Delete" />
                   <MenuItem mnemonicParsing="false" onAction="#renameList" text="Rename" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Cards">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#addCardClicked" text="Add" />
-                  <MenuItem mnemonicParsing="false" text="Delete" />
+                  <MenuItem mnemonicParsing="false" onAction="#deleteCardClicked" text="Delete" />
                   <MenuItem mnemonicParsing="false" text="Rename" />
               </items>
             </Menu>

@@ -13,12 +13,14 @@ import mainPack.Board;
 import mainPack.BoardConcrete;
 import mainPack.RmiClient;
 import mainPack.User;
+import view.LoginModel;
 
 public class SelectionController
 {
 	RmiClient client;
 	Stage s;
 	Scene scene;
+	LoginModel modelg;
 	
 	User model;
 	
@@ -43,16 +45,17 @@ public class SelectionController
 	    void loadBoardButton(ActionEvent event) {
 	    	BoardConcrete selectedBoard = (BoardConcrete) boards.get(data.indexOf(dropDownField.getValue()));
 	    	
-	    	selectedBoard.showBoardScreen(s, scene, selectedBoard, client);
+	    	selectedBoard.showBoardScreen(s, scene, selectedBoard, client, modelg, model);
 	    	//System.out.println(selectedBoard);
 	    }
 	    
-	    public void setModel(User user, RmiClient client, Stage s, Scene scene)
+	    public void setModel(User user, RmiClient client, Stage s, Scene scene, LoginModel modelg)
 		{
 			this.model = user;
 			this.client = client;
 			this.s = s;
 			this.scene = scene;
+			this.modelg = modelg;
 			boards = model.getBoards();
 			
 			

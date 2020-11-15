@@ -34,7 +34,7 @@ public class InitialController
 	    		System.out.println("successfully logged in");
 	    		// load board selection screen
 	    		
-	    		modelg.showSelectionScreen(user, client, s, scene);
+	    		modelg.showSelectionScreen(user, client, s, scene, modelg);
 	   
 	    		
 	    	}

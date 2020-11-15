@@ -93,7 +93,7 @@ public class BoardConcrete implements Board, Serializable
 //		this.lists = lists;
 	}
 	
-	public void showBoardScreen(Stage s, Scene scene, BoardConcrete b, RmiClient c)
+	public void showBoardScreen(Stage s, Scene scene, BoardConcrete b, RmiClient c, LoginModel modelg, User u)
 	{
 		try
 		{
@@ -102,7 +102,7 @@ public class BoardConcrete implements Board, Serializable
 			BorderPane pane = loader3.load();
 			
 			BoardController cont3 = loader3.getController();
-			cont3.setModel(s, scene,c,b, pane);
+			cont3.setModel(s, scene,c,b, pane, modelg, u);
 			scene = new Scene(pane);
 			s.setScene(scene);
 			s.show();
@@ -117,7 +117,7 @@ public class BoardConcrete implements Board, Serializable
 		}
 	}
 	
-public void showCardView(Stage s, Scene scene, Card card, RmiClient c, BoardConcrete board) {
+public void showCardView(Stage s, Scene scene, Card card, RmiClient c, BoardConcrete board, User u, LoginModel modelg) {
 		
 		
 		try
@@ -127,7 +127,7 @@ public void showCardView(Stage s, Scene scene, Card card, RmiClient c, BoardConc
 			BorderPane pane = loader3.load();
 			
 			CardController cont3 = loader3.getController();
-			cont3.setModel(s, scene,card,c, board);
+			cont3.setModel(s, scene,card,c, board, u, modelg);
 			scene = new Scene(pane);
 			s.setScene(scene);
 			s.show();

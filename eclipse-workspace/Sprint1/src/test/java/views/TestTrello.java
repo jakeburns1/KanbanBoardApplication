@@ -9,6 +9,8 @@ import org.testfx.framework.junit5.Start;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.SelectionModel;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import main.InitialController;
@@ -26,7 +28,7 @@ public class TestTrello
 	RmiServer server;
 	AnchorPane pane;
 	Scene s;
-	int port = 3175;
+	int port = 3183;
 	
 	@Start
 	public void start(Stage stage) throws Exception
@@ -68,7 +70,9 @@ public class TestTrello
 			robot.write("centre1234");
 			robot.clickOn("#loginButton");
 			//Thread.sleep(1000);
-			robot.clickOn("#dropdown");
+			robot.clickOn("#dropdown").type(KeyCode.DOWN).type(KeyCode.ENTER);
+			robot.clickOn("#loadButton");
+			//robot.clickOn(SelectionModel<String>.)
 			//robot.clickOn();
 			Thread.sleep(1000000000);
 			
