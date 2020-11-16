@@ -88,8 +88,12 @@ public class ListConcrete implements ListN, Serializable
 	{
 		
 		Card copy = selected;
-		cards.add(newIndex, copy);
+		
 		cards.remove(selected);
+ 
+		cards.add(newIndex, copy);
+		
+		
 		
 	}
 	

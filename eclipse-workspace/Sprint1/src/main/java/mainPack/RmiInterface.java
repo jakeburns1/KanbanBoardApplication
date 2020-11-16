@@ -16,5 +16,6 @@ public interface RmiInterface extends Remote
 		//public Component getCompenet() throws RemoteException;
 		public void updateBoard(Board board) throws RemoteException;
 		public Board createBoard(String s, User u) throws RemoteException;
-
+		public Board save(Board b) throws RemoteException;
+		
 }

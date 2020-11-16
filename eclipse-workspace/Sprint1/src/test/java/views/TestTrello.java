@@ -28,7 +28,7 @@ public class TestTrello
 	RmiServer server;
 	AnchorPane pane;
 	Scene s;
-	int port = 3190;
+	int port = 3196;
 	
 	@Start
 	public void start(Stage stage) throws Exception
@@ -63,7 +63,7 @@ public class TestTrello
 		
 		try
 		{
-			Thread.sleep(1000);
+			//Thread.sleep(1000);
 			robot.clickOn("#usernameField");
 			robot.write("jakeburns");
 			robot.clickOn("#passwordField");
@@ -72,6 +72,80 @@ public class TestTrello
 			//Thread.sleep(1000);
 			robot.clickOn("#dropdown").type(KeyCode.DOWN).type(KeyCode.ENTER);
 			robot.clickOn("#loadButton");
+//			Thread.sleep(1000);
+//			robot.clickOn("#listDropDown");
+//			Thread.sleep(1000);
+//			robot.clickOn("#addList");
+//			Thread.sleep(1000);
+//			robot.clickOn("#listDropDown");
+//			robot.clickOn("#moveList");
+//			robot.clickOn("#selectionBox").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+//			Thread.sleep(1000);
+//			robot.clickOn("#done");
+//			robot.clickOn("#selection2").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+//			robot.clickOn("#done2");
+//			Thread.sleep(1000);
+//			robot.clickOn("#listDropDown");
+//			Thread.sleep(1000);
+//			robot.clickOn("#reorderCard");
+//			Thread.sleep(1000);
+//			robot.clickOn("#reorderSelect").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+//			Thread.sleep(2000);
+//			robot.clickOn("#doneReorder");
+//			Thread.sleep(2000);
+//			robot.clickOn("#cardSelect").type(KeyCode.DOWN).type(KeyCode.ENTER);
+//			robot.clickOn("#doneSelecting");
+//			Thread.sleep(1000);
+//			robot.clickOn("#selectCombo").type(KeyCode.DOWN).type(KeyCode.ENTER);
+//			robot.clickOn("#moveWithCard");
+//			Thread.sleep(1000);
+//			robot.clickOn("#listDropDown");
+//			Thread.sleep(1000);
+//			robot.clickOn("#deleteList");
+//			Thread.sleep(1000);
+//			robot.clickOn("#listDeleteCombo").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+//			Thread.sleep(1000);
+//			robot.clickOn("#listDeleteDone");
+//			robot.clickOn("#listDropDown");
+//			Thread.sleep(1000);
+//			robot.clickOn("#listRename");
+//			Thread.sleep(1000);
+//			robot.clickOn("#renameCombo").type(KeyCode.DOWN).type(KeyCode.ENTER);
+//			robot.clickOn("#renameDone");
+//			robot.clickOn("#renameText");
+//			robot.write("Day 0");
+//			Thread.sleep(1000);
+//			robot.clickOn("#changeRename");
+//			Thread.sleep(1000);
+//			robot.clickOn("#cardDropDown");
+//			Thread.sleep(1000);
+//			robot.clickOn("#addCard");
+//			robot.clickOn("#addCardCombo").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+//			robot.clickOn("#addCardDone");
+//			robot.clickOn("#cardDropDown");
+//			robot.clickOn("#deleteCard");
+//			robot.clickOn("#deleteCardCombo").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+//			robot.clickOn("#deleteCardDone");
+//			robot.clickOn("#deleteAnotherCombo").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+//			robot.clickOn("#selectThat");
+//			robot.clickOn("#cardDropDown");
+//			robot.clickOn("#renameCard");
+//			robot.clickOn("#renameCardCombo").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+//			robot.clickOn("#renameDone");
+//			robot.clickOn("#nextSelectRename").type(KeyCode.DOWN).type(KeyCode.ENTER);
+//			robot.clickOn("#doneRenaming");
+//			robot.write("Third Card");
+//			robot.clickOn("#finallyDone");
+//			robot.clickOn("#cardDropDown");
+//			robot.clickOn("#moveNewList");
+//			robot.clickOn("#moveCardCombo").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+//			robot.clickOn("#moveCardButton");
+//			robot.clickOn("#comboFinal").type(KeyCode.DOWN).type(KeyCode.ENTER);
+//			robot.clickOn("#doneBtnCard");
+//			robot.clickOn("#selectLister").type(KeyCode.DOWN).type(KeyCode.ENTER);
+//			robot.clickOn("#btnChangeList");
+			robot.clickOn("#buttonReal");
+			//robot.clickOn(buttons)
 			//robot.clickOn(SelectionModel<String>.)
 			//robot.clickOn();
 			Thread.sleep(1000000000);

@@ -51,7 +51,7 @@ public class BoardConcrete implements Board, Serializable
 	String boardName;
 	User owner = new UserConcrete();
 	Set<User> members = new HashSet<User>();
-	ArrayList<ListN> lists;
+	ArrayList<ListN> lists = new ArrayList<ListN>();
 	
 	
 	

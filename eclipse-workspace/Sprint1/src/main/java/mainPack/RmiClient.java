@@ -91,6 +91,19 @@ public class RmiClient
 		
 		
 	}
+
+	public void saveBoard(BoardConcrete model)
+	{
+		try
+		{
+			r.save(model);
+		} catch (RemoteException e)
+		{
+			e.printStackTrace();
+			
+		}
+		
+	}
 	
 
 	

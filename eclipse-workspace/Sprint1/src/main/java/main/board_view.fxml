@@ -16,19 +16,21 @@
                   <MenuItem mnemonicParsing="false" onAction="#exitBoard" text="Exit Board" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Lists">
+          <Menu id="listDropDown" mnemonicParsing="false" text="Lists">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#addListClicked" text="Add" />
-                  <MenuItem mnemonicParsing="false" onAction="#moveListClicked" text="Move List" />
-                  <MenuItem mnemonicParsing="false" onAction="#deleteListClicked" text="Delete" />
-                  <MenuItem mnemonicParsing="false" onAction="#renameList" text="Rename" />
+              <MenuItem id="addList" mnemonicParsing="false" onAction="#addListClicked" text="Add" />
+                  <MenuItem id="moveList" mnemonicParsing="false" onAction="#moveListClicked" text="Move List" />
+                  <MenuItem id="reorderCard" mnemonicParsing="false" onAction="#reorderCardClicked" text="Reorder Card" />
+                  <MenuItem id="deleteList" mnemonicParsing="false" onAction="#deleteListClicked" text="Delete" />
+                  <MenuItem id="listRename" mnemonicParsing="false" onAction="#renameList" text="Rename" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="Cards">
+            <Menu id="cardDropDown" mnemonicParsing="false" text="Cards">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#addCardClicked" text="Add" />
-                  <MenuItem mnemonicParsing="false" onAction="#deleteCardClicked" text="Delete" />
-                  <MenuItem mnemonicParsing="false" onAction="#renameCardClicked" text="Rename" />
+                <MenuItem id="addCard" mnemonicParsing="false" onAction="#addCardClicked" text="Add" />
+                  <MenuItem id="deleteCard" mnemonicParsing="false" onAction="#deleteCardClicked" text="Delete" />
+                  <MenuItem id="renameCard" mnemonicParsing="false" onAction="#renameCardClicked" text="Rename" />
+                  <MenuItem id="moveNewList" mnemonicParsing="false" onAction="#moveCardClicked" text="Move card (New List)" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Members">

@@ -207,12 +207,14 @@ public class RmiServer extends UnicastRemoteObject implements RmiInterface
 			
 			BoardConcrete b = (BoardConcrete) board;
 			
-			boards.replace((int) b.getSerialversionuid(), b);
+			this.boards.replace((int) b.getSerialversionuid(), b);
 			b.save();
+
 		}
 		
-		public static void save(Board b) {
+		public Board save(Board b) {
 			b.storeToDisk();
+			return null;
 		}
 		
 //		public Boolean login(String username, String password) {

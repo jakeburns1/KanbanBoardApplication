@@ -105,7 +105,7 @@ class ServerTest
 		//assertEquals(board,client.getBoard((int) board.getSerialversionuid()));
 		
 		board.updateBoardName("pablo");
-		client.updateBoard(board);
+		//client.updateBoard(board);
 		//System.out.println(board.getUnique());
 		//assertEquals(board.getBoardName(), client.getBoard(board.getUnique()).getBoardName());
 		//client.getBoard(board.getUnique());
