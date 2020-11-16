@@ -1,5 +1,6 @@
 package views;
 
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
@@ -28,7 +29,7 @@ public class TestTrello
 	RmiServer server;
 	AnchorPane pane;
 	Scene s;
-	int port = 3200;
+	int port = 3239;
 	
 	@Start
 	public void start(Stage stage) throws Exception
@@ -59,7 +60,7 @@ public class TestTrello
 	}
 
 	@Test
-	public void testButton(FxRobot robot) {
+	public void testLogin(FxRobot robot) {
 		
 		try
 		{
@@ -69,53 +70,90 @@ public class TestTrello
 			robot.clickOn("#passwordField");
 			robot.write("centre1234");
 			robot.clickOn("#loginButton");
-			Thread.sleep(1000);
-			robot.clickOn("#dropdown").type(KeyCode.DOWN).type(KeyCode.ENTER);
-			robot.clickOn("#loadButton");
-			Thread.sleep(1000);
-			robot.clickOn("#listDropDown");
-			Thread.sleep(1000);
-			robot.clickOn("#addList");
-			Thread.sleep(1000);
-			robot.clickOn("#listDropDown");
-			robot.clickOn("#moveList");
-			robot.clickOn("#selectionBox").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
-			Thread.sleep(1000);
-			robot.clickOn("#done");
-			robot.clickOn("#selection2").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
-			robot.clickOn("#done2");
-			Thread.sleep(1000);
-			robot.clickOn("#listDropDown");
-			Thread.sleep(1000);
-			robot.clickOn("#reorderCard");
-			Thread.sleep(1000);
-			robot.clickOn("#reorderSelect").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
-			Thread.sleep(2000);
-			robot.clickOn("#doneReorder");
-			Thread.sleep(2000);
-			robot.clickOn("#cardSelect").type(KeyCode.DOWN).type(KeyCode.ENTER);
-			robot.clickOn("#doneSelecting");
-			Thread.sleep(1000);
-			robot.clickOn("#selectCombo").type(KeyCode.DOWN).type(KeyCode.ENTER);
-			robot.clickOn("#moveWithCard");
-			Thread.sleep(1000);
-			robot.clickOn("#listDropDown");
-			Thread.sleep(1000);
-			robot.clickOn("#deleteList");
-			Thread.sleep(1000);
-			robot.clickOn("#listDeleteCombo").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
-			Thread.sleep(1000);
-			robot.clickOn("#listDeleteDone");
-			robot.clickOn("#listDropDown");
-			Thread.sleep(1000);
-			robot.clickOn("#listRename");
-			Thread.sleep(1000);
-			robot.clickOn("#renameCombo").type(KeyCode.DOWN).type(KeyCode.ENTER);
-			robot.clickOn("#renameDone");
-			robot.clickOn("#renameText");
-			robot.write("Day 0");
-			Thread.sleep(1000);
-			robot.clickOn("#changeRename");
+			
+			testLoadBoard(robot);
+			testListFunctions(robot);
+			testCardFuncs(robot);
+			testIndvidualCards(robot);
+			testMemberDropDown(robot);
+			testSaveAndExit(robot);
+			testCreateNewBoard(robot);
+			testRenameBoard(robot);
+			testDeleteBoard(robot);
+			
+			//Thread.sleep(1000);
+			//Thread.sleep(1000000000);
+			
+		} catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 //Label test = robot.lookup("#label").queryAs(Label.class);
+		//Assertions.assertThat(robot.lookup("#label").queryAs(Label.class)).hasText("1");
+
+	}
+
+	public void testLoadBoard(FxRobot robot) {
+		
+		robot.clickOn("#dropdown").type(KeyCode.DOWN).type(KeyCode.ENTER);
+		robot.clickOn("#loadButton");
+	}
+	
+	
+	public void testListFunctions(FxRobot robot) {
+	try {
+	robot.clickOn("#listDropDown");
+	Thread.sleep(1000);
+	robot.clickOn("#addList");
+	Thread.sleep(1000);
+	robot.clickOn("#listDropDown");
+	robot.clickOn("#moveList");
+	robot.clickOn("#selectionBox").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+	Thread.sleep(1000);
+	robot.clickOn("#done");
+	robot.clickOn("#selection2").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+	robot.clickOn("#done2");
+	Thread.sleep(1000);
+	robot.clickOn("#listDropDown");
+	Thread.sleep(1000);
+	robot.clickOn("#reorderCard");
+	Thread.sleep(1000);
+	robot.clickOn("#reorderSelect").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+	Thread.sleep(2000);
+	robot.clickOn("#doneReorder");
+	Thread.sleep(2000);
+	robot.clickOn("#cardSelect").type(KeyCode.DOWN).type(KeyCode.ENTER);
+	robot.clickOn("#doneSelecting");
+	Thread.sleep(1000);
+	robot.clickOn("#selectCombo").type(KeyCode.DOWN).type(KeyCode.ENTER);
+	robot.clickOn("#moveWithCard");
+	Thread.sleep(1000);
+	robot.clickOn("#listDropDown");
+	Thread.sleep(1000);
+	robot.clickOn("#deleteList");
+	Thread.sleep(1000);
+	robot.clickOn("#listDeleteCombo").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+	Thread.sleep(1000);
+	robot.clickOn("#listDeleteDone");
+	robot.clickOn("#listDropDown");
+	Thread.sleep(1000);
+	robot.clickOn("#listRename");
+	Thread.sleep(1000);
+	robot.clickOn("#renameCombo").type(KeyCode.DOWN).type(KeyCode.ENTER);
+	robot.clickOn("#renameDone");
+	robot.clickOn("#renameText");
+	robot.write("Day 0");
+	Thread.sleep(1000);
+	robot.clickOn("#changeRename");
+	}
+	catch(Exception e) {
+		
+	}
+	}
+
+	public void testCardFuncs(FxRobot robot) {
+		try {
 			Thread.sleep(1000);
 			robot.clickOn("#cardDropDown");
 			Thread.sleep(1000);
@@ -143,6 +181,13 @@ public class TestTrello
 			robot.clickOn("#comboFinal").type(KeyCode.DOWN).type(KeyCode.ENTER);
 			robot.clickOn("#doneBtnCard");
 			robot.clickOn("#selectLister").type(KeyCode.DOWN).type(KeyCode.ENTER);
+		}
+		catch(Exception e) {
+			
+		}
+	}
+	public void testIndvidualCards(FxRobot robot) {
+		try {
 			robot.clickOn("#btnChangeList");
 			robot.clickOn("#buttonReal");
 			robot.clickOn("#editLabelButton");
@@ -181,6 +226,14 @@ public class TestTrello
 			robot.clickOn("#addCheck");
 			robot.clickOn("#deleteCheck");
 			robot.clickOn("#doneMain");
+		}
+		catch(Exception e) {
+			
+		}
+	}
+
+	public void testMemberDropDown(FxRobot robot) {
+		try {
 			robot.clickOn("#members");
 			robot.clickOn("#addMember");
 			robot.clickOn("#addMemberText");
@@ -200,31 +253,67 @@ public class TestTrello
 			robot.clickOn("#removeText");
 			robot.write("jakeburns");
 			robot.clickOn("#removeMember1");
+		}
+		catch(Exception e) {
+			
+		}
+	}
+	
+	public void testSaveAndExit(FxRobot robot) {
+		try {
 			robot.clickOn("#fileDropDown");
-			robot.clickOn("#saveBoard");
-			robot.clickOn("#fileDropDown");
-			robot.clickOn("#exitBoard");
+		robot.clickOn("#saveBoard");
+		robot.clickOn("#fileDropDown");
+		robot.clickOn("#exitBoard");
+			
+		}
+		catch(Exception e) {
+			
+			
+			
+		}
+	}
+
+	public void testCreateNewBoard(FxRobot robot) {
+		try {
 			robot.clickOn("#createBoard");
 			robot.clickOn("#fileDropDown");
 			robot.clickOn("#saveBoard");
 			robot.clickOn("#fileDropDown");
 			robot.clickOn("#exitBoard");
-			
-			
-
-			//robot.clickOn(buttons)
-			//robot.clickOn(SelectionModel<String>.)
-			//robot.clickOn();
-			Thread.sleep(1000000000);
-			
-		} catch (InterruptedException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		 //Label test = robot.lookup("#label").queryAs(Label.class);
-		//Assertions.assertThat(robot.lookup("#label").queryAs(Label.class)).hasText("1");
-
+		catch(Exception e) {
+			
+		}
 	}
 	
+	public void testRenameBoard(FxRobot robot) {
+		try {
+			robot.clickOn("#dropdown").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+			robot.clickOn("#loadButton");
+			robot.clickOn("#fileDropDown");
+			robot.clickOn("#renameBoard");
+			robot.clickOn("#renameTextBoard");
+			robot.write("Bradshaw's Board");
+			robot.clickOn("#changeRenameBoard");
+			robot.clickOn("#fileDropDown");
+			robot.clickOn("#exitBoard");
+		
+		}
+		catch(Exception e) {
+			
+		}
+	}
+	public void testDeleteBoard(FxRobot robot) {
+		try {
+			robot.clickOn("#dropdown").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+			robot.clickOn("#loadButton");
+			robot.clickOn("#fileDropDown");
+			robot.clickOn("#deleteBoard");
+			robot.clickOn("#dropdown");
+		}
+		catch(Exception e) {
+			
+		}
+	}
 }

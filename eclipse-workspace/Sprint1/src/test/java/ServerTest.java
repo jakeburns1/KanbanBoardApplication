@@ -67,7 +67,7 @@ class ServerTest
 		members.add(jake);
 		members.add(bob);
 		jake.createBoard("test board 1", jake, members, lists);
-		jake.createBoard("test board 2", jake, members, null);
+		//jake.createBoard("test board 2", jake, members, null);
 		bob.createBoard("test board 3", bob, members, null);
 		jake.setPassword("centre1234");
 		jake.setUsername("jakeburns");
@@ -77,7 +77,7 @@ class ServerTest
 		
 		testCard = new CardConcrete("Test card", labels, members, components);
 		testCard2 = new CardConcrete("Second card", labels2, members, components2);
-		testCard3 = new CardConcrete("thiird card", labels3, members, components3);
+		testCard3 = new CardConcrete("thiiird card", labels3, members, components3);
 
 		list.addCards(testCard);
 		list.addCards(testCard2);

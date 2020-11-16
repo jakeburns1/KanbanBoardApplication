@@ -19,6 +19,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import mainPack.Board;
 import mainPack.BoardConcrete;
@@ -213,15 +215,15 @@ public class BoardController
 	@FXML
 	void saveBoard(ActionEvent event)
 	{
-		
+
 		client.createBoard("New Board", u);
-		
+
 	}
 
 	@FXML
 	void exitBoard(ActionEvent event)
 	{
-		//System.out.println(model.getOwner().getUsername());
+		// System.out.println(model.getOwner().getUsername());
 		modelg.showSelectionScreen(u, client, s, scene, modelg);
 	}
 
@@ -782,10 +784,11 @@ public class BoardController
 
 		});
 	}
-	
-    @FXML
-    void addMember(ActionEvent event) {
-    	Stage dialog3 = new Stage();
+
+	@FXML
+	void addMember(ActionEvent event)
+	{
+		Stage dialog3 = new Stage();
 		VBox dialogVbox3 = new VBox(20);
 		TextField textfield = new TextField();
 		textfield.setId("addMemberText");
@@ -795,38 +798,38 @@ public class BoardController
 		dialogVbox3.getChildren().add(textfield);
 		dialogVbox3.getChildren().add(doneButton3);
 		Scene dialogScene3 = new Scene(dialogVbox3, 300, 200);
-	
+
 		dialog3.setScene(dialogScene3);
 		dialog3.show();
-		
+
 		doneButton3.setOnAction(new EventHandler<ActionEvent>()
 		{
 
 			@Override
 			public void handle(ActionEvent e)
 			{
-				
-				
-				if(client.checkUsernamePassword(textfield.getText(), "centre1234")!=null){
-					
+
+				if (client.checkUsernamePassword(textfield.getText(), "centre1234") != null)
+				{
+
 					model.addMember(client.checkUsernamePassword(textfield.getText(), "centre1234"));
 					client.updateBoard(model);
 					textfield.setText("User added!");
-		
-				}
-				else {
+
+				} else
+				{
 					textfield.setText("No user found");
 				}
-				
+
 			}
 
 		});
-    }
-    
+	}
 
-    @FXML
-    void removeMember(ActionEvent event) {
-    	Stage dialog3 = new Stage();
+	@FXML
+	void removeMember(ActionEvent event)
+	{
+		Stage dialog3 = new Stage();
 		VBox dialogVbox3 = new VBox(20);
 		TextField textfield = new TextField();
 		textfield.setId("removeText");
@@ -836,34 +839,70 @@ public class BoardController
 		dialogVbox3.getChildren().add(textfield);
 		dialogVbox3.getChildren().add(doneButton3);
 		Scene dialogScene3 = new Scene(dialogVbox3, 300, 200);
-	
+
 		dialog3.setScene(dialogScene3);
 		dialog3.show();
-		
+
 		doneButton3.setOnAction(new EventHandler<ActionEvent>()
 		{
 
 			@Override
 			public void handle(ActionEvent e)
 			{
-				
-				
-				if(client.checkUsernamePassword(textfield.getText(), "centre1234")!=null){
-					
+
+				if (client.checkUsernamePassword(textfield.getText(), "centre1234") != null)
+				{
+
 					model.removeMember(client.checkUsernamePassword(textfield.getText(), "centre1234"));
 					client.updateBoard(model);
 					textfield.setText("User removed!");
-		
-				}
-				else {
+
+				} else
+				{
 					textfield.setText("No user found");
 				}
-				
+
 			}
 
 		});
-    }
+	}
 
+	@FXML
+	void renameBoard(ActionEvent event)
+	{
+		Stage dialog2 = new Stage();
+		VBox dialogVbox2 = new VBox(20);
+		TextField textfield = new TextField();
+		textfield.setId("renameTextBoard");
+		Button changeButton = new Button("Change Board Name");
+		changeButton.setId("changeRenameBoard");
+		Scene dialogScene2 = new Scene(dialogVbox2, 300, 200);
+		// Label label = new Label(textfield.getText());
+		dialogVbox2.getChildren().add(textfield);
+		dialogVbox2.getChildren().add(changeButton);
+		dialog2.setScene(dialogScene2);
+		dialog2.show();
+
+		changeButton.setOnAction(new EventHandler<ActionEvent>()
+		{
+
+			@Override
+			public void handle(ActionEvent e)
+			{
+				model.updateBoardName(textfield.getText());
+				client.updateBoard(model);
+				dialog2.close();
+			}
+		
+		});
+	}
+
+	 @FXML
+	    void deleteCurrentBoard(ActionEvent event) {
+		 	u.deleteBoard(model);
+		 	saveBoard(event);
+		 	exitBoard(event);
+	    }
 	public void setModel(Stage s, Scene scene, RmiClient client, BoardConcrete selectedBoard, BorderPane pane,
 			LoginModel modelg, User u)
 	{
@@ -882,13 +921,18 @@ public class BoardController
 			for (ListN l : lists)
 			{
 				VBox vbox = new VBox();
+				vbox.setStyle("-fx-border-color:red;");
 				mainHBox.getChildren().add(vbox);
 				Label label = new Label(l.getListName());
+				label.setStyle("-fx-border-color:red; -fx-background-color: black -fx-;");
+				label.setFont(Font.font(20));
+				label.setTextFill(Paint.valueOf("white"));
 				vbox.getChildren().add(label);
 				System.out.println("reached + " + l.getCards());
 				for (Card c : l.getCards())
 				{
 					Button b = new Button(c.getCardName());
+					b.setPrefWidth(vbox.getPrefWidth());
 					b.setId("buttonReal");
 					vbox.getChildren().add(b);
 					b.setOnAction(new EventHandler<ActionEvent>()

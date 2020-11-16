@@ -14,6 +14,8 @@
             <items>
               <MenuItem id="saveBoard" mnemonicParsing="false" onAction="#saveBoard" text="Save Board" />
                   <MenuItem id="exitBoard" mnemonicParsing="false" onAction="#exitBoard" text="Exit Board" />
+                  <MenuItem id="renameBoard" mnemonicParsing="false" onAction="#renameBoard" text="Rename Board" />
+                  <MenuItem id="deleteBoard" mnemonicParsing="false" onAction="#deleteCurrentBoard" text="Delete Board" />
             </items>
           </Menu>
           <Menu id="listDropDown" mnemonicParsing="false" text="Lists">

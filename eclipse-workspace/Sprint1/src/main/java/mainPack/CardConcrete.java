@@ -137,7 +137,7 @@ public class CardConcrete implements Card, Serializable
 				array.add(c);
 			}
 			else {
-				return null;
+				
 			}
 		}
 		}

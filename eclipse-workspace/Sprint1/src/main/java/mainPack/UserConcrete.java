@@ -169,6 +169,7 @@ public class UserConcrete implements User, Serializable
 	public void setPassword(String password)
 	{
 		this.password = password;
+		
 	}
 
 	public void storeToDisk() {
@@ -224,6 +225,9 @@ public boolean shallowEquals(User a) {
 		return board;
 	}
 
+	public void deleteBoard(Board b) {
+		board.remove(b);
+	}
 
 
 	/**

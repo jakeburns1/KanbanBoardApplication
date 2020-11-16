@@ -21,4 +21,5 @@ public interface User extends Serializable
 	public boolean shallowEquals(User a);
 	public long getSerialversionuid();
 	public String getUnique();
+	public void deleteBoard(Board b);
 }
