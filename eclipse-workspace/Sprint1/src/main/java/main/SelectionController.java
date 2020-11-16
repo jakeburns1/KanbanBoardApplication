@@ -70,7 +70,7 @@ public class SelectionController
 	    @FXML
 	    void loadBoardButton(ActionEvent event) {
 	    	BoardConcrete selectedBoard = (BoardConcrete) boards.get(data.indexOf(dropDownField.getValue()));
-	    	client.getBoard("Server");
+	    	//client.getBoard("Server");
 	    	selectedBoard.showBoardScreen(s, scene, selectedBoard, client, modelg, model);
 	    	//System.out.println(selectedBoard);
 	    }

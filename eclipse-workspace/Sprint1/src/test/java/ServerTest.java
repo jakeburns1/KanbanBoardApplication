@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -29,6 +30,7 @@ class ServerTest
 	//Board board= new BoardConcrete("Jake's Server Board",);
 	User jake;
 	User bob;
+	User newUser;
 	Board board;
 	
 	ListConcrete list;
@@ -103,6 +105,11 @@ class ServerTest
 	@Test
 	void test() throws RemoteException
 	{
+		
+		String username = UUID.randomUUID().toString();
+		newUser = new UserConcrete();
+		newUser.setUsername(username);
+		newUser.setPassword("test");
 		client.createBoard("banana", jake);
 		//client.createBoard("a", bob);
 		//bob.storeToDisk();
@@ -112,7 +119,9 @@ class ServerTest
 		assertNotNull(client.checkUsernamePassword("jakeburns", "centre1234"));
 		//assertEquals(board,client.getBoard((int) board.getSerialversionuid()));
 		
-		board.updateBoardName("pablo");
+		board.updateBoardName("pabloo");
+		client.updateBoard(board);
+		assertEquals("pabloo",board.getBoardName());
 		//client.updateBoard(board);
 		//System.out.println(board.getUnique());
 		//assertEquals(board.getBoardName(), client.getBoard(board.getUnique()).getBoardName());

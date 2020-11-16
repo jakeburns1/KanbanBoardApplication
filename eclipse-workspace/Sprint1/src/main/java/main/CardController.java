@@ -68,6 +68,7 @@ public class CardController
     @FXML
     void doneClicked(ActionEvent event) {
     	model.showBoardScreen(s, scene, model, client, modelg, u);
+    	client.updateBoard(model);
     }
 
     @FXML
@@ -110,6 +111,7 @@ public class CardController
 		    	
 		    	checklist.setChecked(checked);
 		    	card.addComponent(checklist);
+		    	client.updateBoard(model);
 		    }
 	 		});
         deleteButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -140,6 +142,7 @@ public class CardController
 		    	
 		    	checklist.setChecked(checked);
 		    	card.deleteComponent(checklist);
+		    	client.updateBoard(model);
 		    	}
 		    	else {
 		    		
@@ -178,7 +181,6 @@ public class CardController
  		       Component description = new DescriptionComponent(textfield.getText());
  		       card.addComponent(description);
  		       dialog.close();
- 		       card.storeToDisk();
  		       client.updateBoard(model);
  		    }
  		});
@@ -208,7 +210,7 @@ public class CardController
 		    	data.add(textfield.getText());
 		    	listView.setItems(data);
 		    	card.createLabel(textfield.getText());
-		    	card.storeToDisk();
+		    	client.updateBoard(model);
 		    }
 	 		});
         deleteButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -217,7 +219,7 @@ public class CardController
 		    	data.remove(textfield.getText());
 		    	listView.setItems(data);
 		    	card.deleteLabel(textfield.getText());
-		    	card.storeToDisk();
+		    	client.updateBoard(model);
 		    	}
 		    	else {
 		    		
@@ -244,6 +246,7 @@ public class CardController
 		    @Override public void handle(ActionEvent e) {
 		    	nameLabel.setText(textfield.getText());
 		    	card.setCardName(textfield.getText());
+		    	client.updateBoard(model);
 		    	dialog.close();
 		    }
 	 		});

@@ -95,6 +95,7 @@ public class BoardController
 				members.add(model.getOwner());
 				newCard.setCardName("Click to set!");
 				selectedList.addCards(newCard);
+				client.updateBoard(model);
 				model.showBoardScreen(s, scene, model, client, modelg, u);
 
 				Button b = new Button(newCard.getCardName());
@@ -194,6 +195,7 @@ public class BoardController
 					public void handle(ActionEvent e)
 					{
 						selectedList.updateName(textfield.getText());
+						client.updateBoard(model);
 						model.showBoardScreen(s, scene, model, client, modelg, u);
 						// sp.set(textfield.getText());
 
@@ -211,14 +213,15 @@ public class BoardController
 	@FXML
 	void saveBoard(ActionEvent event)
 	{
-		client.updateBoard(model);
-
+		
+		client.createBoard("New Board", u);
+		
 	}
 
 	@FXML
 	void exitBoard(ActionEvent event)
 	{
-		System.out.println(model.getOwner().getUsername());
+		//System.out.println(model.getOwner().getUsername());
 		modelg.showSelectionScreen(u, client, s, scene, modelg);
 	}
 
@@ -227,6 +230,7 @@ public class BoardController
 	{
 		ListN list = new ListConcrete("new list");
 		model.addList(list);
+		client.updateBoard(model);
 		model.showBoardScreen(s, scene, model, client, modelg, u);
 
 	}
@@ -263,6 +267,7 @@ public class BoardController
 			{
 				selectedList = (ListN) model.getLists().get(data.indexOf(selection.getValue()));
 				model.deleteList(selectedList);
+				client.updateBoard(model);
 				model.showBoardScreen(s, scene, model, client, modelg, u);
 
 				dialog.close();
@@ -339,6 +344,7 @@ public class BoardController
 						selectedCard = selectedList.getCards().get(data2.indexOf(selection2.getValue()));
 
 						selectedList.removeCard(selectedCard);
+						client.updateBoard(model);
 						model.showBoardScreen(s, scene, model, client, modelg, u);
 
 						dialog2.close();
@@ -442,6 +448,7 @@ public class BoardController
 							{
 
 								selectedCard.setCardName(textfield.getText());
+								client.updateBoard(model);
 								model.showBoardScreen(s, scene, model, client, modelg, u);
 								dialog2.close();
 
@@ -526,6 +533,7 @@ public class BoardController
 						dialog2.close();
 
 						model.reorderList(selectedList, data.indexOf(selection2.getValue()));
+						client.updateBoard(model);
 						model.showBoardScreen(s, scene, model, client, modelg, u);
 
 						// model.reorderList(selectedList2, data.indexOf(selection.getValue()));
@@ -645,6 +653,7 @@ public class BoardController
 								selectedCard2 = selectedList.getCards().get(data3.indexOf(selection3.getValue()));
 
 								selectedList.reorderCard(selectedCard, data2.indexOf(selection3.getValue()));
+								client.updateBoard(model);
 								model.showBoardScreen(s, scene, model, client, modelg, u);
 
 							}
@@ -760,6 +769,7 @@ public class BoardController
 								selectedList2 = model.getLists().get(data3.indexOf(selection3.getValue()));
 
 								selectedList.moveCard(selectedCard, selectedList2, 0);
+								client.updateBoard(model);
 								model.showBoardScreen(s, scene, model, client, modelg, u);
 							}
 
@@ -800,6 +810,7 @@ public class BoardController
 				if(client.checkUsernamePassword(textfield.getText(), "centre1234")!=null){
 					
 					model.addMember(client.checkUsernamePassword(textfield.getText(), "centre1234"));
+					client.updateBoard(model);
 					textfield.setText("User added!");
 		
 				}
@@ -840,6 +851,7 @@ public class BoardController
 				if(client.checkUsernamePassword(textfield.getText(), "centre1234")!=null){
 					
 					model.removeMember(client.checkUsernamePassword(textfield.getText(), "centre1234"));
+					client.updateBoard(model);
 					textfield.setText("User removed!");
 		
 				}
@@ -885,6 +897,7 @@ public class BoardController
 						public void handle(ActionEvent e)
 						{
 							model.showCardView(s, scene, c, client, model, u, modelg);
+							client.updateBoard(model);
 
 						}
 					});
