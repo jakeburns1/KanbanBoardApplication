@@ -10,10 +10,10 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu id="fileDropDown" mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#saveBoard" text="Save Board" />
-                  <MenuItem mnemonicParsing="false" onAction="#exitBoard" text="Exit Board" />
+              <MenuItem id="saveBoard" mnemonicParsing="false" onAction="#saveBoard" text="Save Board" />
+                  <MenuItem id="exitBoard" mnemonicParsing="false" onAction="#exitBoard" text="Exit Board" />
             </items>
           </Menu>
           <Menu id="listDropDown" mnemonicParsing="false" text="Lists">
@@ -33,10 +33,10 @@
                   <MenuItem id="moveNewList" mnemonicParsing="false" onAction="#moveCardClicked" text="Move card (New List)" />
               </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Members">
+            <Menu id="members" mnemonicParsing="false" text="Members">
               <items>
-                <MenuItem mnemonicParsing="false" text="Add Member" />
-                  <MenuItem mnemonicParsing="false" text="Remove Member" />
+                <MenuItem id="addMember" mnemonicParsing="false" onAction="#addMember" text="Add Member" />
+                  <MenuItem id="removeMember" mnemonicParsing="false" onAction="#removeMember" text="Remove Member" />
               </items>
             </Menu>
         </menus>

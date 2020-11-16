@@ -28,6 +28,7 @@ class ServerTest
 	
 	//Board board= new BoardConcrete("Jake's Server Board",);
 	User jake;
+	User bob;
 	Board board;
 	
 	ListConcrete list;
@@ -60,11 +61,16 @@ class ServerTest
 		labels3 = new HashSet<String>();
 		
 		jake = new UserConcrete();
+		bob = new UserConcrete();
 		members.add(jake);
+		members.add(bob);
 		jake.createBoard("test board 1", jake, members, lists);
 		jake.createBoard("test board 2", jake, members, null);
+		bob.createBoard("test board 3", bob, members, null);
 		jake.setPassword("centre1234");
 		jake.setUsername("jakeburns");
+		bob.setPassword("centre1234");
+		bob.setUsername("bob");
 		board = jake.getBoards().get(0);
 		
 		testCard = new CardConcrete("Test card", labels, members, components);
@@ -98,6 +104,8 @@ class ServerTest
 	void test() throws RemoteException
 	{
 		client.createBoard("banana", jake);
+		//client.createBoard("a", bob);
+		//bob.storeToDisk();
 		//client.updateBoard(board);
 		//fail("Not yet implemented");
 		//server.loadBoardFromDisk();

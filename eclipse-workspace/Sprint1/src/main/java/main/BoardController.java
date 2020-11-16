@@ -772,6 +772,85 @@ public class BoardController
 
 		});
 	}
+	
+    @FXML
+    void addMember(ActionEvent event) {
+    	Stage dialog3 = new Stage();
+		VBox dialogVbox3 = new VBox(20);
+		TextField textfield = new TextField();
+		textfield.setId("addMemberText");
+		Button doneButton3 = new Button("add member by username");
+		doneButton3.setId("addUsername");
+		// Label label = new Label(textfield.getText());
+		dialogVbox3.getChildren().add(textfield);
+		dialogVbox3.getChildren().add(doneButton3);
+		Scene dialogScene3 = new Scene(dialogVbox3, 300, 200);
+	
+		dialog3.setScene(dialogScene3);
+		dialog3.show();
+		
+		doneButton3.setOnAction(new EventHandler<ActionEvent>()
+		{
+
+			@Override
+			public void handle(ActionEvent e)
+			{
+				
+				
+				if(client.checkUsernamePassword(textfield.getText(), "centre1234")!=null){
+					
+					model.addMember(client.checkUsernamePassword(textfield.getText(), "centre1234"));
+					textfield.setText("User added!");
+		
+				}
+				else {
+					textfield.setText("No user found");
+				}
+				
+			}
+
+		});
+    }
+    
+
+    @FXML
+    void removeMember(ActionEvent event) {
+    	Stage dialog3 = new Stage();
+		VBox dialogVbox3 = new VBox(20);
+		TextField textfield = new TextField();
+		textfield.setId("removeText");
+		Button doneButton3 = new Button("delete member by username");
+		doneButton3.setId("removeMember1");
+		// Label label = new Label(textfield.getText());
+		dialogVbox3.getChildren().add(textfield);
+		dialogVbox3.getChildren().add(doneButton3);
+		Scene dialogScene3 = new Scene(dialogVbox3, 300, 200);
+	
+		dialog3.setScene(dialogScene3);
+		dialog3.show();
+		
+		doneButton3.setOnAction(new EventHandler<ActionEvent>()
+		{
+
+			@Override
+			public void handle(ActionEvent e)
+			{
+				
+				
+				if(client.checkUsernamePassword(textfield.getText(), "centre1234")!=null){
+					
+					model.removeMember(client.checkUsernamePassword(textfield.getText(), "centre1234"));
+					textfield.setText("User removed!");
+		
+				}
+				else {
+					textfield.setText("No user found");
+				}
+				
+			}
+
+		});
+    }
 
 	public void setModel(Stage s, Scene scene, RmiClient client, BoardConcrete selectedBoard, BorderPane pane,
 			LoginModel modelg, User u)

@@ -59,7 +59,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#createNewBoard" text="Create new board">
+                  <Button id="createBoard" mnemonicParsing="false" onAction="#createNewBoard" text="Create new board">
                      <HBox.margin>
                         <Insets left="250.0" />
                      </HBox.margin>

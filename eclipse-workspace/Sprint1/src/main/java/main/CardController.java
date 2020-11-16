@@ -67,25 +67,6 @@ public class CardController
 
     @FXML
     void doneClicked(ActionEvent event) {
-    	
-    	
-//    	
-//    		for(CheckBox boxer: boxesArray) {
-//    			if(boxer.isSelected()) {
-//    				checked.add(boxer.getText());
-//    				System.out.println(boxer.getText() + " is checked");
-//    			}
-//    			else {
-//    				System.out.println("not checkde");
-//    			}
-//    		}
-    	
-    	
-    	
-//    	if()
-//    	else {
-//    		System.out.println("Boxes null");
-//    	}
     	model.showBoardScreen(s, scene, model, client, modelg, u);
     }
 
@@ -95,10 +76,15 @@ public class CardController
     	Stage dialog = new Stage();
         VBox dialogVbox = new VBox(20);
         TextField textfield = new TextField();
+        textfield.setId("textfieldChecklist");
         Button addButton = new Button("Add Item");
+        addButton.setId("addCheck");
+        Button deleteButton = new Button("Delete Item");
+        deleteButton.setId("deleteCheck");
         //Label label = new Label(textfield.getText());
         dialogVbox.getChildren().add(textfield);
         dialogVbox.getChildren().add(addButton);
+        dialogVbox.getChildren().add(deleteButton);
         Scene dialogScene = new Scene(dialogVbox, 300, 200);
         dialog.setScene(dialogScene);
         dialog.show();
@@ -126,6 +112,40 @@ public class CardController
 		    	card.addComponent(checklist);
 		    }
 	 		});
+        deleteButton.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		    	//CheckBox cb = new CheckBox(textfield.getText());
+		    	
+		    	if (items.contains(textfield.getText())) {
+		    	items.remove(textfield.getText());
+		    	
+		    	//checkListBox.getChildren().add(1, cb);
+		    	
+		    	
+		    	
+		    	checklist.setItems(items);
+		    	for (CheckBox c: boxesArray) {
+		    		if (c.getText().equals(textfield.getText()))
+		    			checkListBox.getChildren().remove(c);
+		    		boxesArray.remove(c);
+		    		break;
+		    	}
+		    	
+		    	//card.addComponent(checklist);
+
+		   
+		    
+		    		checked.remove(textfield.getText());
+		    	
+		    	
+		    	checklist.setChecked(checked);
+		    	card.deleteComponent(checklist);
+		    	}
+		    	else {
+		    		
+		    	}
+		    }
+	 		});
     }
 
     @FXML
@@ -134,7 +154,9 @@ public class CardController
     	Stage dialog = new Stage();
         VBox dialogVbox = new VBox(20);
         TextField textfield = new TextField();
+        textfield.setId("textDescription");
         Button doneButton = new Button("Done");
+        doneButton.setId("doneDes");
         dialogVbox.getChildren().add(textfield);
         dialogVbox.getChildren().add(doneButton);
         Scene dialogScene = new Scene(dialogVbox, 300, 200);
@@ -169,10 +191,15 @@ public class CardController
     	Stage dialog = new Stage();
         VBox dialogVbox = new VBox(20);
         TextField textfield = new TextField();
+        textfield.setId("labelTextField");
         Button addButton = new Button("Add Label");
+        addButton.setId("addLabelBtnn");
+        Button deleteButton = new Button("Delete Label");
+        deleteButton.setId("deleteButtonLabel");
         Label label = new Label(textfield.getText());
         dialogVbox.getChildren().add(textfield);
         dialogVbox.getChildren().add(addButton);
+        dialogVbox.getChildren().add(deleteButton);
         Scene dialogScene = new Scene(dialogVbox, 300, 200);
         dialog.setScene(dialogScene);
         dialog.show();
@@ -184,7 +211,19 @@ public class CardController
 		    	card.storeToDisk();
 		    }
 	 		});
-        
+        deleteButton.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		    	if(data.contains(textfield.getText())) {
+		    	data.remove(textfield.getText());
+		    	listView.setItems(data);
+		    	card.deleteLabel(textfield.getText());
+		    	card.storeToDisk();
+		    	}
+		    	else {
+		    		
+		    	}
+		    }
+	 		});
     }
 
     @FXML
@@ -192,7 +231,9 @@ public class CardController
     	Stage dialog = new Stage();
         VBox dialogVbox = new VBox(20);
         TextField textfield = new TextField();
+        textfield.setId("textfieldEditName");
         Button doneButton = new Button("Done");
+        doneButton.setId("doneBtnName");
         Label label = new Label(textfield.getText());
         dialogVbox.getChildren().add(textfield);
         dialogVbox.getChildren().add(doneButton);

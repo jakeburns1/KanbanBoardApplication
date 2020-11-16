@@ -21,7 +21,7 @@
                </font>
             </Label>
             <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" />
-            <Button mnemonicParsing="false" onAction="#editLabelsClicked" text="Edit Labels">
+            <Button id="editLabelButton" mnemonicParsing="false" onAction="#editLabelsClicked" text="Edit Labels">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
@@ -43,7 +43,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" onAction="#editCheckListClicked" text="Edit Checklist">
+            <Button id="editCheck" mnemonicParsing="false" onAction="#editCheckListClicked" text="Edit Checklist">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
@@ -65,7 +65,7 @@
                   <Insets left="60.0" />
                </VBox.margin>
             </Label>
-            <Button mnemonicParsing="false" onAction="#editDescriptionClicked" text="Edit Description">
+            <Button id="editDescription" mnemonicParsing="false" onAction="#editDescriptionClicked" text="Edit Description">
                <VBox.margin>
                   <Insets left="100.0" top="20.0" />
                </VBox.margin>
@@ -76,15 +76,15 @@
    <top>
       <VBox prefHeight="110.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="nameLabel" text="Title">
+            <Label fx:id="nameLabel" prefHeight="50.0" prefWidth="375.0" text="Title">
                <VBox.margin>
-                  <Insets left="275.0" />
+                  <Insets left="200.0" />
                </VBox.margin>
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" onAction="#editNameClicked" text="Edit Name">
+            <Button id="editName" mnemonicParsing="false" onAction="#editNameClicked" text="Edit Name">
                <VBox.margin>
                   <Insets left="285.0" top="20.0" />
                </VBox.margin>
@@ -93,7 +93,7 @@
       </VBox>
    </top>
    <bottom>
-      <Button mnemonicParsing="false" onAction="#doneClicked" text="Done" BorderPane.alignment="CENTER">
+      <Button id="doneMain" mnemonicParsing="false" onAction="#doneClicked" text="Done" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="20.0" />
          </BorderPane.margin>
