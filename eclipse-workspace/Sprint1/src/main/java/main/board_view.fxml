@@ -44,7 +44,7 @@
             <Menu mnemonicParsing="false" text="Filter">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#addFilterClicked" text="Add Filter" />
-                  <MenuItem mnemonicParsing="false" text="Remove Filter" />
+                  <MenuItem mnemonicParsing="false" onAction="#removeFilterClicked" text="Remove Filter" />
               </items>
             </Menu>
         </menus>
