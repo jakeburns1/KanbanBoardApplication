@@ -70,7 +70,6 @@ public class TestTrello
 			robot.clickOn("#passwordField");
 			robot.write("centre1234");
 			robot.clickOn("#loginButton");
-			
 			testLoadBoard(robot);
 			testListFunctions(robot);
 			testCardFuncs(robot);
@@ -80,6 +79,8 @@ public class TestTrello
 			testCreateNewBoard(robot);
 			testRenameBoard(robot);
 			testDeleteBoard(robot);
+//			
+			//server.shutdown();
 			
 			//Thread.sleep(1000);
 			//Thread.sleep(1000000000);

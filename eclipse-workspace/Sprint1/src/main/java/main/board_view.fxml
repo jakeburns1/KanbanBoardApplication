@@ -41,6 +41,12 @@
                   <MenuItem id="removeMember" mnemonicParsing="false" onAction="#removeMember" text="Remove Member" />
               </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Filter">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#addFilterClicked" text="Add Filter" />
+                  <MenuItem mnemonicParsing="false" text="Remove Filter" />
+              </items>
+            </Menu>
         </menus>
       </MenuBar>
    </top>

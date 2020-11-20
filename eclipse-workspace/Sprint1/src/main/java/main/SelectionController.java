@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import mainPack.Board;
 import mainPack.BoardConcrete;
@@ -34,6 +35,10 @@ public class SelectionController
 	ArrayList<Board> boards;
 	
 	BoardController boardController;
+	
+	
+	 @FXML
+	    private Label selectBoardLabel;
 	//BoardConcrete bmodel;
 	//User userData;
 	
@@ -84,7 +89,7 @@ public class SelectionController
 			this.modelg = modelg;
 			boards = model.getBoards();
 			
-			
+			selectBoardLabel.setText(user.getUsername() + ", select your board:");
 			//Board board = boards.get(0);
 			for (Board b:boards) {
 				data.add(b.getBoardName().toString());

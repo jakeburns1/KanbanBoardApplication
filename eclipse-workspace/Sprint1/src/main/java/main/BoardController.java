@@ -27,6 +27,9 @@ import mainPack.BoardConcrete;
 import mainPack.Card;
 import mainPack.CardConcrete;
 import mainPack.Component;
+import mainPack.FilterChain;
+import mainPack.FilterInterface;
+import mainPack.LabelFilter;
 import mainPack.ListConcrete;
 import mainPack.ListN;
 import mainPack.RmiClient;
@@ -49,6 +52,11 @@ public class BoardController
 	Label selectedListLabel;
 	StringProperty sp = new SimpleStringProperty();
 	LoginModel modelg;
+	FilterChain filterChain = new FilterChain();
+	ArrayList<Card> filteredCards;
+	
+
+	
 	@FXML
 	public HBox mainHBox;
 
@@ -903,6 +911,113 @@ public class BoardController
 		 	saveBoard(event);
 		 	exitBoard(event);
 	    }
+	 
+	 @FXML
+	    void addFilterClicked(ActionEvent event) {
+		 	
+		 	Stage dialog2 = new Stage();
+			VBox dialogVbox2 = new VBox(20);
+			TextField textfield = new TextField();
+			textfield.setId("filterText");
+			Button filterButton = new Button("Filter for this label");
+			filterButton.setId("addThatFilter");
+			Scene dialogScene2 = new Scene(dialogVbox2, 300, 200);
+			// Label label = new Label(textfield.getText());
+			dialogVbox2.getChildren().add(textfield);
+			dialogVbox2.getChildren().add(filterButton);
+			dialog2.setScene(dialogScene2);
+			dialog2.show();
+		 	
+			filterButton.setOnAction(new EventHandler<ActionEvent>()
+			{
+
+				@Override
+				public void handle(ActionEvent e)
+				{
+					filteredCards = new ArrayList<Card>();
+				 	
+				 	FilterInterface labelFilter = new LabelFilter(textfield.getText());
+				 	
+				 	filterChain.addLabelFilter(labelFilter);
+				 	
+				 	
+					if (lists != null)
+					{
+						for (ListN l : lists)
+						{
+							VBox vbox = new VBox();
+							vbox.setStyle("-fx-border-color:red;");
+							mainHBox.getChildren().add(vbox);
+							Label label = new Label(l.getListName());
+							label.setStyle("-fx-border-color:red; -fx-background-color: black -fx-;");
+							label.setFont(Font.font(20));
+							label.setTextFill(Paint.valueOf("white"));
+							vbox.getChildren().add(label);
+							System.out.println("reached + " + l.getCards());
+							for(FilterInterface f: filterChain.getFilters()) {
+							for(Card c: l.getCards()) {
+//								if(labelFilter.executeFilter("jake", c)!= null) {
+//									filteredCards.add(c);
+//									
+//								}
+								if(f.executeFilter(f.getFilterString(), c) != null) {
+							
+							filteredCards.add(c);
+							Button b = new Button(c.getCardName());
+							b.setPrefWidth(vbox.getPrefWidth());
+							b.setId("buttonReal");
+							vbox.getChildren().add(b);
+								}
+								else if(f.executeFilter(f.getFilterString(), c) == null && filteredCards.contains(c)){
+									filteredCards.remove(c);
+									System.out.println("else if reached");
+								}
+								else {
+									System.out.println("reached else");
+								}
+							}
+//							for (Card d : filteredCards)
+//							{
+//								
+//								Button b = new Button(d.getCardName());
+//								b.setPrefWidth(vbox.getPrefWidth());
+//								b.setId("buttonReal");
+//								vbox.getChildren().add(b);
+//								b.setOnAction(new EventHandler<ActionEvent>()
+//								{
+//									@Override
+//									public void handle(ActionEvent e)
+//									{
+//										model.showCardView(s, scene, d, client, model, u, modelg);
+//										client.updateBoard(model);
+//
+//									}
+//								});
+								// .getChildren().add(b);
+
+								// System.out.println("Button created with name:" + c.getCardName());
+//							}
+							System.out.println(l.toString());
+
+						}
+						}
+					} else
+					{
+						System.out.println("No lists");
+					}
+				 	
+					dialog2.close();
+				}
+			
+			});
+		 	
+		 	
+		 
+		 	
+		 
+		 				
+	    }
+
 	public void setModel(Stage s, Scene scene, RmiClient client, BoardConcrete selectedBoard, BorderPane pane,
 			LoginModel modelg, User u)
 	{
@@ -913,7 +1028,15 @@ public class BoardController
 		this.scene = scene;
 		this.modelg = modelg;
 		this.u = u;
-
+		
+		//filterChain.addLabelFilter();
+		
+		HBox boardTitleHBox=  new HBox();
+		pane.getChildren().add(boardTitleHBox);
+		Label boardTitleLabel = new Label();
+		boardTitleHBox.getChildren().add(boardTitleLabel);
+		boardTitleLabel.setText(model.getBoardName());
+		
 		lists = model.getLists();
 
 		if (lists != null)
