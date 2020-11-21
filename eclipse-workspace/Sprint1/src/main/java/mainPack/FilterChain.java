@@ -27,4 +27,13 @@ public class FilterChain
 	{
 		return filters;
 	}
+	
+	public FilterInterface getFilterByIndex(int index) {
+		
+		return filters.get(index);
+	}
+	
+	public void removeFilter(FilterInterface filter) {
+		filters.remove(filter);
+	}
 }

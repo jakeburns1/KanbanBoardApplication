@@ -48,6 +48,7 @@ public class BoardController
 	ArrayList<ListN> lists;
 	ListN selectedList;
 	ListN selectedList2;
+	FilterInterface selectedFilter;
 	Card selectedCard;
 	Card selectedCard2;
 	Label selectedListLabel;
@@ -55,7 +56,11 @@ public class BoardController
 	LoginModel modelg;
 	FilterChain filterChain = new FilterChain();
 	ArrayList<Card> filteredCards = new ArrayList<Card>();
+	ObservableList<String> dataForFilter;
 
+	
+	Boolean noCardsShouldShow;
+	
 	VBox initalVBox;
 
 	@FXML
@@ -939,11 +944,13 @@ public class BoardController
 			{
 				mainHBox.getChildren().clear();
 
-				
-
 				FilterInterface labelFilter = new LabelFilter(textfield.getText());
 
 				filterChain.addLabelFilter(labelFilter);
+
+				noCardsShouldShow = false;
+
+				lists = model.getLists();
 
 				if (lists != null)
 				{
@@ -962,21 +969,54 @@ public class BoardController
 						{
 							for (Card c : l.getCards())
 							{
-								if (f.executeFilter(f.getFilterString(), c) != null && filteredCards.contains(c) == false)
+								if (f.executeFilter(f.getFilterString(), c) != null && filteredCards.contains(c) == true
+										&& noCardsShouldShow == false)
 								{
+									//filteredCards.add(c);
+//									Button b = new Button(c.getCardName());
+//									b.setPrefWidth(vbox.getPrefWidth());
+//									b.setId("buttonReal");
+//									vbox.getChildren().add(b);
+									//redrawForFilter();
+									mainHBox.getChildren().clear();
+									 vbox = new VBox();
+									vbox.setStyle("-fx-border-color:red;");
+									mainHBox.getChildren().add(vbox);
+									 label = new Label(l.getListName());
+									label.setStyle("-fx-border-color:red; -fx-background-color: black -fx-;");
+									label.setFont(Font.font(20));
+									label.setTextFill(Paint.valueOf("white"));
+									vbox.getChildren().add(label);
+									Button b = new Button(c.getCardName());
+//									b.setPrefWidth(vbox.getPrefWidth());
+//									b.setId("buttonReal");
+									vbox.getChildren().add(b);
+								} else if (f.executeFilter(f.getFilterString(), c) == null && filteredCards.contains(c)
+										&& noCardsShouldShow == false)
+								{
+									filteredCards.remove(c);
+									// redrawForFilter();
+									System.out.println("else if reached");
+								} else if (f.executeFilter(f.getFilterString(), c) == null
+										&& filteredCards.contains(c) == false)
+								{
+								} else if (f.executeFilter(f.getFilterString(), c) != null
+										&& filteredCards.contains(c) == false && noCardsShouldShow == false)
+								{
+									if(filteredCards.size()>0 && filteredCards.get(0).getLabels() != c.getLabels()) {
+										System.out.println("dont add the cards");
+									}
+									else {
 									filteredCards.add(c);
 									Button b = new Button(c.getCardName());
 									b.setPrefWidth(vbox.getPrefWidth());
 									b.setId("buttonReal");
 									vbox.getChildren().add(b);
-								} else if (f.executeFilter(f.getFilterString(), c) == null && filteredCards.contains(c))
-								{
-									filteredCards.remove(c);
-									//redrawForFilter();
-									System.out.println("else if reached");
+									}
 								} else
 								{
-									System.out.println("reached else");
+									noCardsShouldShow = true;
+
 								}
 							}
 //							for (Card d : filteredCards)
@@ -1015,10 +1055,11 @@ public class BoardController
 		});
 
 	}
-	
-	public void redrawForFilter() {
+
+	public void redrawForFilter()
+	{
 		mainHBox.getChildren().clear();
-		
+
 		if (lists != null)
 		{
 			for (ListN l : lists)
@@ -1036,25 +1077,36 @@ public class BoardController
 				{
 					for (Card c : l.getCards())
 					{
-//						if(labelFilter.executeFilter("jake", c)!= null) {
-//							filteredCards.add(c);
-//							
-//						}
-						if (f.executeFilter(f.getFilterString(), c) != null)
+						if (f.executeFilter(f.getFilterString(), c) != null && filteredCards.contains(c) == true
+								&& noCardsShouldShow == false)
 						{
-
+							//filteredCards.add(c);
+							Button b = new Button(c.getCardName());
+							b.setPrefWidth(vbox.getPrefWidth());
+							b.setId("buttonReal");
+							vbox.getChildren().add(b);
+							//redrawForFilter();
+						} else if (f.executeFilter(f.getFilterString(), c) == null && filteredCards.contains(c)
+								&& noCardsShouldShow == false)
+						{
+							filteredCards.remove(c);
+							// redrawForFilter();
+							System.out.println("else if reached");
+						} else if (f.executeFilter(f.getFilterString(), c) == null
+								&& filteredCards.contains(c) == false)
+						{
+						} else if (f.executeFilter(f.getFilterString(), c) != null
+								&& filteredCards.contains(c) == false && noCardsShouldShow == false)
+						{
 							filteredCards.add(c);
 							Button b = new Button(c.getCardName());
 							b.setPrefWidth(vbox.getPrefWidth());
 							b.setId("buttonReal");
 							vbox.getChildren().add(b);
-						} else if (f.executeFilter(f.getFilterString(), c) == null && filteredCards.contains(c))
-						{
-							//filteredCards.remove(c);
-							System.out.println("else if reached");
 						} else
 						{
-							System.out.println("reached else");
+							noCardsShouldShow = true;
+
 						}
 					}
 //					for (Card d : filteredCards)
@@ -1088,12 +1140,60 @@ public class BoardController
 		}
 
 	
-	}
-	
-	  @FXML
-	    void removeFilterClicked(ActionEvent event) {
 
-	    }
+
+
+
+	}
+
+	@FXML
+	void removeFilterClicked(ActionEvent event)
+	{
+		Stage dialog2 = new Stage();
+		VBox dialogVbox2 = new VBox(20);
+		ComboBox<String> comboBox = new ComboBox<String>();
+		dataForFilter = FXCollections.observableArrayList();
+		comboBox.setId("selectDeleteFilter");
+		Button filterButton = new Button("Delete this filter");
+		filterButton.setId("deleteFilter");
+		Scene dialogScene2 = new Scene(dialogVbox2, 300, 200);
+		// Label label = new Label(textfield.getText());
+		dialogVbox2.getChildren().add(comboBox);
+		dialogVbox2.getChildren().add(filterButton);
+		comboBox.setItems(dataForFilter);
+		dialog2.setScene(dialogScene2);
+
+		for (FilterInterface f : filterChain.getFilters())
+		{
+			dataForFilter.add(f.getFilterString());
+		}
+		dialog2.show();
+
+		filterButton.setOnAction(new EventHandler<ActionEvent>()
+		{
+
+			@Override
+			public void handle(ActionEvent e)
+			{
+				selectedFilter = filterChain.getFilterByIndex(dataForFilter.indexOf(comboBox.getValue()));
+				dataForFilter.remove(selectedFilter.toString());
+				// System.out.println(selectedFilter.getFilterString());
+				filterChain.removeFilter(selectedFilter);
+				if (dataForFilter.size() < 2)
+				{
+					model.showBoardScreen(s, scene, model, client, modelg, u);
+					System.out.println("size LESS than ONE");
+				} else
+				{
+					redrawForFilter();
+				}
+
+				dialog2.close();
+			}
+
+		});
+
+	}
 
 	public void setModel(Stage s, Scene scene, RmiClient client, BoardConcrete selectedBoard, BorderPane pane,
 			LoginModel modelg, User u)
