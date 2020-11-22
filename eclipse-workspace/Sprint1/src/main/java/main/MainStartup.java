@@ -24,7 +24,7 @@ public class MainStartup extends Application
 	RmiServer server;
 	AnchorPane pane;
 	Scene s;
-	int port = 3424;
+	int port = 3427;
 	@Override
 	public void start(Stage stage) throws Exception
 	{
