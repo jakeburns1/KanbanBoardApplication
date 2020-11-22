@@ -57,7 +57,7 @@ public class BoardController
 	FilterChain filterChain = new FilterChain();
 	ArrayList<Card> filteredCards = new ArrayList<Card>();
 	ObservableList<String> dataForFilter;
-
+	Boolean everyCardNoLabel = false;
 	
 	Boolean noCardsShouldShow;
 	
@@ -935,7 +935,7 @@ public class BoardController
 		dialogVbox2.getChildren().add(filterButton);
 		dialog2.setScene(dialogScene2);
 		dialog2.show();
-
+		
 		filterButton.setOnAction(new EventHandler<ActionEvent>()
 		{
 
@@ -969,77 +969,62 @@ public class BoardController
 						{
 							for (Card c : l.getCards())
 							{
-								if (f.executeFilter(f.getFilterString(), c) != null && filteredCards.contains(c) == true
+								if (f.executeFilter(f.getFilterString(), c) != null && filteredCards.contains(c) == false
 										&& noCardsShouldShow == false)
 								{
-									//filteredCards.add(c);
-//									Button b = new Button(c.getCardName());
-//									b.setPrefWidth(vbox.getPrefWidth());
-//									b.setId("buttonReal");
-//									vbox.getChildren().add(b);
-									//redrawForFilter();
-									mainHBox.getChildren().clear();
-									 vbox = new VBox();
-									vbox.setStyle("-fx-border-color:red;");
-									mainHBox.getChildren().add(vbox);
-									 label = new Label(l.getListName());
-									label.setStyle("-fx-border-color:red; -fx-background-color: black -fx-;");
-									label.setFont(Font.font(20));
-									label.setTextFill(Paint.valueOf("white"));
+									
+										for(FilterInterface g : filterChain.getFilters()) {
+											if(g.executeFilter(g.getFilterString(), c) == null) {
+												
+												break;
+											}
+											else {
+												filteredCards.add(c);
+												Button b = new Button(c.getCardName());
+//												b.setPrefWidth(vbox.getPrefWidth());
+//												b.setId("buttonReal");
+												vbox.getChildren().add(b);
+											}
+										}
+									
+									
+								
+								}
+								else if(f.executeFilter(f.getFilterString(), c) !=null && filteredCards.contains(c) == true) {
+									
+									
+									vbox.getChildren().clear();
 									vbox.getChildren().add(label);
-									Button b = new Button(c.getCardName());
-//									b.setPrefWidth(vbox.getPrefWidth());
-//									b.setId("buttonReal");
-									vbox.getChildren().add(b);
-								} else if (f.executeFilter(f.getFilterString(), c) == null && filteredCards.contains(c)
-										&& noCardsShouldShow == false)
-								{
-									filteredCards.remove(c);
-									// redrawForFilter();
-									System.out.println("else if reached");
-								} else if (f.executeFilter(f.getFilterString(), c) == null
-										&& filteredCards.contains(c) == false)
-								{
-								} else if (f.executeFilter(f.getFilterString(), c) != null
-										&& filteredCards.contains(c) == false && noCardsShouldShow == false)
-								{
-									if(filteredCards.size()>0 && filteredCards.get(0).getLabels() != c.getLabels()) {
-										System.out.println("dont add the cards");
-									}
-									else {
+									//System.out.println("Card is already in the list, dont add");
 									filteredCards.add(c);
 									Button b = new Button(c.getCardName());
-									b.setPrefWidth(vbox.getPrefWidth());
-									b.setId("buttonReal");
 									vbox.getChildren().add(b);
-									}
-								} else
+										
+								
+								}
+								else if(f.executeFilter(f.getFilterString(), c) == null ) {
+									for(FilterInterface g : filterChain.getFilters()) {
+										for(Card card : filteredCards) {
+											if(g.executeFilter(g.getFilterString(), card) == null) {
+												everyCardNoLabel = true;
+											}
+											else {
+												everyCardNoLabel = false;
+											}
+										}
+										if(everyCardNoLabel) {
+											vbox.getChildren().clear();
+											vbox.getChildren().add(label);
+
+										}
+									}}
+								else
 								{
-									noCardsShouldShow = true;
+									//noCardsShouldShow = true;
 
 								}
 							}
-//							for (Card d : filteredCards)
-//							{
-//								
-//								Button b = new Button(d.getCardName());
-//								b.setPrefWidth(vbox.getPrefWidth());
-//								b.setId("buttonReal");
-//								vbox.getChildren().add(b);
-//								b.setOnAction(new EventHandler<ActionEvent>()
-//								{
-//									@Override
-//									public void handle(ActionEvent e)
-//									{
-//										model.showCardView(s, scene, d, client, model, u, modelg);
-//										client.updateBoard(model);
-//
-//									}
-//								});
-							// .getChildren().add(b);
-
-							// System.out.println("Button created with name:" + c.getCardName());
-//							}
+//						
 							System.out.println(l.toString());
 
 						}
@@ -1059,7 +1044,6 @@ public class BoardController
 	public void redrawForFilter()
 	{
 		mainHBox.getChildren().clear();
-
 		if (lists != null)
 		{
 			for (ListN l : lists)
@@ -1077,72 +1061,103 @@ public class BoardController
 				{
 					for (Card c : l.getCards())
 					{
-						if (f.executeFilter(f.getFilterString(), c) != null && filteredCards.contains(c) == true
+						if (f.executeFilter(f.getFilterString(), c) != null && filteredCards.contains(c) == false
 								&& noCardsShouldShow == false)
 						{
-							//filteredCards.add(c);
-							Button b = new Button(c.getCardName());
-							b.setPrefWidth(vbox.getPrefWidth());
-							b.setId("buttonReal");
-							vbox.getChildren().add(b);
-							//redrawForFilter();
-						} else if (f.executeFilter(f.getFilterString(), c) == null && filteredCards.contains(c)
-								&& noCardsShouldShow == false)
-						{
-							filteredCards.remove(c);
-							// redrawForFilter();
-							System.out.println("else if reached");
-						} else if (f.executeFilter(f.getFilterString(), c) == null
-								&& filteredCards.contains(c) == false)
-						{
-						} else if (f.executeFilter(f.getFilterString(), c) != null
-								&& filteredCards.contains(c) == false && noCardsShouldShow == false)
-						{
+							
+								for(FilterInterface g : filterChain.getFilters()) {
+									if(g.executeFilter(g.getFilterString(), c) == null) {
+										
+										break;
+									}
+									else {
+										filteredCards.add(c);
+										Button b = new Button(c.getCardName());
+//										b.setPrefWidth(vbox.getPrefWidth());
+//										b.setId("buttonReal");
+										vbox.getChildren().add(b);
+									}
+								}
+							
+							
+						
+						}
+						else if(f.executeFilter(f.getFilterString(), c) !=null && filteredCards.contains(c) == true) {
+							
+							
+							vbox.getChildren().clear();
+							vbox.getChildren().add(label);
+							//System.out.println("Card is already in the list, dont add");
 							filteredCards.add(c);
 							Button b = new Button(c.getCardName());
-							b.setPrefWidth(vbox.getPrefWidth());
-							b.setId("buttonReal");
 							vbox.getChildren().add(b);
-						} else
+								
+						
+						}
+						else if(f.executeFilter(f.getFilterString(), c) == null ) {
+							for(FilterInterface g : filterChain.getFilters()) {
+								for(Card card : filteredCards) {
+									if(g.executeFilter(g.getFilterString(), card) == null) {
+										everyCardNoLabel = true;
+									}
+									else {
+										everyCardNoLabel = false;
+									}
+								}
+								if(everyCardNoLabel) {
+									vbox.getChildren().clear();
+									vbox.getChildren().add(label);
+									filteredCards.remove(c);
+
+								}
+							}}
+						else
 						{
-							noCardsShouldShow = true;
+							//noCardsShouldShow = true;
 
 						}
 					}
-//					for (Card d : filteredCards)
-//					{
-//						
-//						Button b = new Button(d.getCardName());
-//						b.setPrefWidth(vbox.getPrefWidth());
-//						b.setId("buttonReal");
-//						vbox.getChildren().add(b);
-//						b.setOnAction(new EventHandler<ActionEvent>()
-//						{
-//							@Override
-//							public void handle(ActionEvent e)
-//							{
-//								model.showCardView(s, scene, d, client, model, u, modelg);
-//								client.updateBoard(model);
-//
-//							}
-//						});
-					// .getChildren().add(b);
-
-					// System.out.println("Button created with name:" + c.getCardName());
-//					}
+//				
 					System.out.println(l.toString());
 
 				}
 			}
-		} else
-		{
-			System.out.println("No lists");
 		}
+//
+//		if (lists != null)
+//		{
+//			for (ListN l : lists)
+//			{
+//				VBox vbox = new VBox();
+//				vbox.setStyle("-fx-border-color:red;");
+//				mainHBox.getChildren().add(vbox);
+//				Label label = new Label(l.getListName());
+//				label.setStyle("-fx-border-color:red; -fx-background-color: black -fx-;");
+//				label.setFont(Font.font(20));
+//				label.setTextFill(Paint.valueOf("white"));
+//				vbox.getChildren().add(label);
+//				System.out.println("reached + " + l.getCards());
+//				for (FilterInterface f : filterChain.getFilters())
+//				{
+//					for (Card c : l.getCards())
+//					{
+//						if(filteredCards.contains(c)) {
+//							Button b = new Button(c.getCardName());
+//							vbox.getChildren().add(b);
+//						}
+//						
+//						}
+//					
+//
+//				}
+//			}
+//		} 
 
 	
 
-
-
+				
+			
+		
 
 	}
 
