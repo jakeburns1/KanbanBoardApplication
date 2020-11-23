@@ -18,7 +18,7 @@
                   <MenuItem id="deleteBoard" mnemonicParsing="false" onAction="#deleteCurrentBoard" text="Delete Board" />
             </items>
           </Menu>
-          <Menu id="listDropDown" mnemonicParsing="false" text="Lists">
+          <Menu id="listDropDown" fx:id="listMenu" mnemonicParsing="false" text="Lists">
             <items>
               <MenuItem id="addList" mnemonicParsing="false" onAction="#addListClicked" text="Add" />
                   <MenuItem id="moveList" mnemonicParsing="false" onAction="#moveListClicked" text="Move List" />
@@ -27,7 +27,7 @@
                   <MenuItem id="listRename" mnemonicParsing="false" onAction="#renameList" text="Rename" />
             </items>
           </Menu>
-            <Menu id="cardDropDown" mnemonicParsing="false" text="Cards">
+            <Menu id="cardDropDown" fx:id="cardMenu" mnemonicParsing="false" text="Cards">
               <items>
                 <MenuItem id="addCard" mnemonicParsing="false" onAction="#addCardClicked" text="Add" />
                   <MenuItem id="deleteCard" mnemonicParsing="false" onAction="#deleteCardClicked" text="Delete" />

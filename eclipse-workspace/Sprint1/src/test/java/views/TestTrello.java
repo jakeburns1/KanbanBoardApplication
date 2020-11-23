@@ -1,5 +1,12 @@
 package views;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,8 +23,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import main.InitialController;
 import main.MainStartup;
+import mainPack.Board;
+import mainPack.CardConcrete;
+import mainPack.Component;
+import mainPack.ListConcrete;
+import mainPack.ListN;
 import mainPack.RmiClient;
 import mainPack.RmiServer;
+import mainPack.User;
+import mainPack.UserConcrete;
 import view.LoginModel;
 
 @ExtendWith(ApplicationExtension.class)
@@ -25,18 +39,92 @@ import view.LoginModel;
 public class TestTrello
 {
 	
-	RmiClient client;
-	RmiServer server;
+	static RmiServer server;
+	static RmiClient client;
 	AnchorPane pane;
 	Scene s;
-	int port = 3239;
+	
+	User jake;
+	User bob;
+	User newUser;
+	Board board;
+	static int port = 4343;
+	
+	ListConcrete list;
+	ListConcrete list2;
+	CardConcrete testCard;
+	CardConcrete testCard2;
+	CardConcrete testCard3;
+	Set<String> labels;
+	Set<String> labels2;
+	Set<String> labels3;
+	Set<User> members;
+	Set<Component> components;
+	Set<Component> components2;
+	Set<Component> components3;
+	ArrayList<ListN> lists;
+	
+	@BeforeEach
+	void set() {
+		lists = new ArrayList<ListN>();
+		list = new ListConcrete("Day 1");
+		list2 = new ListConcrete("Day 2");
+		lists.add(list);
+		lists.add(list2);
+		members = new HashSet<User>();
+		components = new HashSet<Component>();
+		components2 = new HashSet<Component>();
+		components3 = new HashSet<Component>();
+		labels = new HashSet<String>();
+		labels2 = new HashSet<String>();
+		labels3 = new HashSet<String>();
+		
+		jake = new UserConcrete();
+		bob = new UserConcrete();
+		members.add(jake);
+		members.add(bob);
+		jake.createBoard("test board 1", jake, members, lists);
+		//jake.createBoard("test board 2", jake, members, null);
+		bob.createBoard("test board 3", bob, members, null);
+		jake.setPassword("centre1234");
+		jake.setUsername("jakeburns");
+		bob.setPassword("centre1234");
+		bob.setUsername("bob");
+		board = jake.getBoards().get(0);
+		
+		testCard = new CardConcrete("Test card", labels, members, components);
+		testCard2 = new CardConcrete("Second card", labels2, members, components2);
+		testCard3 = new CardConcrete("thiiird card", labels3, members, components3);
+
+		list.addCards(testCard);
+		list.addCards(testCard2);
+		list2.addCards(testCard3);
+		
+	}
+	@BeforeAll
+	static void setUp() throws Exception
+	{
+		
+		
+		server = new RmiServer(port);
+		//server.startServer(port);
+		
+		client = new RmiClient(port);
+		
+		
+	}
+	@AfterAll
+	static void stop() {
+		server.shutdown();
+	}
+	
 	
 	@Start
 	public void start(Stage stage) throws Exception
 	{
 		//server.startServer(port);
-		server = new RmiServer(port);
-		client = new RmiClient(port);
+		//server = new RmiServer(port);
+		//client = new RmiClient(port);
 		
 		
 		LoginModel model2 =  new LoginModel(stage, s);

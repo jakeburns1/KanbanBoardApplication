@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -65,6 +66,13 @@ public class BoardController
 
 	VBox initalVBox;
 	Boolean addIt = true;
+	
+
+    @FXML
+    private Menu listMenu;
+
+    @FXML
+    private Menu cardMenu;
 
 	@FXML
 	public HBox mainHBox;
@@ -938,6 +946,8 @@ public class BoardController
 		dialogVbox2.getChildren().add(filterButton);
 		dialog2.setScene(dialogScene2);
 		dialog2.show();
+		
+		
 
 		filterButton.setOnAction(new EventHandler<ActionEvent>()
 		{
@@ -945,6 +955,8 @@ public class BoardController
 			@Override
 			public void handle(ActionEvent e)
 			{
+				listMenu.setDisable(true);
+				cardMenu.setDisable(true);
 				mainHBox.getChildren().clear();
 
 				FilterInterface labelFilter = new LabelFilter(textfield.getText());
@@ -986,6 +998,16 @@ public class BoardController
 										{
 											filteredCards.add(c);
 											Button b = new Button(c.getCardName());
+											b.setOnAction(new EventHandler<ActionEvent>()
+											{
+												@Override
+												public void handle(ActionEvent e)
+												{
+													model.showCardView(s, scene, c, client, model, u, modelg);
+													client.updateBoard(model);
+
+												}
+											});
 //												b.setPrefWidth(vbox.getPrefWidth());
 //												b.setId("buttonReal");
 											vbox.getChildren().add(b);
@@ -1001,6 +1023,16 @@ public class BoardController
 									// System.out.println("Card is already in the list, dont add");
 									filteredCards.add(c);
 									Button b = new Button(c.getCardName());
+									b.setOnAction(new EventHandler<ActionEvent>()
+									{
+										@Override
+										public void handle(ActionEvent e)
+										{
+											model.showCardView(s, scene, c, client, model, u, modelg);
+											client.updateBoard(model);
+
+										}
+									});
 									vbox.getChildren().add(b);
 
 								} else if (f.executeFilter(f.getFilterString(), c) == null)
@@ -1089,6 +1121,16 @@ public class BoardController
 									{
 										cardsAdded.add(c);
 										Button b = new Button(c.getCardName());
+										b.setOnAction(new EventHandler<ActionEvent>()
+										{
+											@Override
+											public void handle(ActionEvent e)
+											{
+												model.showCardView(s, scene, c, client, model, u, modelg);
+												//client.updateBoard(model);
+
+											}
+										});
 										vbox.getChildren().add(b);
 									}
 
