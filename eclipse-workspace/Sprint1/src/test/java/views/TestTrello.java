@@ -1,9 +1,11 @@
 package views;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.After;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,8 +41,8 @@ import view.LoginModel;
 public class TestTrello
 {
 	
-	static RmiServer server;
-	static RmiClient client;
+	 static RmiServer server;
+	 static RmiClient client;
 	AnchorPane pane;
 	Scene s;
 	
@@ -48,7 +50,7 @@ public class TestTrello
 	User bob;
 	User newUser;
 	Board board;
-	static int port = 4343;
+	
 	
 	ListConcrete list;
 	ListConcrete list2;
@@ -98,13 +100,17 @@ public class TestTrello
 
 		list.addCards(testCard);
 		list.addCards(testCard2);
+		
 		list2.addCards(testCard3);
+		server.save(board);
+		server.createBoard("Testing please", jake);
+	
 		
 	}
 	@BeforeAll
 	static void setUp() throws Exception
 	{
-		
+		int port = 4347;
 		
 		server = new RmiServer(port);
 		//server.startServer(port);
@@ -112,12 +118,19 @@ public class TestTrello
 		client = new RmiClient(port);
 		
 		
+		
 	}
 	@AfterAll
 	static void stop() {
 		server.shutdown();
 	}
+	@Test
+	void test() throws RemoteException
+	{
 	
+
+		
+	}
 	
 	@Start
 	public void start(Stage stage) throws Exception
@@ -125,6 +138,7 @@ public class TestTrello
 		//server.startServer(port);
 		//server = new RmiServer(port);
 		//client = new RmiClient(port);
+	
 		
 		
 		LoginModel model2 =  new LoginModel(stage, s);
@@ -148,8 +162,20 @@ public class TestTrello
 	}
 
 	@Test
-	public void testLogin(FxRobot robot) {
+	public void testLogin(FxRobot robot) throws Exception {
 		
+		//server.loadBoardFromDisk();
+	
+	
+		
+		client.createBoard("banana", jake);
+		client.createBoard("a", bob);
+		bob.storeToDisk();
+		jake.storeToDisk();
+		client.updateBoard(board);
+		server.loadBoardFromDisk();
+
+		client.updateBoard(board);
 		try
 		{
 			Thread.sleep(1000);
