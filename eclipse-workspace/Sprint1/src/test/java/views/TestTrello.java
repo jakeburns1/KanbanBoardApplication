@@ -1,15 +1,14 @@
 package views;
 
+
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.After;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
@@ -18,13 +17,11 @@ import org.testfx.framework.junit5.Start;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.SelectionModel;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import main.BoardController;
 import main.InitialController;
-import main.MainStartup;
 import mainPack.Board;
 import mainPack.CardConcrete;
 import mainPack.Component;
@@ -50,7 +47,7 @@ public class TestTrello
 	User bob;
 	User newUser;
 	Board board;
-	
+	BoardController controller;
 	
 	ListConcrete list;
 	ListConcrete list2;
@@ -94,6 +91,10 @@ public class TestTrello
 		bob.setUsername("bob");
 		board = jake.getBoards().get(0);
 		
+		labels.add("jake");
+		labels.add("bob");
+		labels3.add("jake");
+		
 		testCard = new CardConcrete("Test card", labels, members, components);
 		testCard2 = new CardConcrete("Second card", labels2, members, components2);
 		testCard3 = new CardConcrete("thiiird card", labels3, members, components3);
@@ -104,7 +105,7 @@ public class TestTrello
 		list2.addCards(testCard3);
 		server.save(board);
 		server.createBoard("Testing please", jake);
-	
+		
 		
 	}
 	@BeforeAll
@@ -193,7 +194,8 @@ public class TestTrello
 			testCreateNewBoard(robot);
 			testRenameBoard(robot);
 			testDeleteBoard(robot);
-//			
+			testAddFilter(robot);
+			//Thread.sleep(100000);
 			//server.shutdown();
 			
 			//Thread.sleep(1000);
@@ -221,19 +223,14 @@ public class TestTrello
 	robot.clickOn("#listDropDown");
 	Thread.sleep(1000);
 	robot.clickOn("#addList");
-	Thread.sleep(1000);
 	robot.clickOn("#listDropDown");
 	robot.clickOn("#moveList");
 	robot.clickOn("#selectionBox").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
-	Thread.sleep(1000);
 	robot.clickOn("#done");
 	robot.clickOn("#selection2").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
 	robot.clickOn("#done2");
-	Thread.sleep(1000);
 	robot.clickOn("#listDropDown");
-	Thread.sleep(1000);
 	robot.clickOn("#reorderCard");
-	Thread.sleep(1000);
 	robot.clickOn("#reorderSelect").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
 	Thread.sleep(2000);
 	robot.clickOn("#doneReorder");
@@ -430,5 +427,36 @@ public class TestTrello
 		catch(Exception e) {
 			
 		}
+	}
+	public void testAddFilter(FxRobot robot) {
+		testLoadBoard(robot);
+		robot.clickOn("#filterDropDown");
+		robot.clickOn("#addFilter");
+		robot.clickOn("#filterText");
+		robot.write("jake");
+		robot.clickOn("#addThatFilter");
+		robot.clickOn("#filterDropDown");
+		robot.clickOn("#addFilter");
+		robot.clickOn("#filterText");
+		robot.write("bob");
+		robot.clickOn("#addThatFilter");
+		robot.clickOn("#filterDropDown");
+		robot.clickOn("#addFilter");
+		robot.clickOn("#filterText");
+		robot.write("bradshaw");
+		robot.clickOn("#addThatFilter");
+		robot.clickOn("#filterDropDown");
+		robot.clickOn("#removeFilter");
+		robot.clickOn("#selectDeleteFilter").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+		robot.clickOn("#deleteFilter");
+		robot.clickOn("#filterDropDown");
+		robot.clickOn("#removeFilter");
+		robot.clickOn("#selectDeleteFilter").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+		robot.clickOn("#deleteFilter");
+		robot.clickOn("#filterDropDown");
+		robot.clickOn("#removeFilter");
+		robot.clickOn("#selectDeleteFilter").type(KeyCode.DOWN).type(KeyCode.ENTER);
+		robot.clickOn("#deleteFilter");
+		
 	}
 }
