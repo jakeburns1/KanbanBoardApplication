@@ -1,8 +1,8 @@
-# This project is a virtual kanban board. It is modeled after online application "Trello" (trello.com). 
+**This project is a virtual kanban board. It is modeled after online application "Trello" (trello.com).**
 
 I built this project using JavaFX.
 
-## Features:
+**Features:**
 
 The user can own and create kanban boards. In these boards you can add lists which contain cards. Cards have attributes such as a name, description,
 checklist, and labels. You can add, delete, and move both cards and lists. There is also a filter feature where you can filter cards by the labels they contain. 
