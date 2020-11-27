@@ -1,8 +1,24 @@
-How to run all the tesst:
+This project is a virtual kanban board. It is modeled after online application "Trello" (trello.com). 
+
+I built this project using JavaFX.
+
+Features:
+
+The user can own and create kanban boards. In these boards you can add lists which contain cards. Cards have attributes such as a name, description,
+checklist, and labels. You can add, delete, and move both cards and lists. There is also a filter feature where you can filter cards by the labels they contain. 
 
 
-1. Run the TestTrello.java (located in src/test/java/views) TWICE. Make sure to run it TWICE!!!
 
-The first time you run the file the robot will enter a username and password in
-but the console will print login failed. Simply run the file again and the login will be 
-successfull with the starting board data already in there. The tests should run normally.
+
+Running the application for the first time
+1. Run the ServerTest.java file to initilize the server and create accounts. RMIREGISTRY is used for the server.
+2. Run the MainStartup.java file to launch the application
+
+Account info:
+The default account:
+  username: jakeburns
+  password: centre1234
+
+Running the testing file:
+1. Run the TestTrello.java (located in src/test/java/views) TWICE. Make sure to run it TWICE the first time. Once to initialize the server if it is your first time running it.
+
