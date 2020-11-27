@@ -1,6 +1,11 @@
+# Kanban Board JavaFX Application
+
+
 **This project is a virtual kanban board. It is modeled after online application "Trello" (trello.com).**
 
 I built this project using JavaFX.
+
+This application uses multiple common software design patterns and uses MVC.
 
 **Features:**
 
@@ -10,15 +15,15 @@ checklist, and labels. You can add, delete, and move both cards and lists. There
 
 
 
-Running the application for the first time
+**Running the application for the first time**
 1. Run the ServerTest.java file to initilize the server and create accounts. RMIREGISTRY is used for the server.
 2. Run the MainStartup.java file to launch the application
 
-Account info:
+**Account info:**
 The default account:
   username: jakeburns
   password: centre1234
 
-Running the testing file:
+**Running the testing file:**
 1. Run the TestTrello.java (located in src/test/java/views) TWICE. Make sure to run it TWICE the first time. Once to initialize the server if it is your first time running it.
 
