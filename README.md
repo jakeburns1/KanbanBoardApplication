@@ -7,6 +7,8 @@ I built this project using JavaFX.
 
 This application uses multiple common software design patterns and uses MVC.
 
+Design document: https://docs.google.com/document/d/1HCnET28g79bfOJMg4Qs8C-6boNBXehNn_7HsRd7aRL0/edit?usp=sharing
+
 **Features:**
 
 The user can own and create kanban boards. In these boards you can add lists which contain cards. Cards have attributes such as a name, description,
