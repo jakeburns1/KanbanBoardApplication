@@ -1077,22 +1077,27 @@ public class BoardController {
 		if (lists != null) {
 			for (ListN l : lists) {
 				initalVBox = new VBox();
-				initalVBox.setStyle("-fx-border-color:red;");
+				initalVBox.setStyle("-fx-border-color:blue; -fx-border-width: 4; ");
+				
 				mainHBox.getChildren().add(initalVBox);
 				Label label = new Label(l.getListName());
-				label.setStyle("-fx-border-color:red; -fx-background-color: black -fx-;");
+				label.setStyle("-fx-border-color:blue;-fx-background-color: black -fx-;");
 				label.setFont(Font.font(20));
+				label.setPrefWidth(initalVBox.getMaxWidth());
 				label.setTextFill(Paint.valueOf("white"));
 				initalVBox.getChildren().add(label);
 				System.out.println("reached + " + l.getCards());
-				for (Card c : l.getCards()) {
+				for (Card c : l.getCards())
+				{
 					Button b = new Button(c.getCardName());
 					b.setPrefWidth(initalVBox.getPrefWidth());
 					b.setId("buttonReal");
 					initalVBox.getChildren().add(b);
-					b.setOnAction(new EventHandler<ActionEvent>() {
+					b.setOnAction(new EventHandler<ActionEvent>()
+					{
 						@Override
-						public void handle(ActionEvent e) {
+						public void handle(ActionEvent e)
+						{
 							model.showCardView(s, scene, c, client, model, u, modelg);
 							client.updateBoard(model);
 
