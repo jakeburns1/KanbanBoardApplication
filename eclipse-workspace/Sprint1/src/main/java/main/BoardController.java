@@ -1208,12 +1208,6 @@ public class BoardController
 
 		// filterChain.addLabelFilter();
 
-		HBox boardTitleHBox = new HBox();
-		pane.getChildren().add(boardTitleHBox);
-		Label boardTitleLabel = new Label();
-		boardTitleHBox.getChildren().add(boardTitleLabel);
-		boardTitleLabel.setText(model.getBoardName());
-
 		lists = model.getLists();
 
 		if (lists != null)
