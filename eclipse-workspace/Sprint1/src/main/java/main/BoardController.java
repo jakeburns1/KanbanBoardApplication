@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -38,7 +39,8 @@ import mainPack.RmiClient;
 import mainPack.User;
 import view.LoginModel;
 
-public class BoardController {
+public class BoardController
+{
 	BoardConcrete model;
 	ListConcrete list;
 	RmiClient client;
@@ -76,7 +78,8 @@ public class BoardController {
 	public HBox mainHBox;
 
 	@FXML
-	void addCardClicked(ActionEvent event) {
+	void addCardClicked(ActionEvent event)
+	{
 //	    		 	Stage dialog = new Stage();
 //	                VBox dialogVbox = new VBox(20);
 //	                dialogVbox.getChildren().add(new Text("This is a Dialog"));
@@ -99,14 +102,17 @@ public class BoardController {
 		dialog.setScene(dialogScene);
 		dialog.show();
 
-		for (ListN l : model.getLists()) {
+		for (ListN l : model.getLists())
+		{
 			data.add(l.getListName());
 
 		}
-		doneButton.setOnAction(new EventHandler<ActionEvent>() {
+		doneButton.setOnAction(new EventHandler<ActionEvent>()
+		{
 
 			@Override
-			public void handle(ActionEvent e) {
+			public void handle(ActionEvent e)
+			{
 				selectedList = (ListN) model.getLists().get(data.indexOf(selection.getValue()));
 
 				Set<String> labels = new HashSet<String>();
@@ -120,9 +126,11 @@ public class BoardController {
 				model.showBoardScreen(s, scene, model, client, modelg, u);
 
 				Button b = new Button(newCard.getCardName());
-				b.setOnAction(new EventHandler<ActionEvent>() {
+				b.setOnAction(new EventHandler<ActionEvent>()
+				{
 					@Override
-					public void handle(ActionEvent e) {
+					public void handle(ActionEvent e)
+					{
 						model.showCardView(s, scene, newCard, client, model, u, modelg);
 					}
 				});
@@ -164,7 +172,8 @@ public class BoardController {
 	}
 
 	@FXML
-	void renameList(ActionEvent event) {
+	void renameList(ActionEvent event)
+	{
 
 		Stage dialog = new Stage();
 		VBox dialogVbox = new VBox(20);
@@ -181,14 +190,17 @@ public class BoardController {
 		dialog.setScene(dialogScene);
 		dialog.show();
 
-		for (ListN l : model.getLists()) {
+		for (ListN l : model.getLists())
+		{
 			data.add(l.getListName());
 
 		}
-		doneButton.setOnAction(new EventHandler<ActionEvent>() {
+		doneButton.setOnAction(new EventHandler<ActionEvent>()
+		{
 
 			@Override
-			public void handle(ActionEvent e) {
+			public void handle(ActionEvent e)
+			{
 				selectedList = (ListN) model.getLists().get(data.indexOf(selection.getValue()));
 				System.out.println(selectedList.getListName());
 				Stage dialog2 = new Stage();
@@ -204,9 +216,11 @@ public class BoardController {
 				dialog2.setScene(dialogScene2);
 				dialog2.show();
 
-				changeButton.setOnAction(new EventHandler<ActionEvent>() {
+				changeButton.setOnAction(new EventHandler<ActionEvent>()
+				{
 					@Override
-					public void handle(ActionEvent e) {
+					public void handle(ActionEvent e)
+					{
 						selectedList.updateName(textfield.getText());
 						client.updateBoard(model);
 						model.showBoardScreen(s, scene, model, client, modelg, u);
@@ -224,20 +238,23 @@ public class BoardController {
 	}
 
 	@FXML
-	void saveBoard(ActionEvent event) {
+	void saveBoard(ActionEvent event)
+	{
 
 		client.createBoard("New Board", u);
 
 	}
 
 	@FXML
-	void exitBoard(ActionEvent event) {
+	void exitBoard(ActionEvent event)
+	{
 		// System.out.println(model.getOwner().getUsername());
 		modelg.showSelectionScreen(u, client, s, scene, modelg);
 	}
 
 	@FXML
-	void addListClicked(ActionEvent event) {
+	void addListClicked(ActionEvent event)
+	{
 		ListN list = new ListConcrete("new list");
 		model.addList(list);
 		client.updateBoard(model);
@@ -246,7 +263,8 @@ public class BoardController {
 	}
 
 	@FXML
-	void deleteListClicked(ActionEvent event) {
+	void deleteListClicked(ActionEvent event)
+	{
 		Stage dialog = new Stage();
 		VBox dialogVbox = new VBox(20);
 		ComboBox<String> selection = new ComboBox<String>();
@@ -262,15 +280,18 @@ public class BoardController {
 		dialog.setScene(dialogScene);
 		dialog.show();
 
-		for (ListN l : model.getLists()) {
+		for (ListN l : model.getLists())
+		{
 			data.add(l.getListName());
 
 		}
 
-		doneButton.setOnAction(new EventHandler<ActionEvent>() {
+		doneButton.setOnAction(new EventHandler<ActionEvent>()
+		{
 
 			@Override
-			public void handle(ActionEvent e) {
+			public void handle(ActionEvent e)
+			{
 				selectedList = (ListN) model.getLists().get(data.indexOf(selection.getValue()));
 				model.deleteList(selectedList);
 				client.updateBoard(model);
@@ -283,7 +304,8 @@ public class BoardController {
 	}
 
 	@FXML
-	void deleteCardClicked(ActionEvent event) {
+	void deleteCardClicked(ActionEvent event)
+	{
 		Stage dialog = new Stage();
 		VBox dialogVbox = new VBox(20);
 		ComboBox<String> selection = new ComboBox<String>();
@@ -299,19 +321,24 @@ public class BoardController {
 		dialog.setScene(dialogScene);
 		dialog.show();
 
-		for (ListN l : model.getLists()) {
-			if (l.getCards().size() >= 1) {
+		for (ListN l : model.getLists())
+		{
+			if (l.getCards().size() >= 1)
+			{
 				data.add(l.getListName());
-			} else {
+			} else
+			{
 				System.out.println("No cards in list " + l.getListName());
 			}
 
 		}
 
-		doneButton.setOnAction(new EventHandler<ActionEvent>() {
+		doneButton.setOnAction(new EventHandler<ActionEvent>()
+		{
 
 			@Override
-			public void handle(ActionEvent e) {
+			public void handle(ActionEvent e)
+			{
 				selectedList = (ListN) model.getLists().get(data.indexOf(selection.getValue()));
 				dialog.close();
 
@@ -329,14 +356,17 @@ public class BoardController {
 				selection2.setItems(data2);
 				dialog2.setScene(dialogScene2);
 				dialog2.show();
-				for (Card c : selectedList.getCards()) {
+				for (Card c : selectedList.getCards())
+				{
 					data2.add(c.getCardName());
 
 				}
-				doneButton2.setOnAction(new EventHandler<ActionEvent>() {
+				doneButton2.setOnAction(new EventHandler<ActionEvent>()
+				{
 
 					@Override
-					public void handle(ActionEvent e) {
+					public void handle(ActionEvent e)
+					{
 
 						selectedCard = selectedList.getCards().get(data2.indexOf(selection2.getValue()));
 
@@ -356,7 +386,8 @@ public class BoardController {
 	}
 
 	@FXML
-	void renameCardClicked(ActionEvent event) {
+	void renameCardClicked(ActionEvent event)
+	{
 		Stage dialog = new Stage();
 		VBox dialogVbox = new VBox(20);
 		ComboBox<String> selection = new ComboBox<String>();
@@ -372,19 +403,24 @@ public class BoardController {
 		dialog.setScene(dialogScene);
 		dialog.show();
 
-		for (ListN l : model.getLists()) {
-			if (l.getCards().size() >= 1) {
+		for (ListN l : model.getLists())
+		{
+			if (l.getCards().size() >= 1)
+			{
 				data.add(l.getListName());
-			} else {
+			} else
+			{
 				System.out.println("No cards in list " + l.getListName());
 			}
 
 		}
 
-		doneButton.setOnAction(new EventHandler<ActionEvent>() {
+		doneButton.setOnAction(new EventHandler<ActionEvent>()
+		{
 
 			@Override
-			public void handle(ActionEvent e) {
+			public void handle(ActionEvent e)
+			{
 				selectedList = (ListN) model.getLists().get(data.indexOf(selection.getValue()));
 				dialog.close();
 
@@ -402,14 +438,17 @@ public class BoardController {
 				selection2.setItems(data2);
 				dialog2.setScene(dialogScene2);
 				dialog2.show();
-				for (Card c : selectedList.getCards()) {
+				for (Card c : selectedList.getCards())
+				{
 					data2.add(c.getCardName());
 
 				}
-				doneButton2.setOnAction(new EventHandler<ActionEvent>() {
+				doneButton2.setOnAction(new EventHandler<ActionEvent>()
+				{
 
 					@Override
-					public void handle(ActionEvent e) {
+					public void handle(ActionEvent e)
+					{
 
 						selectedCard = selectedList.getCards().get(data2.indexOf(selection2.getValue()));
 
@@ -428,10 +467,12 @@ public class BoardController {
 						dialog2.setScene(dialogScene3);
 						dialog2.show();
 
-						doneButton3.setOnAction(new EventHandler<ActionEvent>() {
+						doneButton3.setOnAction(new EventHandler<ActionEvent>()
+						{
 
 							@Override
-							public void handle(ActionEvent e) {
+							public void handle(ActionEvent e)
+							{
 
 								selectedCard.setCardName(textfield.getText());
 								client.updateBoard(model);
@@ -451,7 +492,8 @@ public class BoardController {
 	}
 
 	@FXML
-	void moveListClicked(ActionEvent event) {
+	void moveListClicked(ActionEvent event)
+	{
 		Stage dialog = new Stage();
 		VBox dialogVbox = new VBox(20);
 		ComboBox<String> selection = new ComboBox<String>();
@@ -467,15 +509,18 @@ public class BoardController {
 		dialog.setScene(dialogScene);
 		dialog.show();
 
-		for (ListN l : model.getLists()) {
+		for (ListN l : model.getLists())
+		{
 
 			data.add(l.getListName());
 
 		}
-		doneButton.setOnAction(new EventHandler<ActionEvent>() {
+		doneButton.setOnAction(new EventHandler<ActionEvent>()
+		{
 
 			@Override
-			public void handle(ActionEvent e) {
+			public void handle(ActionEvent e)
+			{
 				dialog.close();
 				selectedList = (ListN) model.getLists().get(data.indexOf(selection.getValue()));
 
@@ -494,18 +539,23 @@ public class BoardController {
 				dialog2.setScene(dialogScene2);
 				dialog2.show();
 
-				for (ListN l : model.getLists()) {
-					if (!l.equals(selectedList)) {
+				for (ListN l : model.getLists())
+				{
+					if (!l.equals(selectedList))
+					{
 						data2.add(l.getListName());
-					} else {
+					} else
+					{
 
 					}
 
 				}
-				doneButton2.setOnAction(new EventHandler<ActionEvent>() {
+				doneButton2.setOnAction(new EventHandler<ActionEvent>()
+				{
 
 					@Override
-					public void handle(ActionEvent e) {
+					public void handle(ActionEvent e)
+					{
 						selectedList2 = (ListN) model.getLists().get(data.indexOf(selection2.getValue()));
 						dialog2.close();
 
@@ -525,7 +575,8 @@ public class BoardController {
 	}
 
 	@FXML
-	void reorderCardClicked(ActionEvent event) {
+	void reorderCardClicked(ActionEvent event)
+	{
 
 		Stage dialog = new Stage();
 		VBox dialogVbox = new VBox(20);
@@ -542,19 +593,24 @@ public class BoardController {
 		dialog.setScene(dialogScene);
 		dialog.show();
 
-		for (ListN l : model.getLists()) {
-			if (l.getCards().size() >= 2) {
+		for (ListN l : model.getLists())
+		{
+			if (l.getCards().size() >= 2)
+			{
 				data.add(l.getListName());
-			} else {
+			} else
+			{
 				System.out.println("No cards in list " + l.getListName());
 			}
 
 		}
 
-		doneButton.setOnAction(new EventHandler<ActionEvent>() {
+		doneButton.setOnAction(new EventHandler<ActionEvent>()
+		{
 
 			@Override
-			public void handle(ActionEvent e) {
+			public void handle(ActionEvent e)
+			{
 				selectedList = (ListN) model.getLists().get(data.indexOf(selection.getValue()));
 				dialog.close();
 
@@ -572,14 +628,17 @@ public class BoardController {
 				selection2.setItems(data2);
 				dialog2.setScene(dialogScene2);
 				dialog2.show();
-				for (Card c : selectedList.getCards()) {
+				for (Card c : selectedList.getCards())
+				{
 					data2.add(c.getCardName());
 
 				}
-				doneButton2.setOnAction(new EventHandler<ActionEvent>() {
+				doneButton2.setOnAction(new EventHandler<ActionEvent>()
+				{
 
 					@Override
-					public void handle(ActionEvent e) {
+					public void handle(ActionEvent e)
+					{
 						dialog2.close();
 
 						selectedCard = selectedList.getCards().get(data2.indexOf(selection2.getValue()));
@@ -600,18 +659,23 @@ public class BoardController {
 						selection3.setItems(data3);
 						dialog3.setScene(dialogScene3);
 						dialog3.show();
-						for (Card c : selectedList.getCards()) {
-							if (!c.equals(selectedCard)) {
+						for (Card c : selectedList.getCards())
+						{
+							if (!c.equals(selectedCard))
+							{
 								data3.add(c.getCardName());
-							} else {
+							} else
+							{
 
 							}
 						}
 
-						doneButton3.setOnAction(new EventHandler<ActionEvent>() {
+						doneButton3.setOnAction(new EventHandler<ActionEvent>()
+						{
 
 							@Override
-							public void handle(ActionEvent e) {
+							public void handle(ActionEvent e)
+							{
 								dialog3.close();
 								selectedCard2 = selectedList.getCards().get(data3.indexOf(selection3.getValue()));
 
@@ -633,7 +697,8 @@ public class BoardController {
 	}
 
 	@FXML
-	void moveCardClicked(ActionEvent event) {
+	void moveCardClicked(ActionEvent event)
+	{
 		Stage dialog = new Stage();
 		VBox dialogVbox = new VBox(20);
 		ComboBox<String> selection = new ComboBox<String>();
@@ -649,19 +714,24 @@ public class BoardController {
 		dialog.setScene(dialogScene);
 		dialog.show();
 
-		for (ListN l : model.getLists()) {
-			if (l.getCards().size() >= 1) {
+		for (ListN l : model.getLists())
+		{
+			if (l.getCards().size() >= 1)
+			{
 				data.add(l.getListName());
-			} else {
+			} else
+			{
 				System.out.println("No cards in list " + l.getListName());
 			}
 
 		}
 
-		doneButton.setOnAction(new EventHandler<ActionEvent>() {
+		doneButton.setOnAction(new EventHandler<ActionEvent>()
+		{
 
 			@Override
-			public void handle(ActionEvent e) {
+			public void handle(ActionEvent e)
+			{
 				selectedList = (ListN) model.getLists().get(data.indexOf(selection.getValue()));
 				dialog.close();
 
@@ -679,14 +749,17 @@ public class BoardController {
 				selection2.setItems(data2);
 				dialog2.setScene(dialogScene2);
 				dialog2.show();
-				for (Card c : selectedList.getCards()) {
+				for (Card c : selectedList.getCards())
+				{
 					data2.add(c.getCardName());
 
 				}
-				doneButton2.setOnAction(new EventHandler<ActionEvent>() {
+				doneButton2.setOnAction(new EventHandler<ActionEvent>()
+				{
 
 					@Override
-					public void handle(ActionEvent e) {
+					public void handle(ActionEvent e)
+					{
 						dialog2.close();
 
 						selectedCard = selectedList.getCards().get(data2.indexOf(selection2.getValue()));
@@ -707,15 +780,18 @@ public class BoardController {
 						dialog3.setScene(dialogScene3);
 						dialog3.show();
 
-						for (ListN l : model.getLists()) {
+						for (ListN l : model.getLists())
+						{
 							data3.add(l.getListName());
 
 						}
 
-						doneButton3.setOnAction(new EventHandler<ActionEvent>() {
+						doneButton3.setOnAction(new EventHandler<ActionEvent>()
+						{
 
 							@Override
-							public void handle(ActionEvent e) {
+							public void handle(ActionEvent e)
+							{
 								dialog3.close();
 								selectedList2 = model.getLists().get(data3.indexOf(selection3.getValue()));
 
@@ -735,7 +811,8 @@ public class BoardController {
 	}
 
 	@FXML
-	void addMember(ActionEvent event) {
+	void addMember(ActionEvent event)
+	{
 		Stage dialog3 = new Stage();
 		VBox dialogVbox3 = new VBox(20);
 		TextField textfield = new TextField();
@@ -750,18 +827,22 @@ public class BoardController {
 		dialog3.setScene(dialogScene3);
 		dialog3.show();
 
-		doneButton3.setOnAction(new EventHandler<ActionEvent>() {
+		doneButton3.setOnAction(new EventHandler<ActionEvent>()
+		{
 
 			@Override
-			public void handle(ActionEvent e) {
+			public void handle(ActionEvent e)
+			{
 
-				if (client.checkUsernamePassword(textfield.getText(), "centre1234") != null) {
+				if (client.checkUsernamePassword(textfield.getText(), "centre1234") != null)
+				{
 
 					model.addMember(client.checkUsernamePassword(textfield.getText(), "centre1234"));
 					client.updateBoard(model);
 					textfield.setText("User added!");
 
-				} else {
+				} else
+				{
 					textfield.setText("No user found");
 				}
 
@@ -771,7 +852,8 @@ public class BoardController {
 	}
 
 	@FXML
-	void removeMember(ActionEvent event) {
+	void removeMember(ActionEvent event)
+	{
 		Stage dialog3 = new Stage();
 		VBox dialogVbox3 = new VBox(20);
 		TextField textfield = new TextField();
@@ -786,18 +868,22 @@ public class BoardController {
 		dialog3.setScene(dialogScene3);
 		dialog3.show();
 
-		doneButton3.setOnAction(new EventHandler<ActionEvent>() {
+		doneButton3.setOnAction(new EventHandler<ActionEvent>()
+		{
 
 			@Override
-			public void handle(ActionEvent e) {
+			public void handle(ActionEvent e)
+			{
 
-				if (client.checkUsernamePassword(textfield.getText(), "centre1234") != null) {
+				if (client.checkUsernamePassword(textfield.getText(), "centre1234") != null)
+				{
 
 					model.removeMember(client.checkUsernamePassword(textfield.getText(), "centre1234"));
 					client.updateBoard(model);
 					textfield.setText("User removed!");
 
-				} else {
+				} else
+				{
 					textfield.setText("No user found");
 				}
 
@@ -807,7 +893,8 @@ public class BoardController {
 	}
 
 	@FXML
-	void renameBoard(ActionEvent event) {
+	void renameBoard(ActionEvent event)
+	{
 		Stage dialog2 = new Stage();
 		VBox dialogVbox2 = new VBox(20);
 		TextField textfield = new TextField();
@@ -821,10 +908,12 @@ public class BoardController {
 		dialog2.setScene(dialogScene2);
 		dialog2.show();
 
-		changeButton.setOnAction(new EventHandler<ActionEvent>() {
+		changeButton.setOnAction(new EventHandler<ActionEvent>()
+		{
 
 			@Override
-			public void handle(ActionEvent e) {
+			public void handle(ActionEvent e)
+			{
 				model.updateBoardName(textfield.getText());
 				client.updateBoard(model);
 				dialog2.close();
@@ -834,14 +923,16 @@ public class BoardController {
 	}
 
 	@FXML
-	void deleteCurrentBoard(ActionEvent event) {
+	void deleteCurrentBoard(ActionEvent event)
+	{
 		u.deleteBoard(model);
 		saveBoard(event);
 		exitBoard(event);
 	}
 
 	@FXML
-	void addFilterClicked(ActionEvent event) {
+	void addFilterClicked(ActionEvent event)
+	{
 
 		Stage dialog2 = new Stage();
 		VBox dialogVbox2 = new VBox(20);
@@ -856,10 +947,12 @@ public class BoardController {
 		dialog2.setScene(dialogScene2);
 		dialog2.show();
 
-		filterButton.setOnAction(new EventHandler<ActionEvent>() {
+		filterButton.setOnAction(new EventHandler<ActionEvent>()
+		{
 
 			@Override
-			public void handle(ActionEvent e) {
+			public void handle(ActionEvent e)
+			{
 				listMenu.setDisable(true);
 				cardMenu.setDisable(true);
 				mainHBox.getChildren().clear();
@@ -872,8 +965,10 @@ public class BoardController {
 
 				lists = model.getLists();
 
-				if (lists != null) {
-					for (ListN l : lists) {
+				if (lists != null)
+				{
+					for (ListN l : lists)
+					{
 						VBox vbox = new VBox();
 						vbox.setStyle("-fx-border-color:red;");
 						mainHBox.getChildren().add(vbox);
@@ -883,21 +978,29 @@ public class BoardController {
 						label.setTextFill(Paint.valueOf("white"));
 						vbox.getChildren().add(label);
 						System.out.println("reached + " + l.getCards());
-						for (FilterInterface f : filterChain.getFilters()) {
-							for (Card c : l.getCards()) {
+						for (FilterInterface f : filterChain.getFilters())
+						{
+							for (Card c : l.getCards())
+							{
 								if (f.executeFilter(f.getFilterString(), c) != null
-										&& filteredCards.contains(c) == false && noCardsShouldShow == false) {
+										&& filteredCards.contains(c) == false && noCardsShouldShow == false)
+								{
 
-									for (FilterInterface g : filterChain.getFilters()) {
-										if (g.executeFilter(g.getFilterString(), c) == null) {
+									for (FilterInterface g : filterChain.getFilters())
+									{
+										if (g.executeFilter(g.getFilterString(), c) == null)
+										{
 
 											break;
-										} else {
+										} else
+										{
 											filteredCards.add(c);
 											Button b = new Button(c.getCardName());
-											b.setOnAction(new EventHandler<ActionEvent>() {
+											b.setOnAction(new EventHandler<ActionEvent>()
+											{
 												@Override
-												public void handle(ActionEvent e) {
+												public void handle(ActionEvent e)
+												{
 													model.showCardView(s, scene, c, client, model, u, modelg);
 													client.updateBoard(model);
 
@@ -910,16 +1013,19 @@ public class BoardController {
 									}
 
 								} else if (f.executeFilter(f.getFilterString(), c) != null
-										&& filteredCards.contains(c) == true) {
+										&& filteredCards.contains(c) == true)
+								{
 
 									vbox.getChildren().clear();
 									vbox.getChildren().add(label);
 									// System.out.println("Card is already in the list, dont add");
 									filteredCards.add(c);
 									Button b = new Button(c.getCardName());
-									b.setOnAction(new EventHandler<ActionEvent>() {
+									b.setOnAction(new EventHandler<ActionEvent>()
+									{
 										@Override
-										public void handle(ActionEvent e) {
+										public void handle(ActionEvent e)
+										{
 											model.showCardView(s, scene, c, client, model, u, modelg);
 											client.updateBoard(model);
 
@@ -927,22 +1033,29 @@ public class BoardController {
 									});
 									vbox.getChildren().add(b);
 
-								} else if (f.executeFilter(f.getFilterString(), c) == null) {
-									for (FilterInterface g : filterChain.getFilters()) {
-										for (Card card : filteredCards) {
-											if (g.executeFilter(g.getFilterString(), card) == null) {
+								} else if (f.executeFilter(f.getFilterString(), c) == null)
+								{
+									for (FilterInterface g : filterChain.getFilters())
+									{
+										for (Card card : filteredCards)
+										{
+											if (g.executeFilter(g.getFilterString(), card) == null)
+											{
 												everyCardNoLabel = true;
-											} else {
+											} else
+											{
 												everyCardNoLabel = false;
 											}
 										}
-										if (everyCardNoLabel) {
+										if (everyCardNoLabel)
+										{
 											vbox.getChildren().clear();
 											vbox.getChildren().add(label);
 
 										}
 									}
-								} else {
+								} else
+								{
 									// noCardsShouldShow = true;
 
 								}
@@ -952,7 +1065,8 @@ public class BoardController {
 
 						}
 					}
-				} else {
+				} else
+				{
 					System.out.println("No lists");
 				}
 
@@ -963,14 +1077,17 @@ public class BoardController {
 
 	}
 
-	public void redrawForFilter() {
+	public void redrawForFilter()
+	{
 		mainHBox.getChildren().clear();
 		cardsAdded = new ArrayList<Card>();
 		addIt = true;
 
-		if (lists != null) {
+		if (lists != null)
+		{
 
-			for (ListN l : lists) {
+			for (ListN l : lists)
+			{
 				VBox vbox = new VBox();
 				vbox.setStyle("-fx-border-color:red;");
 				mainHBox.getChildren().add(vbox);
@@ -980,23 +1097,33 @@ public class BoardController {
 				label.setTextFill(Paint.valueOf("white"));
 				vbox.getChildren().add(label);
 				System.out.println("reached + " + l.getCards());
-				for (FilterInterface f : filterChain.getFilters()) {
-					for (Card c : l.getCards()) {
-						if (cardsAdded.contains(c) == false) {
-							if (f.executeFilter(f.getFilterString(), c) != null) {
-								for (FilterInterface g : filterChain.getFilters()) {
-									if (g.executeFilter(g.getFilterString(), c) == null) {
+				for (FilterInterface f : filterChain.getFilters())
+				{
+					for (Card c : l.getCards())
+					{
+						if (cardsAdded.contains(c) == false)
+						{
+							if (f.executeFilter(f.getFilterString(), c) != null)
+							{
+								for (FilterInterface g : filterChain.getFilters())
+								{
+									if (g.executeFilter(g.getFilterString(), c) == null)
+									{
 										addIt = false;
 									}
 
 								}
-								if (addIt == true) {
-									if (filteredCards.contains(c)) {
+								if (addIt == true)
+								{
+									if (filteredCards.contains(c))
+									{
 										cardsAdded.add(c);
 										Button b = new Button(c.getCardName());
-										b.setOnAction(new EventHandler<ActionEvent>() {
+										b.setOnAction(new EventHandler<ActionEvent>()
+										{
 											@Override
-											public void handle(ActionEvent e) {
+											public void handle(ActionEvent e)
+											{
 												model.showCardView(s, scene, c, client, model, u, modelg);
 												// client.updateBoard(model);
 
@@ -1018,7 +1145,8 @@ public class BoardController {
 	}
 
 	@FXML
-	void removeFilterClicked(ActionEvent event) {
+	void removeFilterClicked(ActionEvent event)
+	{
 		Stage dialog2 = new Stage();
 		VBox dialogVbox2 = new VBox(20);
 		ComboBox<String> comboBox = new ComboBox<String>();
@@ -1033,23 +1161,28 @@ public class BoardController {
 		comboBox.setItems(dataForFilter);
 		dialog2.setScene(dialogScene2);
 
-		for (FilterInterface f : filterChain.getFilters()) {
+		for (FilterInterface f : filterChain.getFilters())
+		{
 			dataForFilter.add(f.getFilterString());
 		}
 		dialog2.show();
 
-		filterButton.setOnAction(new EventHandler<ActionEvent>() {
+		filterButton.setOnAction(new EventHandler<ActionEvent>()
+		{
 
 			@Override
-			public void handle(ActionEvent e) {
+			public void handle(ActionEvent e)
+			{
 				selectedFilter = filterChain.getFilterByIndex(dataForFilter.indexOf(comboBox.getValue()));
 				dataForFilter.remove(selectedFilter.toString());
 				// System.out.println(selectedFilter.getFilterString());
 				filterChain.removeFilter(selectedFilter);
-				if (dataForFilter.size() < 2) {
+				if (dataForFilter.size() < 2)
+				{
 					model.showBoardScreen(s, scene, model, client, modelg, u);
 					System.out.println("size LESS than ONE");
-				} else {
+				} else
+				{
 					redrawForFilter();
 				}
 
@@ -1061,7 +1194,8 @@ public class BoardController {
 	}
 
 	public void setModel(Stage s, Scene scene, RmiClient client, BoardConcrete selectedBoard, BorderPane pane,
-			LoginModel modelg, User u) {
+			LoginModel modelg, User u)
+	{
 
 		this.client = client;
 		this.model = selectedBoard;
@@ -1071,14 +1205,22 @@ public class BoardController {
 		this.u = u;
 
 		// filterChain.addLabelFilter();
+//
+//		HBox boardTitleHBox = new HBox(20);
+//		pane.getChildren().add(boardTitleHBox);
+//		Label boardTitleLabel = new Label();
+//		boardTitleHBox.getChildren().add(boardTitleLabel);
+//		boardTitleLabel.setText(model.getBoardName());
 
 		lists = model.getLists();
 
-		if (lists != null) {
-			for (ListN l : lists) {
+		if (lists != null)
+		{
+			for (ListN l : lists)
+			{
 				initalVBox = new VBox();
 				initalVBox.setStyle("-fx-border-color:blue; -fx-border-width: 4; ");
-				
+
 				mainHBox.getChildren().add(initalVBox);
 				Label label = new Label(l.getListName());
 				label.setStyle("-fx-border-color:blue;-fx-background-color: black -fx-;");
@@ -1110,7 +1252,8 @@ public class BoardController {
 				System.out.println(l.toString());
 
 			}
-		} else {
+		} else
+		{
 			System.out.println("No lists");
 		}
 	}
