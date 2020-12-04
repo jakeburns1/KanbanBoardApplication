@@ -18,29 +18,25 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import main.CardController;
 
-public class CardConcrete implements Card, Serializable
-{
+public class CardConcrete implements Card, Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2118681597509186513L;
-	
+
 	String cardName;
 	Set<String> labels;
 	Set<User> members;
 	Set<Component> components;
-	
-	
-	
+
 	/**
 	 * @param cardName
 	 * @param labels
 	 * @param members
 	 * @param components
 	 */
-	public CardConcrete(String cardName, Set<String> labels, Set<User> members, Set<Component> components)
-	{
+	public CardConcrete(String cardName, Set<String> labels, Set<User> members, Set<Component> components) {
 		super();
 		this.cardName = cardName;
 		this.labels = labels;
@@ -49,82 +45,75 @@ public class CardConcrete implements Card, Serializable
 	}
 
 	public CardConcrete() {
-		
+
 	}
+
 	@Override
-	public void createLabel(String text)
-	{
+	public void createLabel(String text) {
 		labels.add(text);
 	}
 
 	@Override
-	public void deleteLabel(String text)
-	{
+	public void deleteLabel(String text) {
 		labels.remove(text);
 	}
 
 	/**
 	 * @return the members
 	 */
-	public Set<User> getMembers()
-	{
+	public Set<User> getMembers() {
 		return members;
 	}
 
 	/**
 	 * @param members the members to set
 	 */
-	public void setMembers(User member)
-	{
+	public void setMembers(User member) {
 		members.add(member);
 	}
 
 	public void deleteMember(User member) {
 		members.remove(member);
 	}
+
 	/**
 	 * @return the cardName
 	 */
-	public String getCardName()
-	{
+	public String getCardName() {
 		return cardName;
 	}
 
 	/**
 	 * @return the labels
 	 */
-	public Set<String> getLabels()
-	{
+	public Set<String> getLabels() {
 		return labels;
 	}
 
 	/**
 	 * @return the components
 	 */
-	public Set<Component> getComponents()
-	{
+	public Set<Component> getComponents() {
 		return components;
 	}
-	
+
 	public Component getDesComponent() {
 		Component com = new DescriptionComponent("Set a description!");
 		try {
-		for (Component c: components) {
-			if(c.getClass().equals(com.getClass())) {
-				return c;
+			for (Component c : components) {
+				if (c.getClass().equals(com.getClass())) {
+					return c;
+				} else {
+					return null;
+				}
 			}
-			else {
-				return null;
-			}
-		}
-		}
-		catch(Exception e) {
-		//e.printStackTrace();
-		return com;
+		} catch (Exception e) {
+			// e.printStackTrace();
+			return com;
 		}
 		return com;
 	}
-	
+
 	public ArrayList<Component> getCheckListComponent() {
 		Component check = new ChecklistComponent();
 		ArrayList<String> test = new ArrayList<String>();
@@ -132,83 +121,75 @@ public class CardConcrete implements Card, Serializable
 		test.add("Add an item!");
 		check.setItems(test);
 		try {
-		for (Component c: components) {
-			if(c.getClass().equals(check.getClass())) {
-				array.add(c);
+			for (Component c : components) {
+				if (c.getClass().equals(check.getClass())) {
+					array.add(c);
+				} else {
+
+				}
 			}
-			else {
-				
-			}
-		}
-		}
-		catch(Exception e) {
-		//e.printStackTrace();
-		return array;
+		} catch (Exception e) {
+			// e.printStackTrace();
+			return array;
 		}
 		return array;
 	}
 
-	public void addComponent(Component component)
-	{
+	public void addComponent(Component component) {
 		components.add(component);
 	}
 
 	/**
 	 * @param labels the labels to set
 	 */
-	public void setLabels(Set<String> labels)
-	{
+	public void setLabels(Set<String> labels) {
 		this.labels = labels;
 	}
 
 	/**
 	 * @param members the members to set
 	 */
-	public void setMembers(Set<User> members)
-	{
+	public void setMembers(Set<User> members) {
 		this.members = members;
 	}
 
 	/**
 	 * @param components the components to set
 	 */
-	public void setComponents(Set<Component> components)
-	{
+	public void setComponents(Set<Component> components) {
 		this.components = components;
 	}
 
 	public void deleteComponent(Component component) {
 		components.remove(component);
 	}
-	
-	public void setCardName(String newName)
-	{
+
+	public void setCardName(String newName) {
 		cardName = newName;
 	}
 
-	
 	public void storeToDisk() {
-		XMLEncoder encoder=null;
-		try{
-		encoder=new XMLEncoder(new BufferedOutputStream(new FileOutputStream("Card.xml")));
-		}catch(FileNotFoundException fileNotFound){
+		XMLEncoder encoder = null;
+		try {
+			encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream("Card.xml")));
+		} catch (FileNotFoundException fileNotFound) {
 			System.out.println("ERROR: While Creating or Opening the File");
 		}
 		encoder.writeObject(this);
 		encoder.close();
 	}
+
 	public static CardConcrete loadFromDisk() {
-		
-		XMLDecoder decoder=null;
+
+		XMLDecoder decoder = null;
 		try {
-			decoder=new XMLDecoder(new BufferedInputStream(new FileInputStream("Card.xml")));
+			decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("Card.xml")));
 		} catch (FileNotFoundException e) {
 			System.out.println("ERROR: File dvd.xml not found");
 		}
 		CardConcrete c = (CardConcrete) decoder.readObject();
 		return c;
 	}
-
 
 //	@Override
 //	public boolean equals(Object obj)
@@ -248,20 +229,21 @@ public class CardConcrete implements Card, Serializable
 //	}
 
 	public boolean equals(CardConcrete that) {
-		if(labels.size() != that.labels.size()) {return false;}
-		if(!that.cardName.equals(cardName)) {
+		if (labels.size() != that.labels.size()) {
 			return false;
 		}
-		
-		for(String l:labels) {
-			if(!that.contains(l)) {
+		if (!that.cardName.equals(cardName)) {
+			return false;
+		}
+
+		for (String l : labels) {
+			if (!that.contains(l)) {
 				return false;
 			}
 		}
-		
-	
-		for(User u:members) {
-			if(!this.containsMem(u)) {
+
+		for (User u : members) {
+			if (!this.containsMem(u)) {
 				return false;
 			}
 		}
@@ -274,32 +256,29 @@ public class CardConcrete implements Card, Serializable
 		return true;
 	}
 
-	public boolean containsCom(Component c)
-{
-		for(Component d: components) {
-			if(d.equals(c)) {
+	public boolean containsCom(Component c) {
+		for (Component d : components) {
+			if (d.equals(c)) {
 				return true;
 			}
 		}
-	return false;
-}
+		return false;
+	}
 
-	public boolean containsMem(User u)
-{
-		for (User b:members) {
-			 if(b.shallowEquals(u)) {
-				 return true;
-			 }
+	public boolean containsMem(User u) {
+		for (User b : members) {
+			if (b.shallowEquals(u)) {
+				return true;
+			}
 		}
-	return false;
-}
+		return false;
+	}
 
-	public boolean contains(String a)
-	{
-		for (String l:labels) {
-			 if(l.equals(a)) {
-				 return true;
-			 }
+	public boolean contains(String a) {
+		for (String l : labels) {
+			if (l.equals(a)) {
+				return true;
+			}
 		}
 		return false;
 	}

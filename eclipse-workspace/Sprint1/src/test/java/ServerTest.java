@@ -23,17 +23,16 @@ import mainPack.RmiServer;
 import mainPack.User;
 import mainPack.UserConcrete;
 
-class ServerTest
-{
+class ServerTest {
 	static RmiServer server;
 	static RmiClient client;
-	
-	//Board board= new BoardConcrete("Jake's Server Board",);
+
+	// Board board= new BoardConcrete("Jake's Server Board",);
 	User jake;
 	User bob;
 	User newUser;
 	Board board;
-	
+
 	ListConcrete list;
 	ListConcrete list2;
 	CardConcrete testCard;
@@ -50,7 +49,7 @@ class ServerTest
 
 	@BeforeEach
 	void set() {
-		
+
 		lists = new ArrayList<ListN>();
 		list = new ListConcrete("Day 1");
 		list2 = new ListConcrete("Day 2");
@@ -63,20 +62,20 @@ class ServerTest
 		labels = new HashSet<String>();
 		labels2 = new HashSet<String>();
 		labels3 = new HashSet<String>();
-		
+
 		jake = new UserConcrete();
 		bob = new UserConcrete();
 		members.add(jake);
 		members.add(bob);
 		jake.createBoard("test board 1", jake, members, lists);
-		//jake.createBoard("test board 2", jake, members, null);
+		// jake.createBoard("test board 2", jake, members, null);
 		bob.createBoard("test board 3", bob, members, null);
 		jake.setPassword("centre1234");
 		jake.setUsername("jakeburns");
 		bob.setPassword("centre1234");
 		bob.setUsername("bob");
 		board = jake.getBoards().get(0);
-		
+
 		testCard = new CardConcrete("Test card", labels, members, components);
 		testCard2 = new CardConcrete("Second card", labels2, members, components2);
 		testCard3 = new CardConcrete("thiiird card", labels3, members, components3);
@@ -84,51 +83,50 @@ class ServerTest
 		list.addCards(testCard);
 		list.addCards(testCard2);
 		list2.addCards(testCard3);
-		
+
 	}
+
 	@BeforeAll
-	static void setUp() throws Exception
-	{
-		
+	static void setUp() throws Exception {
+
 		int port = 3039;
-		
+
 		server = new RmiServer(port);
-		//server.startServer(port);
-		
+		// server.startServer(port);
+
 		client = new RmiClient(port);
-		
-		
+
 	}
 
 	@AfterAll
 	static void stop() {
 		server.shutdown();
 	}
-	
+
 	@Test
-	void test() throws RemoteException
-	{
-		
+	void test() throws RemoteException {
+
 		String username = UUID.randomUUID().toString();
 		newUser = new UserConcrete();
 		newUser.setUsername(username);
 		newUser.setPassword("test");
 		client.createBoard("banana", jake);
-		//client.createBoard("a", bob);
-		//bob.storeToDisk();
-		//client.updateBoard(board);
-		//fail("Not yet implemented");
+		// client.createBoard("a", bob);
+		// bob.storeToDisk();
+		// client.updateBoard(board);
+		// fail("Not yet implemented");
 		server.loadBoardFromDisk();
 		assertNotNull(client.checkUsernamePassword("jakeburns", "centre1234"));
-		//assertEquals(board,client.getBoard((int) board.getSerialversionuid()));
-		
+		// assertEquals(board,client.getBoard((int) board.getSerialversionuid()));
+
 		board.updateBoardName("pabloo");
 		client.updateBoard(board);
-		assertEquals("pabloo",board.getBoardName());
-		//client.updateBoard(board);
-		//System.out.println(board.getUnique());
-		//assertEquals(board.getBoardName(), client.getBoard(board.getUnique()).getBoardName());
-		//client.getBoard(board.getUnique());
+		assertEquals("pabloo", board.getBoardName());
+		// client.updateBoard(board);
+		// System.out.println(board.getUnique());
+		// assertEquals(board.getBoardName(),
+		// client.getBoard(board.getUnique()).getBoardName());
+		// client.getBoard(board.getUnique());
 	}
 
 }

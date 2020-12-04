@@ -23,28 +23,25 @@ import main.BoardController;
 import main.CardController;
 import view.LoginModel;
 
-public class BoardConcrete implements Board, Serializable
-{
+public class BoardConcrete implements Board, Serializable {
 
 	private static final long serialVersionUID = -468358412443532784L;
-	
+
 	public String unique = UUID.randomUUID().toString();
-	
+
 	BoardController boardController;
 
 	/**
 	 * @return the unique
 	 */
-	public String getUnique()
-	{
+	public String getUnique() {
 		return unique;
 	}
 
 	/**
 	 * @param unique the unique to set
 	 */
-	public void setUnique(String unique)
-	{
+	public void setUnique(String unique) {
 		this.unique = unique;
 	}
 
@@ -52,31 +49,24 @@ public class BoardConcrete implements Board, Serializable
 	User owner = new UserConcrete();
 	Set<User> members = new HashSet<User>();
 	ArrayList<ListN> lists = new ArrayList<ListN>();
-	
-	
-	
-	
+
 	/**
 	 * @param boardName the boardName to set
 	 */
-	public void setBoardName(String boardName)
-	{
+	public void setBoardName(String boardName) {
 		this.boardName = boardName;
 	}
 
 	/**
 	 * @param owner the owner to set
 	 */
-	public void setOwner(User owner)
-	{
+	public void setOwner(User owner) {
 		this.owner = owner;
 	}
 
-	public long getSerialversionuid()
-	{
+	public long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
 
 	/**
 	 * @param boardName
@@ -84,235 +74,208 @@ public class BoardConcrete implements Board, Serializable
 	 * @param members
 	 * @param lists
 	 */
-	public BoardConcrete()
-	{
-		//String boardName, User owner, Set<User> members, ArrayList<ListN> lists
+	public BoardConcrete() {
+		// String boardName, User owner, Set<User> members, ArrayList<ListN> lists
 //		super();
 //		this.boardName = boardName;
 //		this.owner = owner;
 //		this.members = members;
 //		this.lists = lists;
 	}
-	
-	public void showBoardScreen(Stage s, Scene scene, BoardConcrete b, RmiClient c, LoginModel modelg, User u)
-	{
-		try
-		{
+
+	public void showBoardScreen(Stage s, Scene scene, BoardConcrete b, RmiClient c, LoginModel modelg, User u) {
+		try {
 			FXMLLoader loader3 = new FXMLLoader();
 			loader3.setLocation(BoardConcrete.class.getResource("../main/board_view.fxml"));
 			BorderPane pane = loader3.load();
-			
+
 			BoardController cont3 = loader3.getController();
-			cont3.setModel(s, scene,c,b, pane, modelg, u);
+			cont3.setModel(s, scene, c, b, pane, modelg, u);
 			scene = new Scene(pane);
 			s.setScene(scene);
 			s.show();
-			
-			
+
 //			
-			
-		} catch (IOException e)
-		{
+
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-public void showCardView(Stage s, Scene scene, Card card, RmiClient c, BoardConcrete board, User u, LoginModel modelg) {
-		
-		
-		try
-		{
+
+	public void showCardView(Stage s, Scene scene, Card card, RmiClient c, BoardConcrete board, User u,
+			LoginModel modelg) {
+
+		try {
 			FXMLLoader loader3 = new FXMLLoader();
 			loader3.setLocation(BoardConcrete.class.getResource("../main/cardView.fxml"));
 			BorderPane pane = loader3.load();
-			
+
 			CardController cont3 = loader3.getController();
-			cont3.setModel(s, scene,card,c, board, u, modelg);
+			cont3.setModel(s, scene, card, c, board, u, modelg);
 			scene = new Scene(pane);
 			s.setScene(scene);
 			s.show();
-		} catch (IOException e)
-		{
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 	}
-	public Boolean addMember(User member)
-	{
-		
+
+	public Boolean addMember(User member) {
+
 		members.add(member);
 		member.addBoardtoUser(this);
-		
+
 		return true;
-		
+
 	}
 
-	public Boolean removeMember(User member)
-	{
+	public Boolean removeMember(User member) {
 		members.remove(member);
-		
+
 		return true;
 	}
 
-	public Boolean addList(ListN listToAdd) // ArrayList 
+	public Boolean addList(ListN listToAdd) // ArrayList
 	{
 		lists.add(listToAdd);
 		return true;
 	}
 
-	public Boolean deleteList(ListN listToRemove)
-	{
+	public Boolean deleteList(ListN listToRemove) {
 		lists.remove(listToRemove);
 		return true;
 	}
 
-
-	
-	public void reorderList(ListN selected, int newIndex)
-	{
+	public void reorderList(ListN selected, int newIndex) {
 //		if(selected.getCards().isEmpty()) {
 //			newIndex = 0;
 //		}
 //		else {
 //			newIndex = selected.getSize();
 //		}
-		
+
 		ListN copy = selected;
 		lists.remove(selected);
 		lists.add(newIndex, copy);
-		
-		
-		
-		
-		
+
 	}
-	
-	
+
 	/**
 	 * @return the boardName
 	 */
-	public String getBoardName()
-	{
+	public String getBoardName() {
 		return boardName;
 	}
 
 	/**
 	 * @return the owner
 	 */
-	public User getOwner()
-	{
+	public User getOwner() {
 		return owner;
 	}
 
 	/**
 	 * @return the members
 	 */
-	public Set<User> getMembers()
-	{
+	public Set<User> getMembers() {
 		return members;
 	}
 
 	/**
 	 * @return the lists
 	 */
-	public ArrayList<ListN> getLists()
-	{
+	public ArrayList<ListN> getLists() {
 		return lists;
 	}
 
 	@Override
-	public Boolean save()    // xml stuff
+	public Boolean save() // xml stuff
 	{
 		return true;
 	}
 
-	
-	public Boolean updateBoardName(String updatedName)
-	{
+	public Boolean updateBoardName(String updatedName) {
 		boardName = updatedName;
 		return true;
 	}
 
 	@Override
-	public void setMembers(Set<User> members)
-	{
+	public void setMembers(Set<User> members) {
 		this.members = members;
 	}
 
 	@Override
-	public void setLists(ArrayList<ListN> lists)
-	{
+	public void setLists(ArrayList<ListN> lists) {
 		this.lists = lists;
-		
+
 	}
-	
+
 	public void storeToDisk() {
-		XMLEncoder encoder=null;
-		try{
-		encoder=new XMLEncoder(new BufferedOutputStream(new FileOutputStream("Board.xml")));
-		}catch(FileNotFoundException fileNotFound){
+		XMLEncoder encoder = null;
+		try {
+			encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream("Board.xml")));
+		} catch (FileNotFoundException fileNotFound) {
 			System.out.println("ERROR: While Creating or Opening the File");
 		}
 		encoder.writeObject(this);
 		encoder.close();
 	}
-	
+
 	public static BoardConcrete loadFromDisk(String string) {
-		
-		XMLDecoder decoder=null;
+
+		XMLDecoder decoder = null;
 		try {
-			decoder=new XMLDecoder(new BufferedInputStream(new FileInputStream("Board.xml")));
+			decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("Board.xml")));
 		} catch (FileNotFoundException e) {
 			System.out.println("ERROR: File dvd.xml not found");
 		}
 		BoardConcrete b = (BoardConcrete) decoder.readObject();
 		return b;
 	}
-	
+
 	public boolean equals(BoardConcrete that) {
-		if(lists.size() != that.lists.size()) {return false;}
-		
-		if(!that.boardName.equals(boardName)) {
+		if (lists.size() != that.lists.size()) {
 			return false;
 		}
-		
-		for(User u:members) {
-			if(!this.containsMem(u)) {
+
+		if (!that.boardName.equals(boardName)) {
+			return false;
+		}
+
+		for (User u : members) {
+			if (!this.containsMem(u)) {
 				return false;
 			}
 		}
-		
-		for(ListN l:lists) {
-			if(!this.contains(l)) {
+
+		for (ListN l : lists) {
+			if (!this.contains(l)) {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 
-
-public boolean containsMem(User u)
-	{
-	for (User b:members) {
-		 if(b.shallowEquals(u)) {
-			 return true;
-		 }
-	}
-return false;
+	public boolean containsMem(User u) {
+		for (User b : members) {
+			if (b.shallowEquals(u)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
-public boolean contains(ListN l2)
-{
-for (ListN l:lists) {
-	 if(l.equals(l2)) {
-		 return true;
-	 }
-}
-return false;
-}
+	public boolean contains(ListN l2) {
+		for (ListN l : lists) {
+			if (l.equals(l2)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

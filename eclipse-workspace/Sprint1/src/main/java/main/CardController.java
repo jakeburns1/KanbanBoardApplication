@@ -28,8 +28,7 @@ import mainPack.RmiServer;
 import mainPack.User;
 import view.LoginModel;
 
-public class CardController
-{
+public class CardController {
 
 	BoardConcrete model;
 	ListConcrete list;
@@ -51,10 +50,8 @@ public class CardController
 
 	@FXML
 	private ListView<String> listView;
-	
 
 	ObservableList<String> data = FXCollections.observableArrayList();
-
 
 	@FXML
 	private VBox cardLabelBox;
@@ -66,16 +63,14 @@ public class CardController
 	private VBox checkListBox;
 
 	@FXML
-	void doneClicked(ActionEvent event)
-	{
-		
+	void doneClicked(ActionEvent event) {
+
 		model.showBoardScreen(s, scene, model, client, modelg, u);
 		client.updateBoard(model);
 	}
 
 	@FXML
-	void editCheckListClicked(ActionEvent event)
-	{
+	void editCheckListClicked(ActionEvent event) {
 		Stage dialog = new Stage();
 		VBox dialogVbox = new VBox(20);
 		TextField textfield = new TextField();
@@ -89,74 +84,64 @@ public class CardController
 		dialogVbox.getChildren().add(addButton);
 		dialogVbox.getChildren().add(deleteButton);
 		Scene dialogScene = new Scene(dialogVbox, 300, 200);
-		
+
 		checklist.setChecked(checked);
 		dialog.setScene(dialogScene);
 		dialog.show();
-		addButton.setOnAction(new EventHandler<ActionEvent>()
-		{
+		addButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent e)
-			{
+			public void handle(ActionEvent e) {
 				CheckBox cb = new CheckBox(textfield.getText());
-				
-				cb.setOnAction(new EventHandler<ActionEvent>()
-				{
+
+				cb.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
-					public void handle(ActionEvent e)
-					{
-						if(cb.isSelected() == true) {
+					public void handle(ActionEvent e) {
+						if (cb.isSelected() == true) {
 							checked.add(cb.getText());
 							System.out.println("REACHED CHECKED");
 
-						}
-						else {
+						} else {
 							checked.remove(cb.getText());
 						}
 					}
 				});
 
 				items.add(textfield.getText());
-				
+
 				// checkListBox.getChildren().add(cb);
 				checkListBox.getChildren().add(1, cb);
 
-				
 				boxesArray.add(cb);
-			
-				
+
 				card.addComponent(checklist);
 				client.updateBoard(model);
 			}
 		});
-		deleteButton.setOnAction(new EventHandler<ActionEvent>()
-		{
+		deleteButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent e)
-			{
+			public void handle(ActionEvent e) {
 				// CheckBox cb = new CheckBox(textfield.getText());
 				try {
-				if(items!=null) {
-				for (String s: items) {
-					if(s.equalsIgnoreCase(textfield.getText())) {
-						//checklist.setItems(items);
-						try {
-						checkListBox.getChildren().remove(items.indexOf(s)+1);
-						}
-						catch(Exception g) {
-							
-						}
-						items.remove(textfield.getText());
-						for(Component check: card.getCheckListComponent()) {
-							for(String a: check.getItems()) {
-								if(textfield.getText().equals(a)) {
-									card.deleteComponent(check);
+					if (items != null) {
+						for (String s : items) {
+							if (s.equalsIgnoreCase(textfield.getText())) {
+								// checklist.setItems(items);
+								try {
+									checkListBox.getChildren().remove(items.indexOf(s) + 1);
+								} catch (Exception g) {
+
 								}
-							}
-							
-						}
-						card.deleteComponent(checklist);
-						client.updateBoard(model);
+								items.remove(textfield.getText());
+								for (Component check : card.getCheckListComponent()) {
+									for (String a : check.getItems()) {
+										if (textfield.getText().equals(a)) {
+											card.deleteComponent(check);
+										}
+									}
+
+								}
+								card.deleteComponent(checklist);
+								client.updateBoard(model);
 //						for (CheckBox c : boxesArray)
 //						{
 //							if (s.equals(textfield.getText()))
@@ -164,25 +149,22 @@ public class CardController
 //							boxesArray.remove(s);
 //							break;
 //						}
+							} else {
+
+							}
+						}
 					}
-					else {
-						
-					}
-				}
-				}
-				}
-				catch(Exception f){
-					
+				} catch (Exception f) {
+
 				}
 			}
-			
+
 		});
-		
+
 	}
 
 	@FXML
-	void editDescriptionClicked(ActionEvent event)
-	{
+	void editDescriptionClicked(ActionEvent event) {
 		descriptionLabel.setText("changed");
 		Stage dialog = new Stage();
 		VBox dialogVbox = new VBox(20);
@@ -196,18 +178,13 @@ public class CardController
 		dialog.setScene(dialogScene);
 		dialog.show();
 
-		doneButton.setOnAction(new EventHandler<ActionEvent>()
-		{
+		doneButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent e)
-			{
+			public void handle(ActionEvent e) {
 				// System.out.println(textfield.getText());
-				for (ListN l : model.getLists())
-				{
-					for (Card c : l.getCards())
-					{
-						if (c.getCardName().equals(card.getCardName()))
-						{
+				for (ListN l : model.getLists()) {
+					for (Card c : l.getCards()) {
+						if (c.getCardName().equals(card.getCardName())) {
 							card = c;
 						}
 						// vbox.getChildren().add(b);
@@ -224,8 +201,7 @@ public class CardController
 	}
 
 	@FXML
-	void editLabelsClicked(ActionEvent event)
-	{
+	void editLabelsClicked(ActionEvent event) {
 		// descriptionLabel.setText("changed");
 		Stage dialog = new Stage();
 		VBox dialogVbox = new VBox(20);
@@ -242,46 +218,39 @@ public class CardController
 		Scene dialogScene = new Scene(dialogVbox, 300, 200);
 		dialog.setScene(dialogScene);
 		dialog.show();
-		
-		addButton.setOnAction(new EventHandler<ActionEvent>()
-		{
+
+		addButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent e)
-			{
+			public void handle(ActionEvent e) {
 				data.add(textfield.getText());
 				card.createLabel(textfield.getText());
 				client.updateBoard(model);
 			}
 		});
-		deleteButton.setOnAction(new EventHandler<ActionEvent>()
-		{
+		deleteButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent e)
-			{
+			public void handle(ActionEvent e) {
 				try {
-				for(String s: data) {
-					if(s.equalsIgnoreCase(textfield.getText())){
-						data.remove(textfield.getText());
-						//listView.setItems(data);
-						card.deleteLabel(textfield.getText());
-						client.updateBoard(model);
+					for (String s : data) {
+						if (s.equalsIgnoreCase(textfield.getText())) {
+							data.remove(textfield.getText());
+							// listView.setItems(data);
+							card.deleteLabel(textfield.getText());
+							client.updateBoard(model);
+						} else {
+
+						}
+
 					}
-					else {
-						
-					}
-					
-				}
-				}
-				catch(Exception y) {
-					
+				} catch (Exception y) {
+
 				}
 			}
 		});
 	}
 
 	@FXML
-	void editNameClicked(ActionEvent event)
-	{
+	void editNameClicked(ActionEvent event) {
 		Stage dialog = new Stage();
 		VBox dialogVbox = new VBox(20);
 		TextField textfield = new TextField();
@@ -294,11 +263,9 @@ public class CardController
 		Scene dialogScene = new Scene(dialogVbox, 300, 200);
 		dialog.setScene(dialogScene);
 		dialog.show();
-		doneButton.setOnAction(new EventHandler<ActionEvent>()
-		{
+		doneButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent e)
-			{
+			public void handle(ActionEvent e) {
 				nameLabel.setText(textfield.getText());
 				card.setCardName(textfield.getText());
 				client.updateBoard(model);
@@ -307,8 +274,7 @@ public class CardController
 		});
 	}
 
-	public void setModel(Stage s, Scene scene, Card card, RmiClient c, BoardConcrete model, User u, LoginModel modelg)
-	{
+	public void setModel(Stage s, Scene scene, Card card, RmiClient c, BoardConcrete model, User u, LoginModel modelg) {
 		this.s = s;
 		this.scene = scene;
 		this.card = card;
@@ -317,14 +283,11 @@ public class CardController
 		this.modelg = modelg;
 		this.u = u;
 
-		
 		// DescriptionComponent description = card.getComponents().toArray();
-		if (card.getDesComponent() != null)
-		{
+		if (card.getDesComponent() != null) {
 
 			descriptionLabel.setText(this.card.getDesComponent().getText());
-		} else
-		{
+		} else {
 			descriptionLabel.setText("Description");
 		}
 
@@ -333,28 +296,22 @@ public class CardController
 		data.addAll(card.getLabels());
 		listView.setItems(data);
 		checklist.setItems(items);
-		if (card.getCheckListComponent() != null)
-		{
-			for (Component check : card.getCheckListComponent())
-			{
+		if (card.getCheckListComponent() != null) {
+			for (Component check : card.getCheckListComponent()) {
 				items.addAll(check.getItems());
-				
-				for (String a : check.getItems())
-				{
+
+				for (String a : check.getItems()) {
 					CheckBox cb = new CheckBox(a);
 					checkListBox.getChildren().add(1, cb);
-					for (String checkers : check.getChecked())
-					{
-						if (checkers.equalsIgnoreCase(a))
-						{
+					for (String checkers : check.getChecked()) {
+						if (checkers.equalsIgnoreCase(a)) {
 							cb.setSelected(true);
 						}
 					}
 				}
 			}
-			
-		} else
-		{
+
+		} else {
 			System.out.println("no checklist");
 		}
 

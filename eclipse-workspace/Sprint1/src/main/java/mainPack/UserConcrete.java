@@ -12,8 +12,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 
-public class UserConcrete implements User, Serializable
-{
+public class UserConcrete implements User, Serializable {
 
 	/**
 	 * 
@@ -23,47 +22,39 @@ public class UserConcrete implements User, Serializable
 	 * 
 	 */
 	public String unique = UUID.randomUUID().toString();
-	
+
 	/**
 	 * @return the unique
 	 */
-	public String getUnique()
-	{
+	public String getUnique() {
 		return unique;
 	}
-
-
 
 	String username;
 	String password;
 	ArrayList<Board> board = new ArrayList<Board>();
-	
-	public Board createBoard(String boardName, User owner,Set<User> members, ArrayList<ListN> lists) 
-	{
-		Board newBoard = new BoardConcrete(); 
+
+	public Board createBoard(String boardName, User owner, Set<User> members, ArrayList<ListN> lists) {
+		Board newBoard = new BoardConcrete();
 		newBoard.updateBoardName(boardName);
 		newBoard.setMembers(members);
 		newBoard.setLists(lists);
 		newBoard.setOwner(this);
 		board.add(newBoard);
-		
+
 		return newBoard;
-		
+
 	}
-	
-	
-	
+
 	/**
 	 * @return the username
 	 */
-	public String getUsername()
-	{
+	public String getUsername() {
 		return username;
 	}
 
 	@Override
-	public int hashCode()
-	{
+	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((board == null) ? 0 : board.hashCode());
@@ -72,11 +63,8 @@ public class UserConcrete implements User, Serializable
 		return result;
 	}
 
-
-
 	@Override
-	public boolean equals(Object obj)
-	{
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -84,20 +72,17 @@ public class UserConcrete implements User, Serializable
 		if (getClass() != obj.getClass())
 			return false;
 		UserConcrete other = (UserConcrete) obj;
-		if (board == null)
-		{
+		if (board == null) {
 			if (other.board != null)
 				return false;
 		} else if (!board.equals(other.board))
 			return false;
-		if (password == null)
-		{
+		if (password == null) {
 			if (other.password != null)
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (username == null)
-		{
+		if (username == null) {
 			if (other.username != null)
 				return false;
 		} else if (!username.equals(other.username))
@@ -105,78 +90,69 @@ public class UserConcrete implements User, Serializable
 		return true;
 	}
 
-
-
 	/**
 	 * @return the password
 	 */
-	public String getPassword()
-	{
+	public String getPassword() {
 		return password;
 	}
 
 	/**
 	 * @return the boards
 	 */
-	public ArrayList<Board> getBoards()
-	{
+	public ArrayList<Board> getBoards() {
 		return board;
 	}
 
 	public void addBoardtoUser(Board newBoard) {
 		board.add(newBoard);
 	}
+
 	public boolean userHasboards() {
 		if (board.isEmpty()) {
 			return false;
+		} else {
+			return false;
 		}
+	}
+
+	public boolean login(String username, String password) {
+		if (this.username.equals(username) && this.password.equals(password)) {
+			return true;
+		}
+
 		else {
 			return false;
 		}
 	}
-	public boolean login(String username, String password)
-	{
-		if (this.username.equals(username) && this.password.equals(password)) {
-			return true;
-		}
-		
-		else{
-			return false;
-		}
-	}
-
 
 	/**
 	 */
-	public UserConcrete()
-	{
+	public UserConcrete() {
 		super();
-	
-	}
 
+	}
 
 	/**
 	 * @param username the username to set
 	 */
-	public void setUsername(String username)
-	{
+	public void setUsername(String username) {
 		this.username = username;
 	}
 
 	/**
 	 * @param password the password to set
 	 */
-	public void setPassword(String password)
-	{
+	public void setPassword(String password) {
 		this.password = password;
-		
+
 	}
 
 	public void storeToDisk() {
-		XMLEncoder encoder=null;
-		try{
-		encoder=new XMLEncoder(new BufferedOutputStream(new FileOutputStream("User.xml")));
-		}catch(FileNotFoundException fileNotFound){
+		XMLEncoder encoder = null;
+		try {
+			encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream("User.xml")));
+		} catch (FileNotFoundException fileNotFound) {
 			System.out.println("ERROR: While Creating or Opening the File");
 		}
 		encoder.writeObject(this);
@@ -184,10 +160,10 @@ public class UserConcrete implements User, Serializable
 	}
 
 	public static UserConcrete loadFromDisk() {
-		
-		XMLDecoder decoder=null;
+
+		XMLDecoder decoder = null;
 		try {
-			decoder=new XMLDecoder(new BufferedInputStream(new FileInputStream("User.xml")));
+			decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("User.xml")));
 		} catch (FileNotFoundException e) {
 			System.out.println("ERROR: File not found");
 		}
@@ -195,33 +171,30 @@ public class UserConcrete implements User, Serializable
 		return d;
 	}
 
-/**
+	/**
 	 * @return the serialversionuid
 	 */
-	public long getSerialversionuid()
-	{
+	public long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	public boolean shallowEquals(User a) {
+		if (this.username != a.getUsername()) {
+			return false;
+		}
 
+		if (this.password != a.getPassword()) {
+			return false;
+		}
 
-public boolean shallowEquals(User a) {
-	if(this.username != a.getUsername()) {
-		return false;
+		return true;
+
 	}
-	
-	if(this.password != a.getPassword()) {
-		return false;
-	}
-	
-	return true;
-		
-	}
+
 	/**
 	 * @return the board
 	 */
-	public ArrayList<Board> getBoard()
-	{
+	public ArrayList<Board> getBoard() {
 		return board;
 	}
 
@@ -229,14 +202,11 @@ public boolean shallowEquals(User a) {
 		board.remove(b);
 	}
 
-
 	/**
 	 * @param board the board to set
 	 */
-	public void setBoard(ArrayList<Board> board)
-	{
+	public void setBoard(ArrayList<Board> board) {
 		this.board = board;
 	}
-
 
 }

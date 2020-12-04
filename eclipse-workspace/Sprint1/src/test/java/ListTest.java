@@ -21,9 +21,8 @@ import mainPack.RmiServer;
 import mainPack.User;
 import mainPack.UserConcrete;
 
-class ListTest
-{
-	
+class ListTest {
+
 	ListConcrete list;
 	ListConcrete list2;
 	CardConcrete testCard;
@@ -36,16 +35,14 @@ class ListTest
 	User bob;
 	DescriptionComponent comp;
 	Board board;
-	
+
 	RmiClient client;
 	RmiServer server;
-	
 
 	@BeforeEach
-	void setUp() throws Exception
-	{	
-		
-		//server = new RmiServer();
+	void setUp() throws Exception {
+
+		// server = new RmiServer();
 		client = new RmiClient(5050);
 		jake = new UserConcrete();
 		bob = new UserConcrete();
@@ -62,11 +59,9 @@ class ListTest
 		members.add(jake);
 		board = jake.createBoard("Test Board", jake, members, lists);
 		labels = new HashSet<String>();
-		
+
 		components = new HashSet<Component>();
-		
-		
-		
+
 		comp = new DescriptionComponent("This is the description.");
 		labels.add("Design Day");
 		members.add(jake);
@@ -78,39 +73,38 @@ class ListTest
 	}
 
 	@Test
-	void test()
-	{
-		//assertEquals("test", list.getCards());
+	void test() {
+		// assertEquals("test", list.getCards());
 		assertEquals(true, testCard.getLabels().contains("Design Day"));
 		assertEquals("Day 1", list.getListName());
 	}
-	
+
 	@Test
 	void cardTests() {
 		assertEquals("Test card", testCard.getCardName());
 	}
-	
+
 	@Test
 	void testBoardName() {
 		assertEquals("Test Board", board.getBoardName());
-		
+
 	}
-	
+
 	@Test
 	void testBoardOwner() {
 		assertEquals(jake, board.getOwner());
 	}
-	
+
 	@Test
 	void userHasBoards() {
 		assertNotNull(jake.getBoards());
 	}
-	
+
 	@Test
 	void testOrderedSetofLists() {
 		assertEquals(lists, board.getLists());
 	}
-	
+
 	@Test
 	void testListOrderSetOfCards() {
 		assertEquals(true, list.getCards().contains(testCard2));
@@ -123,62 +117,62 @@ class ListTest
 	void moveCardToIndexTest() {
 		list.reorderCard(testCard, 2);
 		assertEquals(testCard2, list.getCards().get(0));
-		assertEquals(testCard,  list.getCards().get(1));
-		
+		assertEquals(testCard, list.getCards().get(1));
+
 	}
-	
+
 	@Test
 	void updateBoardName() {
 		board.updateBoardName("Jake's Board");
 		assertEquals("Jake's Board", board.getBoardName());
 	}
-	
+
 	@Test
 	void updateListName() {
 		list.updateName("Banana List");
 		assertEquals("Banana List", list.getListName());
 	}
-	
+
 	@Test
 	void updateCardName() {
 		testCard.setCardName("Bad Card");
 		assertEquals("Bad Card", testCard.getCardName());
 	}
-	
+
 	@Test
 	void moveCardBetweenListTest() {
 		assertEquals(false, list2.getCards().contains(testCard));
 		list.moveCard(testCard, list2, 0);
-		assertEquals(true,list2.getCards().contains(testCard));
+		assertEquals(true, list2.getCards().contains(testCard));
 	}
-	
+
 	@Test
 	void listReorderTest() {
 		board.reorderList(list, 2);
 		assertEquals(list2, board.getLists().get(0));
 		assertEquals(list, board.getLists().get(1));
-		
+
 	}
-	
+
 	@Test
 	void ownerAddUserTest() {
 		assertEquals(false, board.getMembers().contains(bob));
 		assertEquals(0, bob.getBoards().size());
 		board.addMember(bob);
-		assertEquals(1 ,bob.getBoards().size());
+		assertEquals(1, bob.getBoards().size());
 	}
-	
+
 	@Test
 	void cardLabelsTest() {
 		assertEquals(true, testCard.getLabels().contains("Design Day"));
 		assertEquals(false, testCard.getLabels().contains("Banana"));
 		testCard.createLabel("Banana");
 		assertEquals(true, testCard.getLabels().contains("Banana"));
-		
+
 		testCard.setMembers(bob);
-		
+
 	}
-	
+
 	@Test
 	void membersWithCardTest() {
 		testCard.deleteMember(jake);
@@ -188,9 +182,9 @@ class ListTest
 		assertEquals(true, testCard.getMembers().contains(jake));
 		testCard.setMembers(bob);
 		assertEquals(true, testCard.getMembers().contains(bob));
-		
+
 	}
-	
+
 	@Test
 	void componentTest() {
 		testCard.deleteComponent(comp);
@@ -198,7 +192,7 @@ class ListTest
 		testCard.addComponent(comp);
 		assertEquals(true, testCard.getComponents().contains(comp));
 	}
-	
+
 	@Test
 	void testXML() {
 		board.storeToDisk();
@@ -206,23 +200,22 @@ class ListTest
 		comp.storeToDisk();
 		list.storeToDisk();
 		jake.storeToDisk();
-		
+
 		BoardConcrete diskB = BoardConcrete.loadFromDisk("Board.xml");
 		CardConcrete diskC = CardConcrete.loadFromDisk();
 		ListConcrete diskL = ListConcrete.loadFromDisk();
 		assertTrue(board.equals(diskB));
 		assertTrue(testCard.equals(diskC));
-	    assertTrue(list.equals(diskL));
+		assertTrue(list.equals(diskL));
 	}
-	
+
 	@Test
 	void clientTest() {
-		//int size = jake.getBoards().size();
-		//client.createBoard("servertest", jake);
-		//assertEquals(size+1,jake.getBoards().size());
-		//assertEquals(false, server.checkUsernamePassword("bobarnold", "computerscience"));
+		// int size = jake.getBoards().size();
+		// client.createBoard("servertest", jake);
+		// assertEquals(size+1,jake.getBoards().size());
+		// assertEquals(false, server.checkUsernamePassword("bobarnold",
+		// "computerscience"));
 	}
-	
-	
-	
+
 }

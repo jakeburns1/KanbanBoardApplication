@@ -1,6 +1,5 @@
 package views;
 
-
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -35,20 +34,19 @@ import view.LoginModel;
 
 @ExtendWith(ApplicationExtension.class)
 
-public class TestTrello
-{
-	
-	 static RmiServer server;
-	 static RmiClient client;
+public class TestTrello {
+
+	static RmiServer server;
+	static RmiClient client;
 	AnchorPane pane;
 	Scene s;
-	
+
 	User jake;
 	User bob;
 	User newUser;
 	Board board;
 	BoardController controller;
-	
+
 	ListConcrete list;
 	ListConcrete list2;
 	CardConcrete testCard;
@@ -62,7 +60,7 @@ public class TestTrello
 	Set<Component> components2;
 	Set<Component> components3;
 	ArrayList<ListN> lists;
-	
+
 	@BeforeEach
 	void set() {
 		lists = new ArrayList<ListN>();
@@ -77,98 +75,87 @@ public class TestTrello
 		labels = new HashSet<String>();
 		labels2 = new HashSet<String>();
 		labels3 = new HashSet<String>();
-		
+
 		jake = new UserConcrete();
 		bob = new UserConcrete();
 		members.add(jake);
 		members.add(bob);
 		jake.createBoard("test board 1", jake, members, lists);
-		//jake.createBoard("test board 2", jake, members, null);
+		// jake.createBoard("test board 2", jake, members, null);
 		bob.createBoard("test board 3", bob, members, null);
 		jake.setPassword("centre1234");
 		jake.setUsername("jakeburns");
 		bob.setPassword("centre1234");
 		bob.setUsername("bob");
 		board = jake.getBoards().get(0);
-		
+
 		labels.add("jake");
 		labels.add("bob");
 		labels3.add("jake");
-		
+
 		testCard = new CardConcrete("Test card", labels, members, components);
 		testCard2 = new CardConcrete("Second card", labels2, members, components2);
 		testCard3 = new CardConcrete("thiiird card", labels3, members, components3);
 
 		list.addCards(testCard);
 		list.addCards(testCard2);
-		
+
 		list2.addCards(testCard3);
 		server.save(board);
 		server.createBoard("Testing please", jake);
-		
-		
+
 	}
+
 	@BeforeAll
-	static void setUp() throws Exception
-	{
+	static void setUp() throws Exception {
 		int port = 4347;
-		
+
 		server = new RmiServer(port);
-		//server.startServer(port);
-		
+		// server.startServer(port);
+
 		client = new RmiClient(port);
-		
-		
-		
+
 	}
+
 	@AfterAll
 	static void stop() {
 		server.shutdown();
 	}
-	@Test
-	void test() throws RemoteException
-	{
-	
 
-		
+	@Test
+	void test() throws RemoteException {
+
 	}
-	
+
 	@Start
-	public void start(Stage stage) throws Exception
-	{
-		//server.startServer(port);
-		//server = new RmiServer(port);
-		//client = new RmiClient(port);
-	
-		
-		
-		LoginModel model2 =  new LoginModel(stage, s);
-		//UserConcrete model = new UserConcrete();
-		
+	public void start(Stage stage) throws Exception {
+		// server.startServer(port);
+		// server = new RmiServer(port);
+		// client = new RmiClient(port);
+
+		LoginModel model2 = new LoginModel(stage, s);
+		// UserConcrete model = new UserConcrete();
+
 		FXMLLoader loader = new FXMLLoader();
-		
-		
+
 		loader.setLocation(TestTrello.class.getResource("../main/loginView.fxml"));
-		
-		 pane = loader.load();
-		
-		InitialController contt = loader.getController(); 
+
+		pane = loader.load();
+
+		InitialController contt = loader.getController();
 		s = new Scene(pane);
-		
+
 		contt.setModel(model2, client, stage, s);
-		
-		
+
 		stage.setScene(s);
 		stage.show();
 	}
 
 	@Test
 	public void testLogin(FxRobot robot) throws Exception {
-		
-		//server.loadBoardFromDisk();
-	
-	
-		
+
+		// server.loadBoardFromDisk();
+
 		client.createBoard("banana", jake);
 		client.createBoard("a", bob);
 		bob.storeToDisk();
@@ -177,8 +164,7 @@ public class TestTrello
 		server.loadBoardFromDisk();
 
 		client.updateBoard(board);
-		try
-		{
+		try {
 			Thread.sleep(1000);
 			robot.clickOn("#usernameField");
 			robot.write("jakeburns");
@@ -195,73 +181,70 @@ public class TestTrello
 			testRenameBoard(robot);
 			testDeleteBoard(robot);
 			testAddFilter(robot);
-			//Thread.sleep(100000);
-			//server.shutdown();
-			
-			//Thread.sleep(1000);
-			//Thread.sleep(1000000000);
-			
-		} catch (InterruptedException e)
-		{
+			// Thread.sleep(100000);
+			// server.shutdown();
+
+			// Thread.sleep(1000);
+			// Thread.sleep(1000000000);
+
+		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 //Label test = robot.lookup("#label").queryAs(Label.class);
-		//Assertions.assertThat(robot.lookup("#label").queryAs(Label.class)).hasText("1");
+		// Label test = robot.lookup("#label").queryAs(Label.class);
+		// Assertions.assertThat(robot.lookup("#label").queryAs(Label.class)).hasText("1");
 
 	}
 
 	public void testLoadBoard(FxRobot robot) {
-		
+
 		robot.clickOn("#dropdown").type(KeyCode.DOWN).type(KeyCode.ENTER);
 		robot.clickOn("#loadButton");
 	}
-	
-	
+
 	public void testListFunctions(FxRobot robot) {
-	try {
-	robot.clickOn("#listDropDown");
-	Thread.sleep(1000);
-	robot.clickOn("#addList");
-	robot.clickOn("#listDropDown");
-	robot.clickOn("#moveList");
-	robot.clickOn("#selectionBox").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
-	robot.clickOn("#done");
-	robot.clickOn("#selection2").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
-	robot.clickOn("#done2");
-	robot.clickOn("#listDropDown");
-	robot.clickOn("#reorderCard");
-	robot.clickOn("#reorderSelect").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
-	Thread.sleep(2000);
-	robot.clickOn("#doneReorder");
-	Thread.sleep(2000);
-	robot.clickOn("#cardSelect").type(KeyCode.DOWN).type(KeyCode.ENTER);
-	robot.clickOn("#doneSelecting");
-	Thread.sleep(1000);
-	robot.clickOn("#selectCombo").type(KeyCode.DOWN).type(KeyCode.ENTER);
-	robot.clickOn("#moveWithCard");
-	Thread.sleep(1000);
-	robot.clickOn("#listDropDown");
-	Thread.sleep(1000);
-	robot.clickOn("#deleteList");
-	Thread.sleep(1000);
-	robot.clickOn("#listDeleteCombo").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
-	Thread.sleep(1000);
-	robot.clickOn("#listDeleteDone");
-	robot.clickOn("#listDropDown");
-	Thread.sleep(1000);
-	robot.clickOn("#listRename");
-	Thread.sleep(1000);
-	robot.clickOn("#renameCombo").type(KeyCode.DOWN).type(KeyCode.ENTER);
-	robot.clickOn("#renameDone");
-	robot.clickOn("#renameText");
-	robot.write("Day 0");
-	Thread.sleep(1000);
-	robot.clickOn("#changeRename");
-	}
-	catch(Exception e) {
-		
-	}
+		try {
+			robot.clickOn("#listDropDown");
+			Thread.sleep(1000);
+			robot.clickOn("#addList");
+			robot.clickOn("#listDropDown");
+			robot.clickOn("#moveList");
+			robot.clickOn("#selectionBox").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+			robot.clickOn("#done");
+			robot.clickOn("#selection2").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+			robot.clickOn("#done2");
+			robot.clickOn("#listDropDown");
+			robot.clickOn("#reorderCard");
+			robot.clickOn("#reorderSelect").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+			Thread.sleep(2000);
+			robot.clickOn("#doneReorder");
+			Thread.sleep(2000);
+			robot.clickOn("#cardSelect").type(KeyCode.DOWN).type(KeyCode.ENTER);
+			robot.clickOn("#doneSelecting");
+			Thread.sleep(1000);
+			robot.clickOn("#selectCombo").type(KeyCode.DOWN).type(KeyCode.ENTER);
+			robot.clickOn("#moveWithCard");
+			Thread.sleep(1000);
+			robot.clickOn("#listDropDown");
+			Thread.sleep(1000);
+			robot.clickOn("#deleteList");
+			Thread.sleep(1000);
+			robot.clickOn("#listDeleteCombo").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+			Thread.sleep(1000);
+			robot.clickOn("#listDeleteDone");
+			robot.clickOn("#listDropDown");
+			Thread.sleep(1000);
+			robot.clickOn("#listRename");
+			Thread.sleep(1000);
+			robot.clickOn("#renameCombo").type(KeyCode.DOWN).type(KeyCode.ENTER);
+			robot.clickOn("#renameDone");
+			robot.clickOn("#renameText");
+			robot.write("Day 0");
+			Thread.sleep(1000);
+			robot.clickOn("#changeRename");
+		} catch (Exception e) {
+
+		}
 	}
 
 	public void testCardFuncs(FxRobot robot) {
@@ -293,11 +276,11 @@ public class TestTrello
 			robot.clickOn("#comboFinal").type(KeyCode.DOWN).type(KeyCode.ENTER);
 			robot.clickOn("#doneBtnCard");
 			robot.clickOn("#selectLister").type(KeyCode.DOWN).type(KeyCode.ENTER);
-		}
-		catch(Exception e) {
-			
+		} catch (Exception e) {
+
 		}
 	}
+
 	public void testIndvidualCards(FxRobot robot) {
 		try {
 			robot.clickOn("#btnChangeList");
@@ -338,9 +321,8 @@ public class TestTrello
 			robot.clickOn("#addCheck");
 			robot.clickOn("#deleteCheck");
 			robot.clickOn("#doneMain");
-		}
-		catch(Exception e) {
-			
+		} catch (Exception e) {
+
 		}
 	}
 
@@ -365,24 +347,20 @@ public class TestTrello
 			robot.clickOn("#removeText");
 			robot.write("jakeburns");
 			robot.clickOn("#removeMember1");
-		}
-		catch(Exception e) {
-			
+		} catch (Exception e) {
+
 		}
 	}
-	
+
 	public void testSaveAndExit(FxRobot robot) {
 		try {
 			robot.clickOn("#fileDropDown");
-		robot.clickOn("#saveBoard");
-		robot.clickOn("#fileDropDown");
-		robot.clickOn("#exitBoard");
-			
-		}
-		catch(Exception e) {
-			
-			
-			
+			robot.clickOn("#saveBoard");
+			robot.clickOn("#fileDropDown");
+			robot.clickOn("#exitBoard");
+
+		} catch (Exception e) {
+
 		}
 	}
 
@@ -393,12 +371,11 @@ public class TestTrello
 			robot.clickOn("#saveBoard");
 			robot.clickOn("#fileDropDown");
 			robot.clickOn("#exitBoard");
-		}
-		catch(Exception e) {
-			
+		} catch (Exception e) {
+
 		}
 	}
-	
+
 	public void testRenameBoard(FxRobot robot) {
 		try {
 			robot.clickOn("#dropdown").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
@@ -410,12 +387,12 @@ public class TestTrello
 			robot.clickOn("#changeRenameBoard");
 			robot.clickOn("#fileDropDown");
 			robot.clickOn("#exitBoard");
-		
-		}
-		catch(Exception e) {
-			
+
+		} catch (Exception e) {
+
 		}
 	}
+
 	public void testDeleteBoard(FxRobot robot) {
 		try {
 			robot.clickOn("#dropdown").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
@@ -423,11 +400,11 @@ public class TestTrello
 			robot.clickOn("#fileDropDown");
 			robot.clickOn("#deleteBoard");
 			robot.clickOn("#dropdown");
-		}
-		catch(Exception e) {
-			
+		} catch (Exception e) {
+
 		}
 	}
+
 	public void testAddFilter(FxRobot robot) {
 		testLoadBoard(robot);
 		robot.clickOn("#filterDropDown");
@@ -447,7 +424,8 @@ public class TestTrello
 		robot.clickOn("#addThatFilter");
 		robot.clickOn("#filterDropDown");
 		robot.clickOn("#removeFilter");
-		robot.clickOn("#selectDeleteFilter").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+		robot.clickOn("#selectDeleteFilter").type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.DOWN)
+				.type(KeyCode.ENTER);
 		robot.clickOn("#deleteFilter");
 		robot.clickOn("#filterDropDown");
 		robot.clickOn("#removeFilter");
@@ -457,6 +435,6 @@ public class TestTrello
 		robot.clickOn("#removeFilter");
 		robot.clickOn("#selectDeleteFilter").type(KeyCode.DOWN).type(KeyCode.ENTER);
 		robot.clickOn("#deleteFilter");
-		
+
 	}
 }

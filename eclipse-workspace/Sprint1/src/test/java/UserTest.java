@@ -8,30 +8,27 @@ import org.junit.jupiter.api.Test;
 
 import mainPack.UserConcrete;
 
-class UserTest
-{
+class UserTest {
 
-	UserConcrete jake; 
+	UserConcrete jake;
 	Set<UserConcrete> mem;
+
 	@BeforeEach
-	void setUp() throws Exception
-	{
-		//jake = new UserConcrete("jakeburns", "centrecollege");
+	void setUp() throws Exception {
+		// jake = new UserConcrete("jakeburns", "centrecollege");
 		mem.add(jake);
 	}
 
 	@Test
-	void loginTest()
-	{
-	 assertEquals(true,jake.login("jakeburns", "centrecollege"));
-	 
-	
+	void loginTest() {
+		assertEquals(true, jake.login("jakeburns", "centrecollege"));
+
 	}
-	
+
 	@Test
-	
-	void createBoardTest() { 
-		//assertEquals("Test", jake.createBoard("Jake's Board", jake, mem, null));
+
+	void createBoardTest() {
+		// assertEquals("Test", jake.createBoard("Jake's Board", jake, mem, null));
 	}
 
 }
